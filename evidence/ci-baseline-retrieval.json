@@ -1,0 +1,229 @@
+{
+  "validated_at": "2026-10-15T04:21:10.761508+00:00",
+  "snapshot": "494c62286cfce35401a81c88",
+  "model": {
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "dimension": 384
+  },
+  "index_recipe": "section-context-v3",
+  "ranking": "weighted-fts-rrf-v2",
+  "questions": [
+    {
+      "split": "tuning",
+      "question": "How can a validator confirm the issuer signing key is bound to a legal person?",
+      "expected_locator": "adr/eaa-key-binding-authzen.md",
+      "rank": 8,
+      "retrieved_locators": [
+        "rulebooks/rb-e-receipt/README.md",
+        "docs/qes/SigningAndSealing.md",
+        "rulebooks/rb-authorised-signatories/README.md",
+        "rulebooks/rb-ubo/README.md",
+        "rulebooks/rb-poa-pox/README.md",
+        "rulebooks/templates/webuild-rulebook-generic-template.md",
+        "rulebooks/rb-base/verifier-base-verification.md",
+        "adr/eaa-key-binding-authzen.md",
+        "rulebooks/rb-microcredential/README.md",
+        "rulebooks/rb-eInvoice/readme.md"
+      ],
+      "snapshot": "494c62286cfce35401a81c88",
+      "expected_vector_distance": 0.4548453688621521
+    },
+    {
+      "split": "previous-held-out-now-regression",
+      "question": "How does the authorization endpoint establish an EAA issuer key binding?",
+      "expected_locator": "adr/eaa-key-binding-authzen.md",
+      "rank": 6,
+      "retrieved_locators": [
+        "rulebooks/rb-e-receipt/README.md",
+        "rulebooks/templates/webuild-rulebook-generic-template.md",
+        "Rulebooks/eInvoiceAttestationRulebook.md",
+        "rulebooks/rb-ubo/README.md",
+        "rulebooks/rb-base/verifier-base-verification.md",
+        "adr/eaa-key-binding-authzen.md",
+        "Rulebooks/AuthorizedServiceProvider.md",
+        "rulebooks/rb-authorized-service-provider/README.md",
+        "docs/qes/SigningAndSealing.md",
+        "task2-trust-framework/eaa-provider-identity-verification-chaining-LoTL.md"
+      ],
+      "snapshot": "494c62286cfce35401a81c88",
+      "expected_vector_distance": 0.31286231798754105
+    },
+    {
+      "split": "tuning",
+      "question": "Where are SKOS and OWL used in the business wallet terminology?",
+      "expected_locator": "vocab/README.md",
+      "rank": 3,
+      "retrieved_locators": [
+        "docs/ebwv/terminology.ttl",
+        "docs/ebwv/terminology.jsonld",
+        "vocab/README.md",
+        "blueprint/05-data-and-semantics.md",
+        "blueprint/appendix-ebw-definition.md",
+        "docs/ebwv/vocabulary.ttl",
+        "docs/qes/SigningAndSealing.md",
+        "semantics/PROTEGE_GITHUB.md",
+        "rulebooks/rb-e-receipt/README.md",
+        "docs/ebwv/vocabulary.jsonld"
+      ],
+      "snapshot": "494c62286cfce35401a81c88",
+      "expected_vector_distance": 0.3778590334737866
+    },
+    {
+      "split": "previous-held-out-now-regression",
+      "question": "Which semantic layers define the European business wallet vocabulary?",
+      "expected_locator": "vocab/README.md",
+      "rank": 2,
+      "retrieved_locators": [
+        "blueprint/appendix-ebw-definition.md",
+        "vocab/README.md",
+        "rulebooks/rb-e-receipt/README.md",
+        "blueprint/05-data-and-semantics.md",
+        "blueprint/appendix-glossary.md",
+        "rulebooks/rb-contact-person/README.md",
+        "blueprint/appendix-trust-ecosystem.md",
+        "rulebooks/rb-lei/README.md",
+        "Scenario/Description.md",
+        "rulebooks/rb-site/README.md"
+      ],
+      "snapshot": "494c62286cfce35401a81c88",
+      "expected_vector_distance": 0.28014711855965013
+    },
+    {
+      "split": "tuning",
+      "question": "What is the role of architecture decisions and conformance specifications in governance?",
+      "expected_locator": "blueprint/07-governance-and-adr.md",
+      "rank": 7,
+      "retrieved_locators": [
+        "conformance-specs/cs-10-revocation-mechanism.md",
+        "rulebooks/rb-poa-pox/README.md",
+        "blueprint/appendix-ebw-definition.md",
+        "blueprint/01-executive-summary.md",
+        "conformance-specs/cs-12-sca-payments.md",
+        "GITHUB_POLICIES_AND_GUIDELINES.md",
+        "blueprint/07-governance-and-adr.md",
+        "conformance-specs/cs-05-bwua-lifecycle.md",
+        "docs/01-github-policies-and-guidelines.md",
+        "rulebooks/rb-control/README.md"
+      ],
+      "snapshot": "494c62286cfce35401a81c88",
+      "expected_vector_distance": 0.40206609374481694
+    },
+    {
+      "split": "previous-held-out-now-regression",
+      "question": "How does WeBuild govern architecture and implementation conformance?",
+      "expected_locator": "blueprint/07-governance-and-adr.md",
+      "rank": 9,
+      "retrieved_locators": [
+        "GITHUB_POLICIES_AND_GUIDELINES.md",
+        "docs/01-github-policies-and-guidelines.md",
+        "blueprint/README.md",
+        "rulebooks/rb-poa-pox/README.md",
+        "README.md",
+        "semantics/model/modelling_considerations/WEBUILD_RPam_Mandate_Authorisation_SATISFIES_Findings.md",
+        "blueprint/01-executive-summary.md",
+        "semantics/code_lists/action_candidates.md",
+        "blueprint/07-governance-and-adr.md",
+        "conformance-specs/cs-15-ebw-qtsp-wmp.md"
+      ],
+      "snapshot": "494c62286cfce35401a81c88",
+      "expected_vector_distance": 0.5233626649759603
+    },
+    {
+      "split": "held-out-v2",
+      "question": "What gives a conformance specification its implementation role compared with an architecture decision record?",
+      "expected_locator": "blueprint/07-governance-and-adr.md",
+      "rank": null,
+      "retrieved_locators": [
+        "conformance-specs/cs-05-bwua-lifecycle.md",
+        "conformance-specs/cs-01-credential-issuance.md",
+        "conformance-specs/cs-04-wua-lifecycle.md",
+        "conformance-specs/cs-10-revocation-mechanism.md",
+        "conformance-specs/cs-15-ebw-qtsp-wmp.md",
+        "conformance-specs/cs-02-credential-presentation.md",
+        "Scenario/Description.md",
+        "feedback/ebw-definition/council-general-approach-ebw-briefing.md",
+        "blueprint/01-executive-summary.md",
+        "conformance-specs/cs-12-sca-payments.md"
+      ],
+      "snapshot": "494c62286cfce35401a81c88",
+      "expected_vector_distance": null
+    },
+    {
+      "split": "held-out-v2",
+      "question": "Can the issuer key verification endpoint answer for a timestamp in the past already?",
+      "expected_locator": "adr/eaa-key-binding-authzen.md",
+      "rank": 1,
+      "retrieved_locators": [
+        "adr/eaa-key-binding-authzen.md",
+        "rulebooks/rb-e-receipt/README.md",
+        "rulebooks/templates/webuild-rulebook-generic-template.md",
+        "rulebooks/rb-poa-pox/README.md",
+        "references/etsi/ts_119612v020401p.md",
+        "rulebooks/rb-ubo/README.md",
+        "rulebooks/rb-base/verifier-base-verification.md",
+        "rulebooks/rb-sca-card-dpc/README.md",
+        "conformance-specs/cs-15-ebw-qtsp-wmp.md",
+        "references/etsi/ts_119615v010301p.md"
+      ],
+      "snapshot": "494c62286cfce35401a81c88",
+      "expected_vector_distance": 0.4579516699371732
+    },
+    {
+      "split": "held-out-v2",
+      "question": "Where are OWL modelling and SKOS terminology connected in the business wallet vocabulary?",
+      "expected_locator": "vocab/README.md",
+      "rank": 1,
+      "retrieved_locators": [
+        "vocab/README.md",
+        "blueprint/05-data-and-semantics.md",
+        "docs/ebwv/terminology.jsonld",
+        "docs/ebwv/terminology.ttl",
+        "blueprint/appendix-ebw-definition.md",
+        "semantics/code_lists/action_candidates.md",
+        "rulebooks/rb-e-receipt/README.md",
+        "rulebooks/rb-site/README.md",
+        "docs/ebwv/vocabulary.ttl",
+        "semantics/PROTEGE_GITHUB.md"
+      ],
+      "snapshot": "494c62286cfce35401a81c88",
+      "expected_vector_distance": 0.30037729141847413
+    }
+  ],
+  "mcp": {
+    "initialized": true,
+    "transport": "Streamable HTTP over loopback TCP",
+    "tool_count": 6,
+    "rest_mcp_equal": true,
+    "all_tools_called": true,
+    "read_only_annotations": true
+  },
+  "splits": {
+    "held-out-v2": {
+      "questions": 3,
+      "retrieved_at_10": 2
+    },
+    "previous-held-out-now-regression": {
+      "questions": 3,
+      "retrieved_at_10": 3
+    },
+    "tuning": {
+      "questions": 3,
+      "retrieved_at_10": 3
+    }
+  },
+  "limitations": [
+    "Corpus pinned by the fresh coverage manifest; historical corpus was not recovered; not complete discussion coverage",
+    "No participant usefulness demonstrated",
+    "Not a production deployment"
+  ],
+  "counts": {
+    "records": 463,
+    "sections": 13265
+  },
+  "validation_environment": "GitHub Actions",
+  "code_commit": "6b183bb5da2d7df1053cd0c8fbd74fe80187c321",
+  "run_url": "https://github.com/nklomp/webuild-knowledge-index/actions/runs/38679659358",
+  "canonical_artifact": "https://github.com/nklomp/webuild-knowledge-index/actions/runs/38679659358/artifacts/11947039696",
+  "extraction_note": "Evaluation JSON parsed from stdout; final closing brace was flushed after interleaved browser stderr. Canonical unchanged JSON is retained in the linked Actions artifact."
+}

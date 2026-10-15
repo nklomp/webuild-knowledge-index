@@ -44,6 +44,22 @@ def test_recovered_discussion_token_lookup(monkeypatch):
         assert Discussions(client).query('query { repository { name } }',{})=={'repository':{'name':'fixture'}}
 
 
+def test_weight_selection_never_queries_held_out_labels():
+    from gateway.retrieval import calibrate_weight
+    class TuningResults:
+        semantic_weight=1.0
+        def search(self,q,**kwargs):
+            assert q=='original tuning question'
+            return {'results':[{'source':{'locator':'expected.md'}}]}
+    store=TuningResults()
+    result=calibrate_weight(store,[
+        {'split':'tuning','question':'original tuning question','expected_locator':'expected.md'},
+        {'split':'held-out-v2','question':'must never tune on this','expected_locator':'other.md'},
+    ],'controlled-snapshot')
+    assert result['semantic_weight']==1.0 and store.semantic_weight==1.0
+    assert result['tuning_questions']==['original tuning question']
+
+
 def test_changed_context_reencodes_unchanged_section(stores,corpus):
     from gateway.model import digest,sections,record
     writer,reader,old=stores

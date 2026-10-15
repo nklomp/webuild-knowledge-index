@@ -4,15 +4,19 @@ from psycopg.rows import dict_row
 from psycopg.types.json import Jsonb
 from .model import digest,now,validate,sections,section_context
 class Store:
-    def __init__(self,dsn,embed):
+    def __init__(self,dsn,embed,load_calibration=True):
         self.dsn,self.embed=dsn,embed
         from pathlib import Path
         calibration=Path(os.getenv('RETRIEVAL_CALIBRATION','config/retrieval-calibration.json'))
-        self.semantic_limit=None
-        if calibration.exists():
+        self.semantic_limit=None;self.semantic_weight=1.0
+        if load_calibration and calibration.exists():
             data=json.loads(calibration.read_text())
             if data['embeddings']!=embed.metadata:raise ValueError('Calibration embedding model mismatch')
+            from .retrieval import RANKING_VERSION
+            if data.get('ranking_version')!=RANKING_VERSION or data.get('index_recipe')!='section-context-v3':raise ValueError('Calibration recipe mismatch; regenerate from original tuning questions')
             self.semantic_limit=float(data['semantic_distance_limit'])
+            self.semantic_weight=float(data['semantic_weight'])
+            if not 0.25<=self.semantic_weight<=8:raise ValueError('Invalid calibrated fusion weight')
     def connect(self): return psycopg.connect(self.dsn,row_factory=dict_row)
     def manifest(self,snapshot=None):
         with self.connect() as c:
@@ -110,14 +114,14 @@ class Store:
         manifest=self.manifest(snapshot); sid=manifest['snapshot']
         if manifest['embeddings']!=self.embed.metadata: raise ValueError('Embedding model mismatch')
         v=str(self.embed.encode([q])[0])
-        from .retrieval import RRF_SQL,lexical_query
-        parameters={'snapshot':sid,'status':status,'scope':scope,'version':version,'vector':v,'lexical':lexical_query(q),'terms':lexical_query(q).split(' | '),'q':q,'limit':limit,'offset':offset}
+        from .retrieval import RRF_SQL,lexical_query,RANKING_VERSION
+        parameters={'snapshot':sid,'status':status,'scope':scope,'version':version,'vector':v,'lexical':lexical_query(q),'terms':lexical_query(q).split(' | '),'q':q,'limit':limit,'offset':offset,'semantic_weight':self.semantic_weight}
         with self.connect() as c:
             rows=c.execute(RRF_SQL,parameters).fetchall()
             if not rows:
                 total=c.execute("SELECT count(*) AS n FROM records WHERE snapshot=%s AND (%s::text IS NULL OR data->>'decision_status'=%s) AND (%s::text IS NULL OR data->>'repository'=%s) AND (%s::text IS NULL OR EXISTS(SELECT 1 FROM jsonb_array_elements(data->'specifications') s WHERE s->>'cited_version'=%s))",(sid,status,status,scope,scope,version,version)).fetchone()['n']
             else:total=rows[0]['total']
-        return {'snapshot':sid,'published_at':manifest['published_at'],'offset':offset,'limit':limit,'total':total,'ranking_version':'weighted-fts-rrf-v2','semantic_distance_limit':self.semantic_limit,'answer_status':'retrieval-only: results do not establish consensus or a normative answer','results':[dict(source=self.permitted(r['data']),score=float(r['score']),vector_distance=r['distance'],lexical_score=r['lexical'],semantic_rank=r['semantic_rank'],lexical_rank=r['lexical_rank'],matched_locator=r['matched_locator'],semantic_match=(r['distance']<=self.semantic_limit) if self.semantic_limit is not None else None) for r in rows]}
+        return {'snapshot':sid,'published_at':manifest['published_at'],'offset':offset,'limit':limit,'total':total,'ranking_version':RANKING_VERSION,'semantic_weight':self.semantic_weight,'semantic_distance_limit':self.semantic_limit,'answer_status':'retrieval-only: results do not establish consensus or a normative answer','results':[dict(source=self.permitted(r['data']),score=float(r['score']),vector_distance=r['distance'],lexical_score=r['lexical'],semantic_rank=r['semantic_rank'],lexical_rank=r['lexical_rank'],matched_locator=r['matched_locator'],semantic_match=(r['distance']<=self.semantic_limit) if self.semantic_limit is not None else None) for r in rows]}
     @staticmethod
     def permitted(data):
         import copy

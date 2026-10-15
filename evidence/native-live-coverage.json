@@ -6,7 +6,7 @@
       "state": "partial",
       "captured_at": "2026-10-15T12:27:50.125064+00:00",
       "oldest_record_retrieved_at": "2026-10-15T12:27:51.358469+00:00",
-      "completed_at": "2026-10-15T13:13:16.225368+00:00",
+      "completed_at": "2026-10-15T13:46:59.552250+00:00",
       "started_at": "2026-10-15T12:27:50.125064+00:00",
       "commit": "2c234782170ae136db0aedb747c4b04da201b401",
       "counts": {
@@ -25,10 +25,19 @@
         "review_threads": 0
       },
       "limitations": [
-        "Wiki absence not confirmed independently",
         "review thread resolution requires a read-only GraphQL token",
         "unavailable: read-only GraphQL token required"
       ],
+      "wiki_availability": {
+        "state": "empty-at-source",
+        "method": "github-empty-wiki-blankslate",
+        "repository_id": 1046389650,
+        "url": "https://github.com/webuild-consortium/wp4-architecture/wiki",
+        "http_status": 200,
+        "location": null,
+        "response_sha256": "b88f8352191ee7acde472df0431374b41a9e5cc003ada10ade1fc4786fc3b8fc",
+        "checked_at": "2026-10-15T13:46:59.541316+00:00"
+      },
       "poll_mode": "full-reconciliation",
       "poll_since": null,
       "poll_cursor": "2026-10-15T12:27:50.125064+00:00",
@@ -45,13 +54,13 @@
         "review_threads": "resolution unavailable",
         "releases": "paginated",
         "discussions": "unavailable: read-only GraphQL token required",
-        "wiki": "not-present-or-unavailable",
+        "wiki": "empty-at-source",
         "attachments": "paginated metadata; attachment bodies not fetched"
       },
       "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
       "reuse_permissions": "full-text",
       "transport": {
-        "network_reads": 1,
+        "network_reads": 2,
         "resumed_reads": 926,
         "retries": 0
       },
@@ -67,7 +76,7 @@
       "state": "partial",
       "captured_at": "2026-10-15T12:29:48.072795+00:00",
       "oldest_record_retrieved_at": "2026-10-15T12:29:49.342985+00:00",
-      "completed_at": "2026-10-15T13:13:30.635455+00:00",
+      "completed_at": "2026-10-15T13:47:12.455134+00:00",
       "started_at": "2026-10-15T12:29:48.072795+00:00",
       "commit": "040e97f363db1645e1379444b08d440bc2cf5db1",
       "counts": {
@@ -86,9 +95,18 @@
         "review_threads": 0
       },
       "limitations": [
-        "Wiki absence not confirmed independently",
         "review thread resolution requires a read-only GraphQL token"
       ],
+      "wiki_availability": {
+        "state": "not-published-at-source",
+        "method": "github-wiki-route-redirects-to-public-repository",
+        "repository_id": 1057202443,
+        "url": "https://github.com/webuild-consortium/wp4-trust-group/wiki",
+        "http_status": 302,
+        "location": "https://github.com/webuild-consortium/wp4-trust-group",
+        "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "checked_at": "2026-10-15T13:47:12.448342+00:00"
+      },
       "poll_mode": "full-reconciliation",
       "poll_since": null,
       "poll_cursor": "2026-10-15T12:29:48.072795+00:00",
@@ -105,13 +123,13 @@
         "review_threads": "resolution unavailable",
         "releases": "paginated",
         "discussions": "disabled at source",
-        "wiki": "not-present-or-unavailable",
+        "wiki": "not-published-at-source",
         "attachments": "paginated metadata; attachment bodies not fetched"
       },
       "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
       "reuse_permissions": "metadata-only",
       "transport": {
-        "network_reads": 1,
+        "network_reads": 2,
         "resumed_reads": 400,
         "retries": 0
       },
@@ -127,7 +145,7 @@
       "state": "partial",
       "captured_at": "2026-10-15T12:30:20.876211+00:00",
       "oldest_record_retrieved_at": "2026-10-15T12:30:22.625725+00:00",
-      "completed_at": "2026-10-15T13:13:32.681784+00:00",
+      "completed_at": "2026-10-15T13:47:15.892896+00:00",
       "started_at": "2026-10-15T12:30:20.876211+00:00",
       "commit": "a2306846c73de3272321bd82e3d83b3051f45f17",
       "counts": {
@@ -146,9 +164,18 @@
         "review_threads": 0
       },
       "limitations": [
-        "Wiki absence not confirmed independently",
         "review thread resolution requires a read-only GraphQL token"
       ],
+      "wiki_availability": {
+        "state": "not-published-at-source",
+        "method": "github-wiki-route-redirects-to-public-repository",
+        "repository_id": 1079827628,
+        "url": "https://github.com/webuild-consortium/wp4-semantics-group/wiki",
+        "http_status": 302,
+        "location": "https://github.com/webuild-consortium/wp4-semantics-group",
+        "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "checked_at": "2026-10-15T13:47:15.887026+00:00"
+      },
       "poll_mode": "full-reconciliation",
       "poll_since": null,
       "poll_cursor": "2026-10-15T12:30:20.876211+00:00",
@@ -165,13 +192,13 @@
         "review_threads": "resolution unavailable",
         "releases": "paginated",
         "discussions": "disabled at source",
-        "wiki": "not-present-or-unavailable",
+        "wiki": "not-published-at-source",
         "attachments": "paginated metadata; attachment bodies not fetched"
       },
       "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
       "reuse_permissions": "metadata-only",
       "transport": {
-        "network_reads": 1,
+        "network_reads": 2,
         "resumed_reads": 148,
         "retries": 0
       },
@@ -187,7 +214,7 @@
       "state": "partial",
       "captured_at": "2026-10-15T12:31:16.964884+00:00",
       "oldest_record_retrieved_at": "2026-10-15T12:31:18.100214+00:00",
-      "completed_at": "2026-10-15T13:13:37.162070+00:00",
+      "completed_at": "2026-10-15T13:47:20.133620+00:00",
       "started_at": "2026-10-15T12:31:16.964884+00:00",
       "commit": "42542d20d0a0159d50842a5e95b00605214f0ac6",
       "counts": {
@@ -207,6 +234,7 @@
       "limitations": [
         "review thread resolution requires a read-only GraphQL token"
       ],
+      "wiki_availability": null,
       "poll_mode": "full-reconciliation",
       "poll_since": null,
       "poll_cursor": "2026-10-15T12:31:16.964884+00:00",
@@ -245,7 +273,7 @@
       "state": "partial",
       "captured_at": "2026-10-15T12:44:23.196532+00:00",
       "oldest_record_retrieved_at": "2026-10-15T12:44:24.484890+00:00",
-      "completed_at": "2026-10-15T13:13:38.240306+00:00",
+      "completed_at": "2026-10-15T13:47:21.286376+00:00",
       "started_at": "2026-10-15T12:44:23.196532+00:00",
       "commit": "189936a5764e9a5edeaeebc8570cdc16332486b2",
       "counts": {
@@ -265,6 +293,7 @@
       "limitations": [
         "review thread resolution requires a read-only GraphQL token"
       ],
+      "wiki_availability": null,
       "poll_mode": "full-reconciliation",
       "poll_since": null,
       "poll_cursor": "2026-10-15T12:44:23.196532+00:00",
@@ -303,7 +332,7 @@
       "state": "partial",
       "captured_at": "2026-10-15T12:45:29.657534+00:00",
       "oldest_record_retrieved_at": "2026-10-15T12:45:30.694115+00:00",
-      "completed_at": "2026-10-15T13:13:39.001884+00:00",
+      "completed_at": "2026-10-15T13:47:22.969075+00:00",
       "started_at": "2026-10-15T12:45:29.657534+00:00",
       "commit": "c3ddd5d81e7be6570a84c1f7769b2d1052a5a33b",
       "counts": {
@@ -322,9 +351,18 @@
         "review_threads": 0
       },
       "limitations": [
-        "Wiki absence not confirmed independently",
         "review thread resolution requires a read-only GraphQL token"
       ],
+      "wiki_availability": {
+        "state": "not-published-at-source",
+        "method": "github-wiki-route-redirects-to-public-repository",
+        "repository_id": 1054396572,
+        "url": "https://github.com/webuild-consortium/wp4-wallets-group/wiki",
+        "http_status": 302,
+        "location": "https://github.com/webuild-consortium/wp4-wallets-group",
+        "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "checked_at": "2026-10-15T13:47:22.958486+00:00"
+      },
       "poll_mode": "full-reconciliation",
       "poll_since": null,
       "poll_cursor": "2026-10-15T12:45:29.657534+00:00",
@@ -341,13 +379,13 @@
         "review_threads": "resolution unavailable",
         "releases": "paginated",
         "discussions": "disabled at source",
-        "wiki": "not-present-or-unavailable",
+        "wiki": "not-published-at-source",
         "attachments": "paginated metadata; attachment bodies not fetched"
       },
       "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
       "reuse_permissions": "metadata-only",
       "transport": {
-        "network_reads": 1,
+        "network_reads": 2,
         "resumed_reads": 60,
         "retries": 0
       },
@@ -360,10 +398,10 @@
     {
       "repository": "webuild-consortium/wp4-pid-ebwoid-group",
       "repository_id": 1347099866,
-      "state": "partial",
+      "state": "complete-for-supported-types",
       "captured_at": "2026-10-15T12:45:54.940334+00:00",
       "oldest_record_retrieved_at": "2026-10-15T12:45:56.048343+00:00",
-      "completed_at": "2026-10-15T13:13:39.626930+00:00",
+      "completed_at": "2026-10-15T13:47:24.259639+00:00",
       "started_at": "2026-10-15T12:45:54.940334+00:00",
       "commit": "f45f9564cfd800086a922819ff60e57424b24541",
       "counts": {
@@ -381,9 +419,17 @@
         "wiki_pages": 0,
         "review_threads": 0
       },
-      "limitations": [
-        "Wiki absence not confirmed independently"
-      ],
+      "limitations": [],
+      "wiki_availability": {
+        "state": "not-published-at-source",
+        "method": "github-wiki-route-redirects-to-public-repository",
+        "repository_id": 1347099866,
+        "url": "https://github.com/webuild-consortium/wp4-pid-ebwoid-group/wiki",
+        "http_status": 302,
+        "location": "https://github.com/webuild-consortium/wp4-pid-ebwoid-group",
+        "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "checked_at": "2026-10-15T13:47:24.253624+00:00"
+      },
       "poll_mode": "full-reconciliation",
       "poll_since": null,
       "poll_cursor": "2026-10-15T12:45:54.940334+00:00",
@@ -400,13 +446,13 @@
         "review_threads": "resolution unavailable",
         "releases": "paginated",
         "discussions": "disabled at source",
-        "wiki": "not-present-or-unavailable",
+        "wiki": "not-published-at-source",
         "attachments": "paginated metadata; attachment bodies not fetched"
       },
       "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
       "reuse_permissions": "metadata-only",
       "transport": {
-        "network_reads": 1,
+        "network_reads": 2,
         "resumed_reads": 7,
         "retries": 0
       },
@@ -422,7 +468,7 @@
       "state": "partial",
       "captured_at": "2026-10-15T12:45:58.252571+00:00",
       "oldest_record_retrieved_at": "2026-10-15T12:45:59.333705+00:00",
-      "completed_at": "2026-10-15T13:13:40.891862+00:00",
+      "completed_at": "2026-10-15T13:47:26.279846+00:00",
       "started_at": "2026-10-15T12:45:58.252571+00:00",
       "commit": "3233e1df3b5cd7781af65ac58709b680cfca6273",
       "counts": {
@@ -441,9 +487,18 @@
         "review_threads": 0
       },
       "limitations": [
-        "Wiki absence not confirmed independently",
         "review thread resolution requires a read-only GraphQL token"
       ],
+      "wiki_availability": {
+        "state": "not-published-at-source",
+        "method": "github-wiki-route-redirects-to-public-repository",
+        "repository_id": 1055663482,
+        "url": "https://github.com/webuild-consortium/wp4-interop-test-bed/wiki",
+        "http_status": 302,
+        "location": "https://github.com/webuild-consortium/wp4-interop-test-bed",
+        "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "checked_at": "2026-10-15T13:47:26.271046+00:00"
+      },
       "poll_mode": "full-reconciliation",
       "poll_since": null,
       "poll_cursor": "2026-10-15T12:45:58.252571+00:00",
@@ -460,13 +515,13 @@
         "review_threads": "resolution unavailable",
         "releases": "paginated",
         "discussions": "disabled at source",
-        "wiki": "not-present-or-unavailable",
+        "wiki": "not-published-at-source",
         "attachments": "paginated metadata; attachment bodies not fetched"
       },
       "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
       "reuse_permissions": "full-text",
       "transport": {
-        "network_reads": 1,
+        "network_reads": 2,
         "resumed_reads": 84,
         "retries": 0
       },
@@ -482,7 +537,7 @@
       "state": "partial",
       "captured_at": "2026-10-15T12:46:33.355187+00:00",
       "oldest_record_retrieved_at": "2026-10-15T12:46:35.298354+00:00",
-      "completed_at": "2026-10-15T13:13:41.423104+00:00",
+      "completed_at": "2026-10-15T13:47:26.831062+00:00",
       "started_at": "2026-10-15T12:46:33.355187+00:00",
       "commit": "e8204fcb01aa8fbf6f623e555b0786846b22ecef",
       "counts": {
@@ -502,6 +557,7 @@
       "limitations": [
         "review thread resolution requires a read-only GraphQL token"
       ],
+      "wiki_availability": null,
       "poll_mode": "full-reconciliation",
       "poll_since": null,
       "poll_cursor": "2026-10-15T12:46:33.355187+00:00",
@@ -540,7 +596,7 @@
       "state": "partial",
       "captured_at": "2026-10-15T12:46:40.677205+00:00",
       "oldest_record_retrieved_at": "2026-10-15T12:46:42.041116+00:00",
-      "completed_at": "2026-10-15T13:13:42.001790+00:00",
+      "completed_at": "2026-10-15T13:47:27.446977+00:00",
       "started_at": "2026-10-15T12:46:40.677205+00:00",
       "commit": "5465be86619fad474da22c98f3770aad359b5653",
       "counts": {
@@ -560,6 +616,7 @@
       "limitations": [
         "review thread resolution requires a read-only GraphQL token"
       ],
+      "wiki_availability": null,
       "poll_mode": "full-reconciliation",
       "poll_since": null,
       "poll_cursor": "2026-10-15T12:46:40.677205+00:00",
@@ -598,7 +655,7 @@
       "state": "complete-for-supported-types",
       "captured_at": "2026-10-15T12:46:53.678686+00:00",
       "oldest_record_retrieved_at": "2026-10-15T12:47:00.793485+00:00",
-      "completed_at": "2026-10-15T13:13:43.948241+00:00",
+      "completed_at": "2026-10-15T13:47:29.921230+00:00",
       "started_at": "2026-10-15T12:46:53.678686+00:00",
       "commit": "3a79faad49266261831c7ac549f95c93e4d9999b",
       "counts": {
@@ -616,6 +673,7 @@
         "review_threads": 0
       },
       "limitations": [],
+      "wiki_availability": null,
       "poll_mode": "full-reconciliation",
       "poll_since": null,
       "poll_cursor": "2026-10-15T12:46:53.678686+00:00",
@@ -654,7 +712,7 @@
       "state": "complete-for-supported-types",
       "captured_at": "2026-10-15T12:47:04.634544+00:00",
       "oldest_record_retrieved_at": "2026-10-15T12:47:05.569281+00:00",
-      "completed_at": "2026-10-15T13:13:44.393247+00:00",
+      "completed_at": "2026-10-15T13:47:30.267988+00:00",
       "started_at": "2026-10-15T12:47:04.634544+00:00",
       "commit": "ad241655aca61cf1a7339139aaf9264fb9802b28",
       "counts": {
@@ -672,6 +730,7 @@
         "review_threads": 0
       },
       "limitations": [],
+      "wiki_availability": null,
       "poll_mode": "full-reconciliation",
       "poll_since": null,
       "poll_cursor": "2026-10-15T12:47:04.634544+00:00",
@@ -710,7 +769,7 @@
       "state": "partial",
       "captured_at": "2026-10-15T12:47:06.785868+00:00",
       "oldest_record_retrieved_at": "2026-10-15T12:47:08.437656+00:00",
-      "completed_at": "2026-10-15T13:13:56.381004+00:00",
+      "completed_at": "2026-10-15T13:47:44.096770+00:00",
       "started_at": "2026-10-15T12:47:06.785868+00:00",
       "commit": "f5789a77dfc6d5a85834c431465afbe543d0141a",
       "counts": {
@@ -732,6 +791,7 @@
         "review thread resolution requires a read-only GraphQL token",
         "unavailable: read-only GraphQL token required"
       ],
+      "wiki_availability": null,
       "poll_mode": "full-reconciliation",
       "poll_since": null,
       "poll_cursor": "2026-10-15T12:47:06.785868+00:00",
@@ -770,7 +830,7 @@
       "state": "partial",
       "captured_at": "2026-10-15T12:59:31.835564+00:00",
       "oldest_record_retrieved_at": "2026-10-15T12:59:33.025955+00:00",
-      "completed_at": "2026-10-15T13:13:59.413725+00:00",
+      "completed_at": "2026-10-15T13:47:47.374238+00:00",
       "started_at": "2026-10-15T12:59:31.835564+00:00",
       "commit": "ee91a294c833af5188726fd8c302c641212192aa",
       "counts": {
@@ -791,6 +851,7 @@
         "review thread resolution requires a read-only GraphQL token",
         "unavailable: read-only GraphQL token required"
       ],
+      "wiki_availability": null,
       "poll_mode": "full-reconciliation",
       "poll_since": null,
       "poll_cursor": "2026-10-15T12:59:31.835564+00:00",
@@ -826,7 +887,7 @@
     {
       "source": "tagged-editions:eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework",
       "state": "complete-for-supported-types",
-      "captured_at": "2026-10-15T13:15:40.857881+00:00",
+      "captured_at": "2026-10-15T13:49:35.646399+00:00",
       "editions": [
         {
           "tag": "v3.0.0",
@@ -1018,7 +1079,7 @@
     {
       "source": "tagged-editions:eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications",
       "state": "complete-for-supported-types",
-      "captured_at": "2026-10-15T13:15:41.386753+00:00",
+      "captured_at": "2026-10-15T13:49:36.093731+00:00",
       "editions": [],
       "checkpoint": {
         "requests_completed": 2,
@@ -1030,30 +1091,30 @@
       "source": "https://openid.net/specs/authorization-api-1_0.html",
       "state": "complete-for-configured-mode",
       "mode": "fetch",
-      "captured_at": "2026-10-15T13:15:41.852312+00:00"
+      "captured_at": "2026-10-15T13:49:36.257677+00:00"
     },
     {
       "source": "https://www.ietf.org/archive/id/draft-johansson-authzen-trust-01.txt",
       "state": "complete-for-configured-mode",
       "mode": "link-only",
-      "captured_at": "2026-10-15T13:15:41.852567+00:00"
+      "captured_at": "2026-10-15T13:49:36.257898+00:00"
     },
     {
       "source": "https://forge.etsi.org/rep/esi/x19_60201_lists_of_trusted_entities/-/raw/e84f427f0cde99513b574ef4b5a155ac4a38eab6/1960201_json_schema/1960201_json_schema.json",
       "state": "complete-for-configured-mode",
       "mode": "link-only",
-      "captured_at": "2026-10-15T13:15:41.852809+00:00"
+      "captured_at": "2026-10-15T13:49:36.258245+00:00"
     },
     {
       "source": "https://eur-lex.europa.eu/eli/reg/2024/1183/oj",
       "state": "complete-for-configured-mode",
       "mode": "link-only",
-      "captured_at": "2026-10-15T13:15:41.853010+00:00"
+      "captured_at": "2026-10-15T13:49:36.258443+00:00"
     }
   ],
   "capture_id": "f6bd14efaaa0486dac95b5747590f789",
   "started_at": "2026-10-15T12:27:49.173882+00:00",
-  "capture_time": "2026-10-15T13:15:42.088421+00:00",
+  "capture_time": "2026-10-15T13:49:36.516746+00:00",
   "status": "incomplete",
   "resumed": true,
   "reconciled_repositories": [

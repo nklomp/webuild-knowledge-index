@@ -47,3 +47,5 @@ def test_site_is_browsable_and_hides_technical_keys(tmp_path):
     # Relative links resolve to the original source; images are linked, never embedded.
     assert 'href="https://github.com/'+ARCH+'/blob/sha1/blueprint/README.md"' in page and '<img' not in page
     assert json.loads((tmp_path/'verification.json').read_text())['navigation_valid']
+    # Local publication verifies the served home page carries the snapshot identity.
+    assert MANIFEST['snapshot'] in index

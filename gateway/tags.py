@@ -17,7 +17,7 @@ def capture_tags(reader,repository,repository_id,permission,paths):
                 path=entry['path']
                 if entry['type']!='blob' or not any(path==p or path.startswith(p) for p in paths):continue
                 url=f'https://github.com/{repository}/blob/{commit}/'+quote(path,safe='/')
-                kind='file'
+                kind='pdf' if path.lower().endswith('.pdf') else 'file'
                 if entry.get('mode')=='120000':
                     # A symlink is a Git blob but not a regular archive member.
                     # Record its identity without reading or following its target.
@@ -30,7 +30,7 @@ def capture_tags(reader,repository,repository_id,permission,paths):
                     text,extraction=parse_file(archive.extractfile(member).read(),path)
                     if text is None:continue
                     count+=1
-                item=record(f'github:{repository_id}:tag:{edition}:{path}',entry['sha'],url,text,repository,kind,path=path,permissions=permission if kind=='file' else 'metadata-only')
+                item=record(f'github:{repository_id}:tag:{edition}:{path}',entry['sha'],url,text,repository,kind,path=path,permissions='metadata-only' if kind=='binary-metadata' else permission)
                 item.update(edition_tag=edition,edition_commit=commit,edition_status='tagged-edition',repository_id=repository_id)
                 item['provenance']['extraction']=extraction;item['provenance']['tag_url']='https://github.com/'+repository+'/releases/tag/'+quote(edition,safe='')
                 rows.append(item)

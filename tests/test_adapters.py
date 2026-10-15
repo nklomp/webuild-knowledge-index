@@ -95,6 +95,28 @@ def test_tagged_symlink_is_metadata_and_never_follows_target():
     assert 'private-marker' not in json.dumps(rows) and len(calls)==3
     assert editions==[{'tag':'v1','commit':'sha','files':1,'symbolic_links':1}]
 
+
+def test_tagged_pdf_retains_page_citations_and_requested_permissions():
+    from pypdf import PdfWriter
+    from pypdf.generic import DictionaryObject,NameObject,DecodedStreamObject
+    from gateway.model import sections
+    pdf=io.BytesIO();writer=PdfWriter();page=writer.add_blank_page(width=100,height=100)
+    font=DictionaryObject({NameObject('/Type'):NameObject('/Font'),NameObject('/Subtype'):NameObject('/Type1'),NameObject('/BaseFont'):NameObject('/Helvetica')})
+    page[NameObject('/Resources')]=DictionaryObject({NameObject('/Font'):DictionaryObject({NameObject('/F1'):writer._add_object(font)})})
+    stream=DecodedStreamObject();stream.set_data(b'BT /F1 12 Tf 10 20 Td (Tagged specification) Tj ET')
+    page[NameObject('/Contents')]=writer._add_object(stream);writer.write(pdf)
+    archive=io.BytesIO()
+    with tarfile.open(fileobj=archive,mode='w:gz') as tar:
+        member=tarfile.TarInfo('r-sha/docs/spec.pdf');member.size=len(pdf.getvalue());tar.addfile(member,io.BytesIO(pdf.getvalue()))
+    def handle(req):
+        if req.url.path.endswith('/tags'):return httpx.Response(200,json=[{'name':'v1','commit':{'sha':'sha'}}])
+        if '/git/trees/' in req.url.path:return httpx.Response(200,json={'tree':[{'type':'blob','path':'docs/spec.pdf','sha':'pdf-blob'}]})
+        return httpx.Response(200,content=archive.getvalue())
+    rows,_=capture_tags(ReadClient(httpx.Client(transport=httpx.MockTransport(handle))),'o/r',1,'full-text',['docs/'])
+    assert rows[0]['kind']=='pdf' and rows[0]['reuse_permissions']=='full-text'
+    chunks=list(sections(rows[0]))
+    assert chunks[0]['locator'].endswith('/docs/spec.pdf#page=1') and 'Tagged specification' in chunks[0]['text']
+
 def test_etsi_and_openid_url_encoded_versions():
     from gateway.catalogue import references
     from gateway.model import record

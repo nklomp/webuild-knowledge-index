@@ -186,3 +186,11 @@ def test_failed_run_exposes_last_capture(stores):
     w,r,s=stores;w.report_run({'coverage':[{'state':'failed','repository':'fixture','captured_at':None,'error':'simulation'}]})
     with TestClient(create_app(r)) as client:
         data=client.get('/health').json();assert data['snapshot']==s and data['failed_sources'][0]['state']=='failed'
+
+
+def test_liveness_before_first_publication(stores):
+    w,r,_=stores
+    with w.connect() as c:c.execute('DELETE FROM publication')
+    with TestClient(create_app(r)) as c:
+        assert c.get('/live').json()=={'status':'live'}
+        assert c.get('/health').status_code==404

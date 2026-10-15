@@ -1,0 +1,81 @@
+# Optional single-host deployment. No resources are created by committing this file.
+# Run from the project root with --env-file .env -f deploy/compose.yaml.
+services:
+  db:
+    image: pgvector/pgvector:0.8.7-pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: knowledge
+      POSTGRES_PASSWORD: ${DATABASE_ADMIN_PASSWORD:?required}
+    volumes: [database:/var/lib/postgresql/data]
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U postgres -d knowledge']
+      interval: 5s
+      retries: 10
+  retrieval:
+    build:
+      context: ..
+      target: retrieval
+    restart: unless-stopped
+    environment:
+      RETRIEVAL_DATABASE_URL: ${RETRIEVAL_DATABASE_URL:?required}
+      EMBEDDING_REVISION: 1110a243fdf4706b3f48f1d95db1a4f5529b4d41
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:?required}
+      SERVICE_HOST: ${SERVICE_HOST:?required}
+    volumes: [models:/models]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/live', timeout=5)"]
+      interval: 15s
+      start_period: 180s
+      retries: 10
+    depends_on:
+      db:
+        condition: service_healthy
+  edge:
+    image: caddy:2.10.2
+    restart: unless-stopped
+    ports: ['80:80', '443:443']
+    environment:
+      SERVICE_HOST: ${SERVICE_HOST:?required}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - certificates:/data
+      - caddy-config:/config
+    depends_on: [retrieval]
+  initialize:
+    profiles: [operator]
+    build:
+      context: ..
+      target: ingestion
+    command: [python, scripts/bootstrap.py]
+    environment:
+      ADMIN_DATABASE_URL: ${ADMIN_DATABASE_URL:?required}
+      READER_DATABASE_PASSWORD: ${READER_DATABASE_PASSWORD:?required}
+      INGEST_DATABASE_PASSWORD: ${INGEST_DATABASE_PASSWORD:?required}
+    depends_on:
+      db:
+        condition: service_healthy
+  ingest:
+    profiles: [operator]
+    build:
+      context: ..
+      target: ingestion
+    environment:
+      INGEST_DATABASE_URL: ${INGEST_DATABASE_URL:?required}
+      SOURCE_READ_TOKEN: ${SOURCE_READ_TOKEN:?dedicated read-only GitHub credential required}
+      PUBLIC_API_URL: ${PUBLIC_API_URL:?required}
+      EMBEDDING_REVISION: 1110a243fdf4706b3f48f1d95db1a4f5529b4d41
+    volumes:
+      - models:/models
+      - captures:/app/artifacts
+      - generated-site:/app/site
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  database:
+  models:
+  certificates:
+  caddy-config:
+  captures:
+  generated-site:

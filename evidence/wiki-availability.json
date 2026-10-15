@@ -1,0 +1,71 @@
+{
+  "mode": "anonymous public wiki verification; no source writes",
+  "repositories": [
+    {
+      "repository": "webuild-consortium/wp4-architecture",
+      "state": "empty-at-source",
+      "method": "github-empty-wiki-blankslate",
+      "repository_id": 1046389650,
+      "url": "https://github.com/webuild-consortium/wp4-architecture/wiki",
+      "http_status": 200,
+      "location": null,
+      "response_sha256": "4abe70531528829e15eba77ac376b59210c7316c573b3ed5a3d4decee5940ed4",
+      "checked_at": "2026-10-15T13:33:18.142540+00:00"
+    },
+    {
+      "repository": "webuild-consortium/wp4-trust-group",
+      "state": "not-published-at-source",
+      "method": "github-wiki-route-redirects-to-public-repository",
+      "repository_id": 1057202443,
+      "url": "https://github.com/webuild-consortium/wp4-trust-group/wiki",
+      "http_status": 302,
+      "location": "https://github.com/webuild-consortium/wp4-trust-group",
+      "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checked_at": "2026-10-15T13:33:19.204186+00:00"
+    },
+    {
+      "repository": "webuild-consortium/wp4-semantics-group",
+      "state": "not-published-at-source",
+      "method": "github-wiki-route-redirects-to-public-repository",
+      "repository_id": 1079827628,
+      "url": "https://github.com/webuild-consortium/wp4-semantics-group/wiki",
+      "http_status": 302,
+      "location": "https://github.com/webuild-consortium/wp4-semantics-group",
+      "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checked_at": "2026-10-15T13:33:20.271853+00:00"
+    },
+    {
+      "repository": "webuild-consortium/wp4-wallets-group",
+      "state": "not-published-at-source",
+      "method": "github-wiki-route-redirects-to-public-repository",
+      "repository_id": 1054396572,
+      "url": "https://github.com/webuild-consortium/wp4-wallets-group/wiki",
+      "http_status": 302,
+      "location": "https://github.com/webuild-consortium/wp4-wallets-group",
+      "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checked_at": "2026-10-15T13:33:21.358503+00:00"
+    },
+    {
+      "repository": "webuild-consortium/wp4-pid-ebwoid-group",
+      "state": "not-published-at-source",
+      "method": "github-wiki-route-redirects-to-public-repository",
+      "repository_id": 1347099866,
+      "url": "https://github.com/webuild-consortium/wp4-pid-ebwoid-group/wiki",
+      "http_status": 302,
+      "location": "https://github.com/webuild-consortium/wp4-pid-ebwoid-group",
+      "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checked_at": "2026-10-15T13:33:22.333332+00:00"
+    },
+    {
+      "repository": "webuild-consortium/wp4-interop-test-bed",
+      "state": "not-published-at-source",
+      "method": "github-wiki-route-redirects-to-public-repository",
+      "repository_id": 1055663482,
+      "url": "https://github.com/webuild-consortium/wp4-interop-test-bed/wiki",
+      "http_status": 302,
+      "location": "https://github.com/webuild-consortium/wp4-interop-test-bed",
+      "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checked_at": "2026-10-15T13:33:23.346238+00:00"
+    }
+  ]
+}

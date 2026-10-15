@@ -28,7 +28,7 @@ def create_app(store):
     def get_decision_history(id:str,offset:int=0,limit:int=100,snapshot:str|None=None)->dict[str,Any]:return store.history(id,offset,limit,snapshot)
     @mcp.tool(annotations=annotation,structured_output=True)
     def get_changes(before:str,after:str|None=None,offset:int=0,limit:int=100)->dict[str,Any]:return store.changes(before,after,offset,limit)
-    transport=mcp.streamable_http_app(stateless_http=True,json_response=True,host=os.getenv('SERVICE_HOST','127.0.0.1'))
+    transport=mcp.streamable_http_app(stateless_http=True,json_response=True,host=os.getenv('SERVICE_HOST') or os.getenv('RENDER_EXTERNAL_HOSTNAME','127.0.0.1'))
     @asynccontextmanager
     async def lifespan(app):
         async with transport.router.lifespan_context(transport):yield
@@ -66,6 +66,11 @@ def create_app(store):
     app.get('/v1/changes')(get_changes)
     @app.get('/v1/manifest')
     def manifest(snapshot:str|None=None):return store.manifest(snapshot)
+    @app.get('/live')
+    def live():
+        # Platform startup probes must work before the first index publication.
+        # Freshness and source coverage are checked separately by /health.
+        return {'status':'live'}
     @app.get('/health')
     def health():
         from datetime import datetime,timezone

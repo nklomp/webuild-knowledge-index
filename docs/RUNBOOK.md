@@ -67,7 +67,8 @@ by content, section context and model revision.
 
 Inspect whether GitHub Discussions are enabled but lack credentials; those gaps
 must be resolved before claiming coverage. `not-present-or-unavailable` wiki results
-need operator confirmation if wiki coverage matters. Source document status is
+remain incomplete. Exact empty-wiki UI evidence or a canonical wiki redirect to a
+freshly verified public repository confirms an empty or unpublished source wiki. Source document status is
 extracted conservatively; absent explicit status is unknown, even for merged files.
 Confirm any reviewed annotation with an exact source revision and evidence spans.
 Do not interpret a closed issue as an answered question.
@@ -140,12 +141,9 @@ Use Python 3.12 and `uv sync --frozen --extra test`. Keep uv and Hugging Face ca
 in writable workspace directories when the home directory is read-only. This is
 cache configuration, not runtime emulation. Never install the old UID shim.
 
-The 15 October model retry downloaded metadata but failed for actual weights:
-`us.aws.cdn.hf.co` is missing from the published network allowlist. Add this host
-through environment configuration, and also `api.github.com` for REST/GraphQL.
-Both currently return proxy CONNECT 403 before authentication. `openid.net` also returned CONNECT 403 for the configured fetch. Official-source
-hosts in `config/official-sources.json` also need approved read access before
-claiming their live fetch coverage. Do not bypass the proxy policy.
+The native environment now has unrestricted network access. Real model weights,
+GitHub REST and the configured official-source host were fetched successfully.
+Earlier proxy CONNECT failures are historical; do not bypass network policy.
 
 With workspace cache variables and the three independent DB connection variables
 configured by the operator, run:
@@ -177,8 +175,9 @@ A dedicated read-only source token remains absent. Keep that identity separate
 from the connector used for writing the standalone repository. Anonymous pinned
 file downloads succeeded; full historical issues/PRs/comments/reviews/discussions
 are not complete. A configured writer identity must never be reused for source
-capture. Current new-repository owner is `nklomp`; Pages/hosting/monitoring and all
-hosted release drills remain unconfigured and are not authorized for deployment.
+capture. Current new-repository owner is `nklomp`; the user has now requested hosting, Pages and monitoring setup. See
+`deploy/README.md` for configuration and the current account-access boundary.
+No paid provisioning is authorized; hosted release drills still need execution.
 
 The section-context-v3 index recipe forces a fresh snapshot and section-vector
 rebuild from v2. Keep prior snapshots for recovery; re-run tuning calibration.
@@ -189,9 +188,12 @@ The fresh replay captured 13,270 records from 14 repositories, 30 ARF tagged
 editions, configured official records and derived references. See
 `evidence/native-live-coverage.json`. All adapter failures found during the crawl
 were repaired: numeric GitHub pagination aliases, tagged symbolic links, historical
-Unicode JSON and tagged PDF page citations. The full native suite passes 113 tests.
-The remaining 12 partial entries require a dedicated read-only GraphQL token and
-confirmation of six wiki availability gaps. Do not bypass the publication gate:
+Unicode JSON and tagged PDF page citations. The updated full native suite passes 136 tests.
+Wiki availability is now independently verified against fresh public repository
+metadata and GitHub wiki routes: one empty wiki and five unpublished wikis, with
+proof in `evidence/wiki-availability.json`. Unknown/authentication/error pages still
+block coverage. Eleven repository entries still need a dedicated read-only
+GraphQL token for Discussions and review-thread resolution. Do not bypass the publication gate:
 a real preparation attempt refused this capture and retained the previous snapshot.
 Raw checkpoints/bodies remain local; seal checkpoints before external storage.
 The 463-file retrieval benchmark and its generated wiki are separate evidence.

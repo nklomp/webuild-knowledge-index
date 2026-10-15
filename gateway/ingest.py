@@ -179,7 +179,7 @@ class GitHub:
         wiki_state='disabled at source'
         if meta.get('has_wiki'):
             from .wiki import capture as capture_wiki
-            wiki_rows,wiki_state=capture_wiki(name,permission)
+            wiki_rows,wiki_state=capture_wiki(name,permission,self.reader)
             for child in wiki_rows:self.add(rows,child)
             counts['wiki_pages']=len(wiki_rows)
             if wiki_state=='not-present-or-unavailable':limitations.append('Wiki absence not confirmed independently')
@@ -187,6 +187,7 @@ class GitHub:
         for kind,count_key in [('issue','issues'),('pull','pulls'),('comment','comments'),('reviews','reviews'),('review_comments','review_comments'),('review-thread','review_threads')]:
             counts[count_key]=sum(r['kind']==kind for r in rows.values())
         coverage={'repository':name,'repository_id':meta['id'],'state':'partial' if limitations else 'complete-for-supported-types','captured_at':started_at,'oldest_record_retrieved_at':source_captured_at,'completed_at':now(),'started_at':started_at,'commit':commit,'counts':counts,'limitations':sorted(set(limitations)),
+          'wiki_availability':self.journal.get('wiki_availability') if self.journal else None,
           'poll_mode':'overlap' if incremental else 'full-reconciliation','poll_since':since,'poll_cursor':started_at,'updated_issues_fetched':updated_issues,'last_full_reconciliation':prior['last_full_reconciliation'] if incremental else started_at,'removal_reconciliation':'Changed issue subtrees daily; removed issues at full reconciliation (at most '+str(reconcile_days)+' days)',
           'types':{'files':'all tree entries: text/PDF extraction or explicit link-only metadata','issues':'all states, paginated','pulls':'all states and merge lifecycle','comments':'paginated','reviews':'paginated','review_comments':'paginated including replies','review_threads':'GraphQL nested pagination' if self.reader.token else 'resolution unavailable','releases':'paginated','discussions':discussion_state,'wiki':wiki_state,'attachments':'paginated metadata; attachment bodies not fetched'},'historical_file_revisions':'captured daily revisions; initial default-branch tip, not every historical commit','reuse_permissions':permission,'transport':dict(self.reader.stats)}
         return list(rows.values()),coverage

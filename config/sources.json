@@ -65,7 +65,7 @@
   "rate_limit_max_wait_seconds": 900,
   "reuse_permissions": {
     "default": "full-text",
-    "approval": "Operator approval, 15 October 2026: the configured repositories are public open-source and open-specification work; their full text may be republished in the wiki and retrieval API.",
+    "approval": "Operator approval, 15 October 2026: the configured repositories are public open-source and open-specification work; their full text, including third-party copies stored in them (such as ETSI documents), may be republished in the wiki and retrieval API.",
     "overrides": {}
   }
 }

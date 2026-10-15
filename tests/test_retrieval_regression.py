@@ -16,7 +16,7 @@ def test_governance_original_expected_source_regression(stores):
     corpus += [record('policy'+str(i),'sha','https://github.com/o/r/blob/sha/policy'+str(i)+'.md',('WeBuild implementation compliance policy '+str(i)+'\n')*40,'policies',path='policy'+str(i)+'.md',permissions='full-text') for i in range(12)]
     sid=writer.publish(corpus,{'coverage':[{'state':'complete'}]})
     result=reader.search(ORIGINAL_QUESTION,snapshot=sid,limit=10)
-    assert result['ranking_version']=='weighted-fts-rrf-v3'
+    assert result['ranking_version']=='weighted-fts-rrf-v4'
     assert ORIGINAL_SOURCE in [r['source']['locator'] for r in result['results']]
     assert result['results'][0]['source']['locator']==ORIGINAL_SOURCE
 

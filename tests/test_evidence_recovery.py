@@ -78,6 +78,15 @@ def test_weight_selection_preserves_known_original_regressions():
     assert result['regression_questions']==['known original regression']
 
 
+def test_sparse_identifiers_keep_balanced_fusion():
+    from gateway.retrieval import semantic_weight_for_query
+    short='ETSI 119602'
+    sentence='Explain how issuer certificate authorization preserves historical signing key validity during offline credential verification'
+    assert semantic_weight_for_query(short,8)==1
+    assert 1<semantic_weight_for_query(sentence,8)<=8
+    assert semantic_weight_for_query(sentence,1)==1
+
+
 def test_changed_context_reencodes_unchanged_section(stores,corpus):
     from gateway.model import digest,sections,record
     writer,reader,old=stores

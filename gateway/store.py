@@ -114,14 +114,15 @@ class Store:
         manifest=self.manifest(snapshot); sid=manifest['snapshot']
         if manifest['embeddings']!=self.embed.metadata: raise ValueError('Embedding model mismatch')
         v=str(self.embed.encode([q])[0])
-        from .retrieval import RRF_SQL,lexical_query,RANKING_VERSION
-        parameters={'snapshot':sid,'status':status,'scope':scope,'version':version,'vector':v,'lexical':lexical_query(q),'terms':lexical_query(q).split(' | '),'q':q,'limit':limit,'offset':offset,'semantic_weight':self.semantic_weight}
+        from .retrieval import RRF_SQL,lexical_query,RANKING_VERSION,semantic_weight_for_query
+        weight=semantic_weight_for_query(q,self.semantic_weight)
+        parameters={'snapshot':sid,'status':status,'scope':scope,'version':version,'vector':v,'lexical':lexical_query(q),'terms':lexical_query(q).split(' | '),'q':q,'limit':limit,'offset':offset,'semantic_weight':weight}
         with self.connect() as c:
             rows=c.execute(RRF_SQL,parameters).fetchall()
             if not rows:
                 total=c.execute("SELECT count(*) AS n FROM records WHERE snapshot=%s AND (%s::text IS NULL OR data->>'decision_status'=%s) AND (%s::text IS NULL OR data->>'repository'=%s) AND (%s::text IS NULL OR EXISTS(SELECT 1 FROM jsonb_array_elements(data->'specifications') s WHERE s->>'cited_version'=%s))",(sid,status,status,scope,scope,version,version)).fetchone()['n']
             else:total=rows[0]['total']
-        return {'snapshot':sid,'published_at':manifest['published_at'],'offset':offset,'limit':limit,'total':total,'ranking_version':RANKING_VERSION,'semantic_weight':self.semantic_weight,'semantic_distance_limit':self.semantic_limit,'answer_status':'retrieval-only: results do not establish consensus or a normative answer','results':[dict(source=self.permitted(r['data']),score=float(r['score']),vector_distance=r['distance'],lexical_score=r['lexical'],semantic_rank=r['semantic_rank'],lexical_rank=r['lexical_rank'],matched_locator=r['matched_locator'],semantic_match=(r['distance']<=self.semantic_limit) if self.semantic_limit is not None else None) for r in rows]}
+        return {'snapshot':sid,'published_at':manifest['published_at'],'offset':offset,'limit':limit,'total':total,'ranking_version':RANKING_VERSION,'configured_semantic_weight':self.semantic_weight,'semantic_weight':weight,'semantic_distance_limit':self.semantic_limit,'answer_status':'retrieval-only: results do not establish consensus or a normative answer','results':[dict(source=self.permitted(r['data']),score=float(r['score']),vector_distance=r['distance'],lexical_score=r['lexical'],semantic_rank=r['semantic_rank'],lexical_rank=r['lexical_rank'],matched_locator=r['matched_locator'],semantic_match=(r['distance']<=self.semantic_limit) if self.semantic_limit is not None else None) for r in rows]}
     @staticmethod
     def permitted(data):
         import copy
@@ -197,7 +198,7 @@ class Store:
 
     def export_records(self,snapshot=None):
         sid=self.manifest(snapshot)['snapshot']
-        with self.connect() as c:return [r['data'] for r in c.execute('SELECT data FROM records WHERE snapshot=%s AND NOT EXISTS(SELECT 1 FROM revoked v WHERE v.id=records.id) ORDER BY id',(sid,)).fetchall()]
+        with self.connect() as c:return [r['data'] for r in c.execute('SELECT data FROM retrieval.records WHERE snapshot=%s ORDER BY id',(sid,)).fetchall()]
 
     def promote(self,snapshot,expected_current=None,rollback=False):
         self.manifest(snapshot)

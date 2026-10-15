@@ -21,7 +21,14 @@ CREATE INDEX IF NOT EXISTS chunks_snapshot_source ON chunks(snapshot,source);
 -- The retrieval role sees a public, revocation-filtered publication boundary.
 CREATE SCHEMA IF NOT EXISTS retrieval;
 CREATE OR REPLACE VIEW retrieval.records WITH (security_barrier=true) AS
-  SELECT r.* FROM public.records r WHERE NOT EXISTS(SELECT 1 FROM public.revoked v WHERE v.id=r.id);
+  SELECT r.snapshot,r.id,r.revision,
+    CASE WHEN jsonb_typeof(r.data #> '{provenance,referenced_by}')='array'
+    THEN jsonb_set(r.data,'{provenance,referenced_by}',COALESCE((
+      SELECT jsonb_agg(parent) FROM jsonb_array_elements(r.data #> '{provenance,referenced_by}') parent
+      WHERE NOT EXISTS(SELECT 1 FROM public.revoked v WHERE v.id=parent->>'id' OR v.id=parent->>'url')
+    ),'[]'::jsonb)) ELSE r.data END AS data,
+    r.content,r.embedding,r.search
+  FROM public.records r WHERE NOT EXISTS(SELECT 1 FROM public.revoked v WHERE v.id=r.id);
 CREATE OR REPLACE VIEW retrieval.chunks WITH (security_barrier=true) AS
   SELECT ch.* FROM public.chunks ch WHERE NOT EXISTS(SELECT 1 FROM public.revoked v WHERE v.id=ch.source);
 CREATE OR REPLACE VIEW retrieval.relations WITH (security_barrier=true) AS
@@ -29,6 +36,9 @@ CREATE OR REPLACE VIEW retrieval.relations WITH (security_barrier=true) AS
 REVOKE SELECT ON public.records,public.chunks,public.relations FROM gateway_reader;
 GRANT USAGE ON SCHEMA retrieval TO gateway_reader;
 GRANT SELECT ON ALL TABLES IN SCHEMA retrieval TO gateway_reader;
+-- Generation uses the same sanitized record boundary as anonymous retrieval.
+GRANT USAGE ON SCHEMA retrieval TO gateway_ingest;
+GRANT SELECT ON retrieval.records TO gateway_ingest;
 ALTER ROLE gateway_reader SET search_path=retrieval,public;
 -- Versioned publication preparation; complete staged snapshots are queryable by explicit ID.
 CREATE TABLE IF NOT EXISTS snapshot_builds(snapshot text PRIMARY KEY REFERENCES snapshots ON DELETE CASCADE,base_snapshot text);

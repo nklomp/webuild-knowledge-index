@@ -24,6 +24,7 @@ for entry in queries:
     result=reader.search(entry['question'],snapshot=sid,limit=10);locators=[r['source']['locator'] for r in result['results']]
     entry=dict(entry,rank=locators.index(entry['expected_locator'])+1 if entry['expected_locator'] in locators else None,retrieved_locators=locators,snapshot=sid)
     entry['expected_vector_distance']=next((r['vector_distance'] for r in result['results'] if r['source']['locator']==entry['expected_locator']),None)
+    entry['semantic_weight']=result['semantic_weight']
     entry['top_signals']=[{'locator':r['source']['locator'],'semantic_rank':r['semantic_rank'],'lexical_rank':r['lexical_rank'],'score':r['score']} for r in result['results']]
     if entry['rank'] is None:
         diagnostic=reader.search(entry['question'],snapshot=sid,limit=100)
@@ -34,7 +35,7 @@ tuning=[r['expected_vector_distance'] for r in results if r['split']=='tuning' a
 if not tuning:raise ValueError('No expected tuning sources retrieved; calibration unavailable')
 calibration=weight_calibration|{'embeddings':embed.metadata,'snapshot':sid,'index_recipe':'section-context-v3','semantic_distance_limit':max(tuning),'method':'largest expected-source cosine distance among original source-derived tuning questions','tuning_questions':[r['question'] for r in results if r['split']=='tuning'],'limitations':'Small source-derived set; candidate relevance label, not normative-answer confidence. Regression and held-out questions do not set the cutoff.'}
 Path('config/retrieval-calibration.json').write_text(json.dumps(calibration,indent=2));reader.semantic_limit=calibration['semantic_distance_limit']
-print(json.dumps({'calibration':calibration},indent=2))
+print(json.dumps({'calibration':calibration},indent=2),flush=True)
 # Exercise the same persisted calibration loader used by a fresh retrieval service.
 reader=Store(os.environ['RETRIEVAL_DATABASE_URL'],embed)
 server=uvicorn.Server(uvicorn.Config(create_app(reader),host='127.0.0.1',port=58000,log_level='warning'));thread=threading.Thread(target=server.run,daemon=True);thread.start()
@@ -60,8 +61,8 @@ async def check():
         return {'initialized':True,'transport':'Streamable HTTP over loopback TCP','tool_count':len(tools.tools),'rest_mcp_equal':True,'all_tools_called':True,'read_only_annotations':all(t.annotations.read_only_hint for t in tools.tools)}
 try:
     mcp=asyncio.run(check())
-    output={'validated_at':__import__('gateway.model',fromlist=['now']).now(),'snapshot':sid,'model':embed.metadata,'index_recipe':'section-context-v3','ranking':RANKING_VERSION,'semantic_weight':reader.semantic_weight,'questions':results,'mcp':mcp,'splits':{s:{'questions':sum(r['split']==s for r in results),'retrieved_at_10':sum(r['split']==s and r['rank'] is not None for r in results)} for s in sorted({r['split'] for r in results})},'limitations':['Corpus pinned by the fresh coverage manifest; historical corpus was not recovered; not complete discussion coverage','No participant usefulness demonstrated','Not a production deployment'],'counts':{'records':len(rows),'sections':sum(1 for r in rows for _ in sections(r))}}
-    Path('evidence/live-evaluation.json').write_text(json.dumps(output,indent=2));print(json.dumps(output,indent=2))
+    output={'validated_at':__import__('gateway.model',fromlist=['now']).now(),'snapshot':sid,'model':embed.metadata,'index_recipe':'section-context-v3','ranking':RANKING_VERSION,'configured_semantic_weight':reader.semantic_weight,'questions':results,'mcp':mcp,'splits':{s:{'questions':sum(r['split']==s for r in results),'retrieved_at_10':sum(r['split']==s and r['rank'] is not None for r in results)} for s in sorted({r['split'] for r in results})},'limitations':['Corpus pinned by the fresh coverage manifest; historical corpus was not recovered; not complete discussion coverage','No participant usefulness demonstrated','Not a production deployment'],'counts':{'records':len(rows),'sections':sum(1 for r in rows for _ in sections(r))}}
+    Path('evidence/live-evaluation.json').write_text(json.dumps(output,indent=2));print(json.dumps(output,indent=2),flush=True)
     original_failed=next(r for r in results if r['question']=='How does WeBuild govern architecture and implementation conformance?')
     if os.getenv('BROWSER_CHECK'):subprocess.run(['node','scripts/browser-check.cjs'],check=True,timeout=120)
     assert original_failed['expected_locator']=='blueprint/07-governance-and-adr.md' and original_failed['rank'] is not None,'Original governance regression still fails'

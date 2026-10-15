@@ -23,9 +23,11 @@ def test_bounded_backoff_and_no_token_in_journal(tmp_path):
     def handle(req):
         attempts.append(req)
         return httpx.Response(503) if len(attempts)<3 else httpx.Response(200,json={'ok':True})
-    journal=CaptureJournal(tmp_path/'journal.sqlite');r=ReadClient(httpx.Client(transport=httpx.MockTransport(handle)),journal,token='[REDACTED_SECRET]',sleeper=delays.append)
+    marker='test-only-source-read-sentinel'
+    journal=CaptureJournal(tmp_path/'journal.sqlite');r=ReadClient(httpx.Client(transport=httpx.MockTransport(handle)),journal,token=marker,sleeper=delays.append)
     assert r.get('https://api.github.com/repos/o/r').json()['ok'];assert delays==[1,2]
-    assert b'secret-sentinel' not in (tmp_path/'journal.sqlite').read_bytes()
+    assert all(req.headers['Authorization']=='Bearer '+marker for req in attempts)
+    assert marker.encode() not in (tmp_path/'journal.sqlite').read_bytes()
 
 @pytest.mark.parametrize('target',['https://api.github.com.evil.test/data','https://secret@api.github.com/data','http://api.github.com/data','https://api.github.com:8443/data'])
 def test_allowlist_not_string_prefix(target):

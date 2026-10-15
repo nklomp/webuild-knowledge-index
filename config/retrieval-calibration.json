@@ -1,0 +1,172 @@
+{
+  "ranking_version": "weighted-fts-rrf-v4",
+  "semantic_weight": 8,
+  "weight_rule": "max(1, configured_weight * min(1, unique_query_terms / 12)^2)",
+  "weight_selection": "preserve known original regressions; maximize tuning recall@10, then MRR@10; ties favor original equal fusion",
+  "weight_candidates": [
+    {
+      "semantic_weight": 0.5,
+      "ranks": [
+        8,
+        3,
+        7
+      ],
+      "regression_ranks": [
+        6,
+        2,
+        9
+      ],
+      "regressions_preserved": true,
+      "retrieved_at_10": 3,
+      "mean_reciprocal_rank_at_10": 0.20039682539682538
+    },
+    {
+      "semantic_weight": 0.75,
+      "ranks": [
+        8,
+        3,
+        7
+      ],
+      "regression_ranks": [
+        6,
+        2,
+        9
+      ],
+      "regressions_preserved": true,
+      "retrieved_at_10": 3,
+      "mean_reciprocal_rank_at_10": 0.20039682539682538
+    },
+    {
+      "semantic_weight": 1,
+      "ranks": [
+        8,
+        3,
+        7
+      ],
+      "regression_ranks": [
+        6,
+        2,
+        9
+      ],
+      "regressions_preserved": true,
+      "retrieved_at_10": 3,
+      "mean_reciprocal_rank_at_10": 0.20039682539682538
+    },
+    {
+      "semantic_weight": 1.25,
+      "ranks": [
+        8,
+        3,
+        7
+      ],
+      "regression_ranks": [
+        6,
+        2,
+        9
+      ],
+      "regressions_preserved": true,
+      "retrieved_at_10": 3,
+      "mean_reciprocal_rank_at_10": 0.20039682539682538
+    },
+    {
+      "semantic_weight": 1.5,
+      "ranks": [
+        8,
+        3,
+        7
+      ],
+      "regression_ranks": [
+        6,
+        2,
+        9
+      ],
+      "regressions_preserved": true,
+      "retrieved_at_10": 3,
+      "mean_reciprocal_rank_at_10": 0.20039682539682538
+    },
+    {
+      "semantic_weight": 1.75,
+      "ranks": [
+        8,
+        3,
+        7
+      ],
+      "regression_ranks": [
+        6,
+        2,
+        9
+      ],
+      "regressions_preserved": true,
+      "retrieved_at_10": 3,
+      "mean_reciprocal_rank_at_10": 0.20039682539682538
+    },
+    {
+      "semantic_weight": 2,
+      "ranks": [
+        8,
+        3,
+        7
+      ],
+      "regression_ranks": [
+        6,
+        2,
+        9
+      ],
+      "regressions_preserved": true,
+      "retrieved_at_10": 3,
+      "mean_reciprocal_rank_at_10": 0.20039682539682538
+    },
+    {
+      "semantic_weight": 4,
+      "ranks": [
+        7,
+        3,
+        7
+      ],
+      "regression_ranks": [
+        5,
+        2,
+        9
+      ],
+      "regressions_preserved": true,
+      "retrieved_at_10": 3,
+      "mean_reciprocal_rank_at_10": 0.20634920634920637
+    },
+    {
+      "semantic_weight": 8,
+      "ranks": [
+        6,
+        1,
+        4
+      ],
+      "regression_ranks": [
+        1,
+        1,
+        9
+      ],
+      "regressions_preserved": true,
+      "retrieved_at_10": 3,
+      "mean_reciprocal_rank_at_10": 0.47222222222222227
+    }
+  ],
+  "tuning_questions": [
+    "How can a validator confirm the issuer signing key is bound to a legal person?",
+    "Where are SKOS and OWL used in the business wallet terminology?",
+    "What is the role of architecture decisions and conformance specifications in governance?"
+  ],
+  "regression_questions": [
+    "How does the authorization endpoint establish an EAA issuer key binding?",
+    "Which semantic layers define the European business wallet vocabulary?",
+    "How does WeBuild govern architecture and implementation conformance?"
+  ],
+  "embeddings": {
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "dimension": 384
+  },
+  "snapshot": "bf3c9a167e6af588b7a87ff8",
+  "index_recipe": "section-context-v3",
+  "semantic_distance_limit": 0.4548453688621521,
+  "method": "largest expected-source cosine distance among original source-derived tuning questions",
+  "limitations": "Small source-derived set; candidate relevance label, not normative-answer confidence. Regression and held-out questions do not set the cutoff."
+}

@@ -3,6 +3,13 @@ import psycopg
 from psycopg.rows import dict_row
 from psycopg.types.json import Jsonb
 from .model import digest,now,validate,sections,section_context
+
+def same_repository_edition(previous,current):
+    if previous.get('edition_tag')!=current.get('edition_tag'):return False
+    old_id,new_id=previous.get('repository_id'),current.get('repository_id')
+    if old_id is not None and new_id is not None:return old_id==new_id
+    return previous['repository']==current['repository']
+
 class Store:
     def __init__(self,dsn,embed,load_calibration=True):
         self.dsn,self.embed=dsn,embed
@@ -49,7 +56,7 @@ class Store:
         old=[row['data'] for row in prior];incoming_ids={r['id'] for r in records};remap={}
         for r in records:
             if r['kind']!='file':continue
-            matches=[p for p in old if p['kind']=='file' and ((p.get('repository_id') is not None and p.get('repository_id')==r.get('repository_id')) or p['repository']==r['repository']) and (p['locator']==r['locator'] or (p['revision']==r['revision'] and p['id'] not in incoming_ids))]
+            matches=[p for p in old if p['kind']=='file' and same_repository_edition(p,r) and (p['locator']==r['locator'] or (p['revision']==r['revision'] and p['id'] not in incoming_ids))]
             if len(matches)==1 and (matches[0]['id']!=r['id'] or matches[0].get('aliases')):
                 p=matches[0];remap[r['id']]=p['id'];r['id']=p['id']
                 r['aliases']=sorted(set(p.get('aliases',[])+[p['locator'],r['locator']]))
@@ -148,8 +155,12 @@ class Store:
         predicate="""snapshot=%(snapshot)s AND (%(id)s::text IS NULL OR source=%(id)s)
           AND NOT EXISTS(SELECT 1 FROM revoked WHERE revoked.id=source OR revoked.id=target)
           AND (%(topic)s::text IS NULL OR EXISTS(SELECT 1 FROM records r WHERE r.snapshot=relations.snapshot AND r.id=relations.source AND EXISTS(SELECT 1 FROM jsonb_array_elements_text(r.data->'topics') t WHERE lower(t)=lower(%(topic)s))))
-          AND (NOT %(specs)s OR (regexp_match(target,'^https?://([^/:]+)'))[1]=ANY(%(hosts)s))"""
-        parameters={'snapshot':sid,'id':id,'topic':topic,'specs':specs,'hosts':['www.etsi.org','etsi.org','forge.etsi.org','openid.net','www.rfc-editor.org','datatracker.ietf.org','eur-lex.europa.eu'],'limit':limit,'offset':offset}
+          AND (NOT %(specs)s OR (regexp_match(target,'^https?://([^/:]+)'))[1]=ANY(%(hosts)s)
+            OR (regexp_match(target,%(github_pattern)s))[1]=ANY(%(official_repositories)s))"""
+        from pathlib import Path
+        authority=Path('config/official-sources.json')
+        official=json.loads(authority.read_text()).get('authoritative_github_repositories',[]) if authority.exists() else []
+        parameters={'snapshot':sid,'id':id,'topic':topic,'specs':specs,'hosts':['www.etsi.org','etsi.org','forge.etsi.org','openid.net','www.rfc-editor.org','rfc-editor.org','datatracker.ietf.org','www.ietf.org','ietf.org','eur-lex.europa.eu'],'official_repositories':official,'github_pattern':r'^https://github\.com/([^/?#]+/[^/?#]+)(?:/(?:blob|tree)/|/releases/tag/|/?(?:[?#].*)?$)','limit':limit,'offset':offset}
         with self.connect() as c:
             total=c.execute('SELECT count(*) n FROM relations WHERE '+predicate,parameters).fetchone()['n']
             rows=c.execute('SELECT * FROM relations WHERE '+predicate+' ORDER BY source,target,kind LIMIT %(limit)s OFFSET %(offset)s',parameters).fetchall()

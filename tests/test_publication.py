@@ -71,3 +71,44 @@ def test_withdrawal_sanitizes_shared_reference_provenance_in_old_snapshots(store
         assert {p['id'] for p in exported['provenance']['referenced_by']}=={'ebwv'}
         assert records[0]['url'] not in json.dumps(public)
         assert records[0]['url'] not in json.dumps(exported)
+
+
+def test_related_specs_include_declared_eudi_and_ietf_authorities(stores,corpus):
+    import copy
+    writer,reader,_=stores
+    records=copy.deepcopy(corpus)
+    official='https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/sha/docs/arf.md'
+    draft='https://www.ietf.org/archive/id/draft-johansson-authzen-trust-01.txt'
+    unrelated='https://github.com/other-owner/eudi-doc-architecture-and-reference-framework/blob/sha/docs/arf.md'
+    discussion='https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/issues/1'
+    records[0]['text']+='\n'+'\n'.join([official,draft,unrelated,discussion])
+    records[0]['content_hash']=digest(records[0]['text'])
+    writer.publish(records,{'coverage':[]})
+    targets={r['target'] for r in reader.related('authzen',specs=True)['relations']}
+    assert official in targets and draft in targets
+    assert unrelated not in targets and discussion not in targets
+
+
+@pytest.mark.parametrize('change',['repository-replacement','new-tagged-edition'])
+def test_identity_does_not_merge_repositories_or_editions(stores,corpus,change):
+    import copy
+    writer,reader,_=stores
+    records=copy.deepcopy(corpus)
+    records[0]['repository_id']=1
+    if change=='new-tagged-edition':records[0]['edition_tag']='v1'
+    before=writer.publish(records,{'coverage':[]})
+    replacement=copy.deepcopy(records[0])
+    replacement.update(id='new-source',revision='new-source-revision',url='https://github.com/o/r/blob/new-revision/adr/authzen.md')
+    if change=='repository-replacement':
+        replacement['repository_id']=2
+        incoming=[replacement]+records[1:]
+    else:
+        replacement['edition_tag']='v2'
+        incoming=records+[replacement]
+    after=writer.publish(incoming,{'coverage':[]})
+    assert reader.source('new-source',after)['source']['id']=='new-source'
+    if change=='repository-replacement':
+        with pytest.raises(LookupError):reader.source('authzen',before)
+    else:
+        assert reader.source('authzen',after)['source']['edition_tag']=='v1'
+        assert reader.source('new-source',after)['source']['edition_tag']=='v2'

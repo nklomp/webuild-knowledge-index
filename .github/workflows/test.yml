@@ -27,8 +27,33 @@ jobs:
           READER_DATABASE_PASSWORD: reader-test-only
           INGEST_DATABASE_PASSWORD: ingest-test-only
           EMBEDDING_REVISION: 1110a243fdf4706b3f48f1d95db1a4f5529b4d41
+      - name: Pinned public corpus, independent retrieval and real browser
+        run: |
+          uv run --frozen python -m scripts.public_file_evidence --broader --pinned-manifest evidence/fresh-file-pins.json
+          npm install --prefix work/browser --no-audit --no-fund playwright@1.58.1
+          uv run --frozen python -m scripts.live_validation
+        env:
+          INGEST_DATABASE_URL: postgresql://gateway_ingest:ingest-test-only@localhost:5432/knowledge
+          RETRIEVAL_DATABASE_URL: postgresql://gateway_reader:reader-test-only@localhost:5432/knowledge
+          EMBEDDING_REVISION: 1110a243fdf4706b3f48f1d95db1a4f5529b4d41
+          BROWSER_CHECK: '1'
+          NODE_PATH: ${{ github.workspace }}/work/browser/node_modules
+          CHROME_EXECUTABLE: /usr/bin/google-chrome
+          QA_SCREENSHOT: evidence/wiki-search.png
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: isolated-test-evidence
-          path: evidence/ci-tests.xml
+          # Never upload raw source bodies, source tokens, model caches or journals.
+          path: |
+            evidence/ci-tests.xml
+            evidence/live-evaluation.json
+            evidence/live-coverage.json
+            evidence/browser-results.json
+            evidence/wiki-search.png
+            config/retrieval-calibration.json
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: generated-public-wiki-evidence
+          path: site/

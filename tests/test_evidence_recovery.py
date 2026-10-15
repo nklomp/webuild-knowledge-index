@@ -48,7 +48,7 @@ def test_changed_context_reencodes_unchanged_section(stores,corpus):
     from gateway.model import digest,sections
     writer,reader,old=stores
     initial=copy.deepcopy(corpus)
-    initial[0]['text']='# Original title\n\n## Details\nUnchanged section content.'
+    initial[0]['text']='# Original title\nStatus: accepted\n\n## Details\nUnchanged section content.'
     initial[0]['content_hash']=digest(initial[0]['text'])
     writer.publish(initial,{'coverage':[]})
     updated=copy.deepcopy(initial)

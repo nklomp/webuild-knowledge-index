@@ -1,4 +1,5 @@
 import os,time
+from typing import Any
 from contextlib import asynccontextmanager
 from collections import OrderedDict,deque
 from fastapi import FastAPI,Request,HTTPException
@@ -14,19 +15,19 @@ def create_app(store):
         if role['readonly']!='on' or role['can_write'] or role['writer_member']:raise ValueError('Retrieval must use an independent read-only database role')
     mcp=MCPServer('WeBuild read-only retrieval',version='0.1.0')
     annotation=ToolAnnotations(read_only_hint=True,destructive_hint=False,idempotent_hint=True,open_world_hint=False)
-    @mcp.tool(annotations=annotation)
-    def search(q:str,snapshot:str|None=None,status:str|None=None,version:str|None=None,scope:str|None=None,offset:int=0,limit:int=20)->dict:
+    @mcp.tool(annotations=annotation,structured_output=True)
+    def search(q:str,snapshot:str|None=None,status:str|None=None,version:str|None=None,scope:str|None=None,offset:int=0,limit:int=20)->dict[str,Any]:
         return store.search(q,snapshot,status,version,scope,offset,limit)
-    @mcp.tool(annotations=annotation)
-    def get_source(id:str,snapshot:str|None=None)->dict:return store.source(id,snapshot)
-    @mcp.tool(annotations=annotation)
-    def get_related_sources(id:str|None=None,topic:str|None=None,snapshot:str|None=None,offset:int=0,limit:int=100,specs:bool=False)->dict:return store.related(id,topic,snapshot,specs,offset=offset,limit=limit)
-    @mcp.tool(annotations=annotation)
-    def get_related_specs(id:str,snapshot:str|None=None,offset:int=0,limit:int=100)->dict:return store.related(id,None,snapshot,True,offset,limit)
-    @mcp.tool(annotations=annotation)
-    def get_decision_history(id:str,offset:int=0,limit:int=100,snapshot:str|None=None)->dict:return store.history(id,offset,limit,snapshot)
-    @mcp.tool(annotations=annotation)
-    def get_changes(before:str,after:str|None=None,offset:int=0,limit:int=100)->dict:return store.changes(before,after,offset,limit)
+    @mcp.tool(annotations=annotation,structured_output=True)
+    def get_source(id:str,snapshot:str|None=None)->dict[str,Any]:return store.source(id,snapshot)
+    @mcp.tool(annotations=annotation,structured_output=True)
+    def get_related_sources(id:str|None=None,topic:str|None=None,snapshot:str|None=None,offset:int=0,limit:int=100,specs:bool=False)->dict[str,Any]:return store.related(id,topic,snapshot,specs,offset=offset,limit=limit)
+    @mcp.tool(annotations=annotation,structured_output=True)
+    def get_related_specs(id:str,snapshot:str|None=None,offset:int=0,limit:int=100)->dict[str,Any]:return store.related(id,None,snapshot,True,offset,limit)
+    @mcp.tool(annotations=annotation,structured_output=True)
+    def get_decision_history(id:str,offset:int=0,limit:int=100,snapshot:str|None=None)->dict[str,Any]:return store.history(id,offset,limit,snapshot)
+    @mcp.tool(annotations=annotation,structured_output=True)
+    def get_changes(before:str,after:str|None=None,offset:int=0,limit:int=100)->dict[str,Any]:return store.changes(before,after,offset,limit)
     transport=mcp.streamable_http_app(stateless_http=True,json_response=True,host=os.getenv('SERVICE_HOST','127.0.0.1'))
     @asynccontextmanager
     async def lifespan(app):

@@ -27,9 +27,9 @@ def main():
             withdrawn=[x['repository'] for x in failures if x.get('quarantine')]
             if withdrawn:
                 try:
-                    sid,safe=store.quarantine(withdrawn,coverage)
+                    sid,safe=store.quarantine(withdrawn,coverage,promote=False)
                     generate(store.export_records(sid),store.manifest(sid),a.site,os.environ['PUBLIC_API_URL'],store.withdrawals())
-                    (root/'snapshot.txt').write_text(sid);atomic_json(root/'publication.json',{'snapshot':sid,'safety_withdrawal':True,'capture_complete':False});return
+                    (root/'snapshot.txt').write_text(sid);atomic_json(root/'publication.json',{'snapshot':sid,'safety_withdrawal':True,'capture_complete':False,'promotion_required':True});return
                 except LookupError:pass
             raise SystemExit('Incomplete capture; publication refused. Resume checkpoints with capture/run; see coverage.json.')
         # CLI preparation does not advance the latest pointer. Pages deployment must succeed first.

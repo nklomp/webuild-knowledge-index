@@ -47,7 +47,7 @@ def capture(repo,permission,reader=None):
     with tempfile.TemporaryDirectory(prefix='knowledge-wiki-') as directory:
         result=subprocess.run(['git','-c','credential.helper=','-c','credential.interactive=never','clone','--bare','https://github.com/'+repo+'.wiki.git',directory],capture_output=True,text=True,timeout=120,env={**os.environ,'GIT_TERMINAL_PROMPT':'0'})
         if result.returncode:
-            if any(term in result.stderr.lower() for term in ['not found','could not read username','terminal prompts disabled']):
+            if any(term in result.stderr.lower() for term in ['not found','could not read username','terminal prompts disabled','unable to get password from user']):
                 state,_=public_availability(repo,reader)
                 return [],state
             raise RuntimeError('Wiki fetch failed: '+result.stderr[:300])

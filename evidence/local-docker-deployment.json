@@ -1,0 +1,175 @@
+{
+  "verified_at": "2026-10-15T16:29:50.917949+00:00",
+  "url": "https://webuild.nk.sphereon.com",
+  "snapshot": "bf7802a665556f04f57d2832",
+  "published_at": "2026-10-15T16:25:03.833957+00:00",
+  "records": 15740,
+  "sections": 93068,
+  "coverage_complete": true,
+  "coverage": [
+    {
+      "source": "webuild-consortium/wp4-architecture",
+      "state": "complete-for-supported-types",
+      "editions": 0
+    },
+    {
+      "source": "webuild-consortium/wp4-trust-group",
+      "state": "complete-for-supported-types",
+      "editions": 0
+    },
+    {
+      "source": "webuild-consortium/wp4-semantics-group",
+      "state": "complete-for-supported-types",
+      "editions": 0
+    },
+    {
+      "source": "webuild-consortium/webuild-attestation-rulebooks-catalog",
+      "state": "complete-for-supported-types",
+      "editions": 0
+    },
+    {
+      "source": "webuild-consortium/wp4-qtsp-group",
+      "state": "complete-for-supported-types",
+      "editions": 0
+    },
+    {
+      "source": "webuild-consortium/wp4-wallets-group",
+      "state": "complete-for-supported-types",
+      "editions": 0
+    },
+    {
+      "source": "webuild-consortium/wp4-pid-ebwoid-group",
+      "state": "complete-for-supported-types",
+      "editions": 0
+    },
+    {
+      "source": "webuild-consortium/wp4-interop-test-bed",
+      "state": "complete-for-supported-types",
+      "editions": 0
+    },
+    {
+      "source": "webuild-consortium/SC5",
+      "state": "complete-for-supported-types",
+      "editions": 0
+    },
+    {
+      "source": "webuild-consortium/BU3",
+      "state": "complete-for-supported-types",
+      "editions": 0
+    },
+    {
+      "source": "webuild-consortium/webuild-github-policies",
+      "state": "complete-for-supported-types",
+      "editions": 0
+    },
+    {
+      "source": "webuild-consortium/.github",
+      "state": "complete-for-supported-types",
+      "editions": 0
+    },
+    {
+      "source": "eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework",
+      "state": "complete-for-supported-types",
+      "editions": 0
+    },
+    {
+      "source": "eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications",
+      "state": "complete-for-supported-types",
+      "editions": 0
+    },
+    {
+      "source": "tagged-editions:eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework",
+      "state": "complete-for-supported-types",
+      "editions": 30
+    },
+    {
+      "source": "tagged-editions:eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications",
+      "state": "complete-for-supported-types",
+      "editions": 0
+    },
+    {
+      "source": "https://openid.net/specs/authorization-api-1_0.html",
+      "state": "complete-for-configured-mode",
+      "editions": 0
+    },
+    {
+      "source": "https://www.ietf.org/archive/id/draft-johansson-authzen-trust-01.txt",
+      "state": "complete-for-configured-mode",
+      "editions": 0
+    },
+    {
+      "source": "https://forge.etsi.org/rep/esi/x19_60201_lists_of_trusted_entities/-/raw/e84f427f0cde99513b574ef4b5a155ac4a38eab6/1960201_json_schema/1960201_json_schema.json",
+      "state": "complete-for-configured-mode",
+      "editions": 0
+    },
+    {
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1183/oj",
+      "state": "complete-for-configured-mode",
+      "editions": 0
+    }
+  ],
+  "site_verification": {
+    "snapshot": "bf7802a665556f04f57d2832",
+    "sources": 15740,
+    "html_pages": 15744,
+    "navigation_valid": true,
+    "permissions_valid": true
+  },
+  "health": {
+    "freshness_failure": false,
+    "failed_sources": [],
+    "stale_sources": []
+  },
+  "live_checks": {
+    "https_certificate_verification": true,
+    "wiki_and_api_snapshot_match": true,
+    "rest_mcp_search_parity": true,
+    "mcp_tools": 6,
+    "query": "How can the authority of someone signing for a company be checked?",
+    "first_rest_search_seconds": 3.454,
+    "browser_search": true,
+    "browser_result_examples": [
+      "rulebooks/rb-eucc/README.md",
+      "rulebooks/rb-poa-pox/README.md",
+      "rulebooks/rb-authorised-signatories/README.md"
+    ]
+  },
+  "tests": {
+    "passed": 154,
+    "warnings": 6,
+    "seconds": 46.21,
+    "database": "separate temporary PostgreSQL16/pgvector; password authentication",
+    "embeddings": "real pinned model from persistent cache",
+    "test_resources_removed": true
+  },
+  "docker": {
+    "context": "desktop-linux",
+    "project": "webuild-knowledge",
+    "tls": "existing vdx-edge",
+    "images": {
+      "webuild-knowledge-db-1": "sha256:7b822b0aac60967beb1ea5e576b8602c94c300a157d187f385ae3e0da199b90a",
+      "webuild-knowledge-retrieval-1": "sha256:524b892453b488940b3890d8a0f0634ff978358a9809545298e5aa190ba71d21",
+      "webuild-knowledge-wiki-1": "sha256:7377697a821c131a924a7105fafbe7414db4e9fcc77a6f08f776f33f141ec3f8"
+    },
+    "database_host_ports": false,
+    "api_host_ports": false,
+    "wiki_host_ports": false
+  },
+  "schedule": {
+    "automation_id": "publish-webuild-knowledge-daily",
+    "time": "05:17",
+    "timezone": "Europe/Amsterdam",
+    "runner": "Codex desktop app, local thread",
+    "requires": "computer, Docker Desktop and app running"
+  },
+  "git": {
+    "head": "226fa7f1e06c0c38d05782c13d1add2dbeacea2f",
+    "local_changes_uncommitted": true
+  },
+  "remaining_release_checks": [
+    "independent monitor and alert destination",
+    "backup and restore drill",
+    "hosted rollback and withdrawal drill",
+    "concurrent load sizing"
+  ]
+}

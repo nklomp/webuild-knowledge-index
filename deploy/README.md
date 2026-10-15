@@ -1,5 +1,10 @@
 # Deployment configuration
 
+Local continuation selected Docker Desktop and existing vdx-edge TLS at
+`webuild.nk.sphereon.com`, then local wiki hosting with daily publication on
+this computer. Follow [DOCKER-DESKTOP.md](DOCKER-DESKTOP.md); this supersedes the
+Pages/remote-runner steps below for this installation.
+
 These files prepare deployment; they have not provisioned a host, database or
 monitor. On 15 October the user chose their own Docker environment and requested
 a committed, pushed handover for continuation on their local computer. Follow

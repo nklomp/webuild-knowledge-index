@@ -188,7 +188,7 @@ class Store:
     def latest_run(self):
         with self.connect() as c:r=c.execute('SELECT report FROM ingestion_runs ORDER BY captured_at DESC LIMIT 1').fetchone()
         return r['report'] if r else None
-    def quarantine(self,repositories,report):
+    def quarantine(self,repositories,report,promote=True):
         """Confirmed missing/private repository: suppress all old reads and publish safe remainder."""
         old=self.manifest()
         with self.connect() as c:
@@ -202,7 +202,7 @@ class Store:
                 for old_url in c.execute('SELECT DISTINCT data->>\'url\' AS url FROM records WHERE id=%s',(identity,)).fetchall():c.execute("INSERT INTO revoked VALUES(%s,'withdrawn source URL') ON CONFLICT(id) DO NOTHING",(old_url['url'],))
         safe=[r['data'] for r in rows if r['data']['id'] not in removed]
         coverage={'coverage':[s for s in old['coverage'].get('coverage',[]) if s.get('repository') not in repositories],'withdrawal':{'repositories':repositories,'time':now()},'latest_capture_failed':True}
-        return self.publish(safe,coverage),safe
+        return self.publish(safe,coverage,promote=promote),safe
 
     def withdrawals(self):
         with self.connect() as c:return [row['id'] for row in c.execute('SELECT id FROM revoked').fetchall()]

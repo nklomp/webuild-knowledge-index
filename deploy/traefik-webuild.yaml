@@ -1,0 +1,31 @@
+# Install this operational route in vdx-edge's watched dynamic directory.
+# Higher priority than the existing primary wildcard router.
+http:
+  routers:
+    webuild-knowledge:
+      rule: Host(`webuild.nk.sphereon.com`) && (PathPrefix(`/v1/`) || Path(`/mcp`) || PathPrefix(`/mcp/`) || Path(`/health`) || Path(`/live`) || PathPrefix(`/docs`) || Path(`/openapi.json`))
+      priority: 1100
+      entryPoints: [websecure]
+      service: webuild-knowledge
+      tls:
+        certResolver: le
+        domains:
+          - main: nk.sphereon.com
+            sans: ['*.nk.sphereon.com']
+    webuild-wiki:
+      rule: Host(`webuild.nk.sphereon.com`)
+      priority: 1000
+      entryPoints: [websecure]
+      service: webuild-wiki
+      tls: {}
+  services:
+    webuild-knowledge:
+      loadBalancer:
+        passHostHeader: true
+        servers:
+          - url: http://webuild-knowledge-retrieval:8000
+    webuild-wiki:
+      loadBalancer:
+        passHostHeader: true
+        servers:
+          - url: http://webuild-knowledge-wiki:8080

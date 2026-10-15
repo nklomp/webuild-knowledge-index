@@ -112,3 +112,12 @@ def test_identity_does_not_merge_repositories_or_editions(stores,corpus,change):
     else:
         assert reader.source('authzen',after)['source']['edition_tag']=='v1'
         assert reader.source('new-source',after)['source']['edition_tag']=='v2'
+def test_quarantine_can_prepare_without_advancing_publication(stores):
+    writer, reader, old = stores
+    prepared, safe = writer.quarantine(['architecture'], {}, promote=False)
+    assert prepared != old
+    assert reader.manifest()['snapshot'] == old
+    assert reader.manifest(prepared)['snapshot'] == prepared
+    assert not any(r['repository'] == 'architecture' for r in reader.export_records(old))
+    writer.promote(prepared)
+    assert reader.manifest()['snapshot'] == prepared

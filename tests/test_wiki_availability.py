@@ -47,3 +47,22 @@ def test_auth_errors_and_existing_content_never_become_confirmed_absence(tmp_pat
 
 def test_private_repository_cannot_supply_public_wiki_absence_evidence(tmp_path):
     with pytest.raises(RepositoryUnavailable):probe(tmp_path,private=True)
+def test_git_password_error_still_requires_public_wiki_verification(monkeypatch):
+    import subprocess
+    from gateway import wiki
+    seen = []
+    monkeypatch.setattr(wiki.subprocess, 'run', lambda *a, **k: subprocess.CompletedProcess(a, 128, '', 'fatal: unable to get password from user'))
+    def verify(repo, reader):
+        seen.append(repo)
+        return 'empty-at-source', {'method': 'github-empty-wiki-blankslate'}
+    monkeypatch.setattr(wiki, 'public_availability', verify)
+    assert wiki.capture('o/r', 'metadata-only') == ([], 'empty-at-source')
+    assert seen == ['o/r']
+
+
+def test_git_password_error_without_public_evidence_stays_unavailable(monkeypatch):
+    import subprocess
+    from gateway import wiki
+    monkeypatch.setattr(wiki.subprocess, 'run', lambda *a, **k: subprocess.CompletedProcess(a, 128, '', 'fatal: unable to get password from user'))
+    monkeypatch.setattr(wiki, 'public_availability', lambda *a: ('not-present-or-unavailable', {}))
+    assert wiki.capture('o/r', 'metadata-only') == ([], 'not-present-or-unavailable')

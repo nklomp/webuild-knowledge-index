@@ -2,7 +2,7 @@
 
 Date: 7 October 2026
 
-Status: Updated architecture and delivery plan. Research and planning are complete for this revision; implementation and deployment have not started.
+Status (15 October 2026): Recovered implementation under native Cloud validation. Real model download remains blocked; no production deployment is authorized or claimed. See VALIDATION.md. The checklists below remain acceptance gates.
 
 ## Goal and agreed scope
 

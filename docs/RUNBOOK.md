@@ -111,3 +111,51 @@ version. It cannot set source status or replace versions. Store reviewed outputs
 as project-owned overrides; invalid spans or revision mismatches fail validation.
 The exercised release path uses deterministic extraction and source-derived
 reading paths; no generated normative synopsis is presented.
+
+## Native Cloud continuation commands and current blockers
+
+Use Python 3.12 and `uv sync --frozen --extra test`. Keep uv and Hugging Face caches
+in writable workspace directories when the home directory is read-only. This is
+cache configuration, not runtime emulation. Never install the old UID shim.
+
+The 15 October model retry downloaded metadata but failed for actual weights:
+`us.aws.cdn.hf.co` is missing from the published network allowlist. Add this host
+through environment configuration, and also `api.github.com` for REST/GraphQL.
+Both currently return proxy CONNECT 403 before authentication. Official-source
+hosts in `config/official-sources.json` also need approved read access before
+claiming their live fetch coverage. Do not bypass the proxy policy.
+
+With workspace cache variables and the three independent DB connection variables
+configured by the operator, run:
+
+```sh
+uv lock --check
+uv run --frozen python -m scripts.regenerate_source_evidence
+uv run --frozen python -c "from gateway.embeddings import Embeddings; e=Embeddings(); print(e.metadata); print(len(e.encode(['WeBuild knowledge gateway'])[0]))"
+uv run --frozen --extra test pytest -q --junitxml=evidence/test-results.xml
+uv run --frozen python -m scripts.public_file_evidence --broader --pinned-manifest evidence/fresh-file-pins.json
+uv run --frozen python -m scripts.live_validation
+```
+
+Set `EMBEDDING_REVISION` from `.env.example`. Do not set offline mode for the model
+retry; it must genuinely generate a 384-dimensional vector. The blocked-suite
+attempt used HF_HUB_OFFLINE=1 only after a recorded live download failure; this
+produced errors, not successful model evidence. Run the full suite again once
+weights are available, then run browser validation with Playwright/Chromium and
+`BROWSER_CHECK=1`. This is local TCP validation, not hosted deployment evidence.
+
+The evaluation runner reads frozen original questions from
+`config/evaluation-original.json` and unchanged additional formulations from
+`config/evaluation-holdout.json`. It must retain missing expected-source results;
+do not alter expected locators to improve scores. Calibration uses tuning only.
+The newly added cache-context regression requires the real encoder.
+
+A dedicated read-only source token remains absent. Keep that identity separate
+from the connector used for writing the standalone repository. Anonymous pinned
+file downloads succeeded; full historical issues/PRs/comments/reviews/discussions
+are not complete. A configured writer identity must never be reused for source
+capture. Current new-repository owner is `nklomp`; Pages/hosting/monitoring and all
+hosted release drills remain unconfigured and are not authorized for deployment.
+
+The section-context-v3 index recipe forces a fresh snapshot and section-vector
+rebuild from v2. Keep prior snapshots for recovery; re-run tuning calibration.

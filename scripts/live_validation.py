@@ -13,8 +13,7 @@ rows=json.loads(Path('evidence/live-records.json').read_text());coverage=json.lo
 embed=Embeddings();writer=Store(os.environ['INGEST_DATABASE_URL'],embed);reader=Store(os.environ['RETRIEVAL_DATABASE_URL'],embed)
 sid=writer.publish(rows,coverage);writer.report_run(coverage)
 generate(writer.export_records(sid),reader.manifest(sid),'site','http://127.0.0.1:58000')
-original=json.loads(Path('evidence/previous-2026-10-07/live-evaluation.json').read_text())['questions']
-queries=[{'split':'tuning' if r['split']=='source-derived' else 'previous-held-out-now-regression','question':r['question'],'expected_locator':r['expected_locator']} for r in original]
+queries=json.loads(Path('config/evaluation-original.json').read_text())['questions']
 queries+=json.loads(Path('config/evaluation-holdout.json').read_text())
 results=[]
 for entry in queries:
@@ -24,7 +23,7 @@ for entry in queries:
     results.append(entry)
 # Only the original tuning set controls this provisional relevance label.
 tuning=[r['expected_vector_distance'] for r in results if r['split']=='tuning' and r['expected_vector_distance'] is not None]
-calibration={'embeddings':embed.metadata,'snapshot':sid,'index_recipe':'section-context-v2','semantic_distance_limit':max(tuning),'method':'largest expected-source cosine distance among original source-derived tuning questions','tuning_questions':[r['question'] for r in results if r['split']=='tuning'],'limitations':'Small source-derived set; candidate relevance label, not normative-answer confidence. Regression and held-out questions do not set the cutoff.'}
+calibration={'embeddings':embed.metadata,'snapshot':sid,'index_recipe':'section-context-v3','semantic_distance_limit':max(tuning),'method':'largest expected-source cosine distance among original source-derived tuning questions','tuning_questions':[r['question'] for r in results if r['split']=='tuning'],'limitations':'Small source-derived set; candidate relevance label, not normative-answer confidence. Regression and held-out questions do not set the cutoff.'}
 Path('config/retrieval-calibration.json').write_text(json.dumps(calibration,indent=2));reader.semantic_limit=calibration['semantic_distance_limit']
 server=uvicorn.Server(uvicorn.Config(create_app(reader),host='127.0.0.1',port=58000,log_level='warning'));thread=threading.Thread(target=server.run,daemon=True);thread.start()
 for _ in range(100):
@@ -49,7 +48,7 @@ async def check():
         return {'initialized':True,'transport':'Streamable HTTP over loopback TCP','tool_count':len(tools.tools),'rest_mcp_equal':True,'all_tools_called':True,'read_only_annotations':all(t.annotations.read_only_hint for t in tools.tools)}
 try:
     mcp=asyncio.run(check())
-    output={'validated_at':__import__('gateway.model',fromlist=['now']).now(),'snapshot':sid,'model':embed.metadata,'index_recipe':'section-context-v2','ranking':'weighted-fts-rrf-v2','questions':results,'mcp':mcp,'splits':{s:{'questions':sum(r['split']==s for r in results),'retrieved_at_10':sum(r['split']==s and r['rank'] is not None for r in results)} for s in sorted({r['split'] for r in results})},'limitations':['Immutable historical source revisions reread now; not current default-branch/history coverage','No participant usefulness demonstrated','Not a production deployment'],'counts':{'records':len(rows),'sections':sum(1 for r in rows for _ in sections(r))}}
+    output={'validated_at':__import__('gateway.model',fromlist=['now']).now(),'snapshot':sid,'model':embed.metadata,'index_recipe':'section-context-v3','ranking':'weighted-fts-rrf-v2','questions':results,'mcp':mcp,'splits':{s:{'questions':sum(r['split']==s for r in results),'retrieved_at_10':sum(r['split']==s and r['rank'] is not None for r in results)} for s in sorted({r['split'] for r in results})},'limitations':['Corpus pinned by the fresh coverage manifest; historical corpus was not recovered; not complete discussion coverage','No participant usefulness demonstrated','Not a production deployment'],'counts':{'records':len(rows),'sections':sum(1 for r in rows for _ in sections(r))}}
     Path('evidence/live-evaluation.json').write_text(json.dumps(output,indent=2));print(json.dumps(output,indent=2))
     original_failed=next(r for r in results if r['question']=='How does WeBuild govern architecture and implementation conformance?')
     assert original_failed['expected_locator']=='blueprint/07-governance-and-adr.md' and original_failed['rank'] is not None,'Original governance regression still fails'

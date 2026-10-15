@@ -1,0 +1,46 @@
+{
+  "regenerated_at": "2026-10-15T03:57:30.659948+00:00",
+  "recovery_reference": "recorded-source-writes block 119",
+  "sources": [
+    {
+      "id": "authzen-archival",
+      "url": "https://github.com/webuild-consortium/wp4-architecture/blob/a78fb62ef8cd037b5038ef1418bb26f1d902995e/adr/eaa-key-binding-authzen.md",
+      "content_hash": "1ec024467449cd4a04ff2bf21969adab8b6a485262773f462f65f856e1323a64",
+      "source_revision": "a78fb62ef8cd037b5038ef1418bb26f1d902995e",
+      "expected_kind": "file",
+      "expected_status": "unknown",
+      "source_excerpt": "the archival case remains open",
+      "attribution": "The AuthZEN ADR leaves historical key-binding queries open pending an extension of the cited draft.",
+      "evidence_label": "source-derived; not a participant question"
+    },
+    {
+      "id": "etsi-104",
+      "url": "https://github.com/webuild-consortium/wp4-trust-group/issues/104",
+      "content_hash": "cfa1968ebbb129115991dd22d83e7175885dae8501cd59e346525bca364491c4",
+      "source_revision": "2026-09-30T14:38:13Z",
+      "expected_kind": "issue",
+      "expected_status": "unknown",
+      "source_excerpt": "ETSI TS 119 602 V1.1.1 (2025-11)",
+      "attribution": "Issue 104 reports differences between the ETSI JSON schema and PDF. This is a reported concern, not an official correction.",
+      "official_schema_revision": "e84f427f0cde99513b574ef4b5a155ac4a38eab6",
+      "clause_identifiers": [
+        "6.3.3",
+        "6.3.5",
+        "6.3.7",
+        "6.3.8",
+        "6.3.9",
+        "6.3.10",
+        "6.3.11"
+      ],
+      "evidence_label": "source-derived; not a participant question"
+    }
+  ],
+  "checks": [
+    "public issue visibility",
+    "exact content hashes",
+    "issue update revision",
+    "immutable file commit",
+    "exact excerpts"
+  ],
+  "limits": "Fresh public reads, not recovered historical artifacts. ETSI schema revision is the issue citation; schema/PDF claims are attributed to the issue, not independently established."
+}

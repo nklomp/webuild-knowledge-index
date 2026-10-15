@@ -1,5 +1,5 @@
 """Independent live default-branch file measurement; NOT historical discussion completion."""
-import io,tarfile,subprocess,json,sys,argparse
+import io,tarfile,subprocess,json,sys,argparse,re
 from pathlib import Path
 import httpx
 from gateway.model import record,now
@@ -10,9 +10,15 @@ if args.broader and Path('evidence/live-records.json').exists():
     rows=json.loads(Path('evidence/live-records.json').read_text());coverage=json.loads(Path('evidence/live-coverage.json').read_text())['coverage']
 for name in (cfg['repositories'] if args.broader else cfg['initial']):
     repo=cfg['organization']+'/'+name
-    if any(c['repository']==repo and c['state']=='partial' for c in coverage):continue
     try:
-        sha=next((c['commit'] for c in pinned if c['repository']==repo),None) or subprocess.check_output(['git','ls-remote','https://github.com/'+repo+'.git','HEAD'],text=True).split()[0]
+        sha=next((c['commit'] for c in pinned if c['repository']==repo),None)
+        if args.pinned_manifest and sha is None:raise ValueError('Pinned manifest lacks repository '+repo)
+        sha=sha or subprocess.check_output(['git','ls-remote','https://github.com/'+repo+'.git','HEAD'],text=True).split()[0]
+        if not re.fullmatch('[0-9a-f]{40}',sha):raise ValueError('An immutable Git commit is required')
+        if any(c['repository']==repo and c['state']=='partial' and c.get('commit')==sha for c in coverage):continue
+        # A new pin must replace this repository's old measured corpus, not append it.
+        rows=[r for r in rows if r['repository']!=repo]
+        coverage=[c for c in coverage if c['repository']!=repo]
         response=httpx.get(f'https://codeload.github.com/{repo}/tar.gz/{sha}',timeout=120);response.raise_for_status()
         total=0;count=0;binary=0
         with tarfile.open(fileobj=io.BytesIO(response.content),mode='r:gz') as tar:

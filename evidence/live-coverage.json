@@ -1,0 +1,283 @@
+{
+  "coverage": [
+    {
+      "repository": "webuild-consortium/wp4-architecture",
+      "state": "partial",
+      "captured_at": "2026-10-15T03:52:40.916153+00:00",
+      "commit": "2c234782170ae136db0aedb747c4b04da201b401",
+      "counts": {
+        "files": 68,
+        "all_files": 106,
+        "binary_or_unsupported": 38
+      },
+      "types": {
+        "files": "complete supported default-branch text",
+        "issues": "NOT captured in this evidence run",
+        "pulls": "NOT captured",
+        "comments": "NOT captured",
+        "reviews": "NOT captured",
+        "releases": "NOT captured",
+        "discussions": "NOT captured",
+        "wiki": "NOT captured",
+        "attachments": "NOT captured"
+      },
+      "historical_file_revisions": "NOT captured"
+    },
+    {
+      "repository": "webuild-consortium/wp4-trust-group",
+      "state": "partial",
+      "captured_at": "2026-10-15T03:52:42.320359+00:00",
+      "commit": "040e97f363db1645e1379444b08d440bc2cf5db1",
+      "counts": {
+        "files": 99,
+        "all_files": 210,
+        "binary_or_unsupported": 111
+      },
+      "types": {
+        "files": "complete supported default-branch text",
+        "issues": "NOT captured in this evidence run",
+        "pulls": "NOT captured",
+        "comments": "NOT captured",
+        "reviews": "NOT captured",
+        "releases": "NOT captured",
+        "discussions": "NOT captured",
+        "wiki": "NOT captured",
+        "attachments": "NOT captured"
+      },
+      "historical_file_revisions": "NOT captured"
+    },
+    {
+      "repository": "webuild-consortium/wp4-semantics-group",
+      "state": "partial",
+      "captured_at": "2026-10-15T03:52:43.678904+00:00",
+      "commit": "a2306846c73de3272321bd82e3d83b3051f45f17",
+      "counts": {
+        "files": 30,
+        "all_files": 58,
+        "binary_or_unsupported": 28
+      },
+      "types": {
+        "files": "complete supported default-branch text",
+        "issues": "NOT captured in this evidence run",
+        "pulls": "NOT captured",
+        "comments": "NOT captured",
+        "reviews": "NOT captured",
+        "releases": "NOT captured",
+        "discussions": "NOT captured",
+        "wiki": "NOT captured",
+        "attachments": "NOT captured"
+      },
+      "historical_file_revisions": "NOT captured"
+    },
+    {
+      "repository": "webuild-consortium/webuild-attestation-rulebooks-catalog",
+      "state": "partial",
+      "captured_at": "2026-10-15T03:52:44.965357+00:00",
+      "commit": "42542d20d0a0159d50842a5e95b00605214f0ac6",
+      "counts": {
+        "files": 124,
+        "all_files": 128,
+        "binary_or_unsupported": 4
+      },
+      "types": {
+        "files": "complete supported default-branch text",
+        "issues": "NOT captured in this evidence run",
+        "pulls": "NOT captured",
+        "comments": "NOT captured",
+        "reviews": "NOT captured",
+        "releases": "NOT captured",
+        "discussions": "NOT captured",
+        "wiki": "NOT captured",
+        "attachments": "NOT captured"
+      },
+      "historical_file_revisions": "NOT captured"
+    },
+    {
+      "repository": "webuild-consortium/wp4-qtsp-group",
+      "state": "partial",
+      "captured_at": "2026-10-15T03:52:45.522246+00:00",
+      "commit": "189936a5764e9a5edeaeebc8570cdc16332486b2",
+      "counts": {
+        "files": 25,
+        "all_files": 32,
+        "binary_or_unsupported": 7
+      },
+      "types": {
+        "files": "complete supported default-branch text",
+        "issues": "NOT captured in this evidence run",
+        "pulls": "NOT captured",
+        "comments": "NOT captured",
+        "reviews": "NOT captured",
+        "releases": "NOT captured",
+        "discussions": "NOT captured",
+        "wiki": "NOT captured",
+        "attachments": "NOT captured"
+      },
+      "historical_file_revisions": "NOT captured"
+    },
+    {
+      "repository": "webuild-consortium/wp4-wallets-group",
+      "state": "partial",
+      "captured_at": "2026-10-15T03:52:45.998437+00:00",
+      "commit": "c3ddd5d81e7be6570a84c1f7769b2d1052a5a33b",
+      "counts": {
+        "files": 16,
+        "all_files": 44,
+        "binary_or_unsupported": 28
+      },
+      "types": {
+        "files": "complete supported default-branch text",
+        "issues": "NOT captured in this evidence run",
+        "pulls": "NOT captured",
+        "comments": "NOT captured",
+        "reviews": "NOT captured",
+        "releases": "NOT captured",
+        "discussions": "NOT captured",
+        "wiki": "NOT captured",
+        "attachments": "NOT captured"
+      },
+      "historical_file_revisions": "NOT captured"
+    },
+    {
+      "repository": "webuild-consortium/wp4-pid-ebwoid-group",
+      "state": "partial",
+      "captured_at": "2026-10-15T03:52:46.363871+00:00",
+      "commit": "f45f9564cfd800086a922819ff60e57424b24541",
+      "counts": {
+        "files": 3,
+        "all_files": 3,
+        "binary_or_unsupported": 0
+      },
+      "types": {
+        "files": "complete supported default-branch text",
+        "issues": "NOT captured in this evidence run",
+        "pulls": "NOT captured",
+        "comments": "NOT captured",
+        "reviews": "NOT captured",
+        "releases": "NOT captured",
+        "discussions": "NOT captured",
+        "wiki": "NOT captured",
+        "attachments": "NOT captured"
+      },
+      "historical_file_revisions": "NOT captured"
+    },
+    {
+      "repository": "webuild-consortium/wp4-interop-test-bed",
+      "state": "partial",
+      "captured_at": "2026-10-15T03:52:46.924485+00:00",
+      "commit": "3233e1df3b5cd7781af65ac58709b680cfca6273",
+      "counts": {
+        "files": 47,
+        "all_files": 52,
+        "binary_or_unsupported": 5
+      },
+      "types": {
+        "files": "complete supported default-branch text",
+        "issues": "NOT captured in this evidence run",
+        "pulls": "NOT captured",
+        "comments": "NOT captured",
+        "reviews": "NOT captured",
+        "releases": "NOT captured",
+        "discussions": "NOT captured",
+        "wiki": "NOT captured",
+        "attachments": "NOT captured"
+      },
+      "historical_file_revisions": "NOT captured"
+    },
+    {
+      "repository": "webuild-consortium/SC5",
+      "state": "partial",
+      "captured_at": "2026-10-15T03:52:47.379224+00:00",
+      "commit": "e8204fcb01aa8fbf6f623e555b0786846b22ecef",
+      "counts": {
+        "files": 13,
+        "all_files": 15,
+        "binary_or_unsupported": 2
+      },
+      "types": {
+        "files": "complete supported default-branch text",
+        "issues": "NOT captured in this evidence run",
+        "pulls": "NOT captured",
+        "comments": "NOT captured",
+        "reviews": "NOT captured",
+        "releases": "NOT captured",
+        "discussions": "NOT captured",
+        "wiki": "NOT captured",
+        "attachments": "NOT captured"
+      },
+      "historical_file_revisions": "NOT captured"
+    },
+    {
+      "repository": "webuild-consortium/BU3",
+      "state": "partial",
+      "captured_at": "2026-10-15T03:52:47.561036+00:00",
+      "commit": "5465be86619fad474da22c98f3770aad359b5653",
+      "counts": {
+        "files": 5,
+        "all_files": 6,
+        "binary_or_unsupported": 1
+      },
+      "types": {
+        "files": "complete supported default-branch text",
+        "issues": "NOT captured in this evidence run",
+        "pulls": "NOT captured",
+        "comments": "NOT captured",
+        "reviews": "NOT captured",
+        "releases": "NOT captured",
+        "discussions": "NOT captured",
+        "wiki": "NOT captured",
+        "attachments": "NOT captured"
+      },
+      "historical_file_revisions": "NOT captured"
+    },
+    {
+      "repository": "webuild-consortium/webuild-github-policies",
+      "state": "partial",
+      "captured_at": "2026-10-15T03:52:57.248194+00:00",
+      "commit": "3a79faad49266261831c7ac549f95c93e4d9999b",
+      "counts": {
+        "files": 32,
+        "all_files": 46,
+        "binary_or_unsupported": 14
+      },
+      "types": {
+        "files": "complete supported default-branch text",
+        "issues": "NOT captured in this evidence run",
+        "pulls": "NOT captured",
+        "comments": "NOT captured",
+        "reviews": "NOT captured",
+        "releases": "NOT captured",
+        "discussions": "NOT captured",
+        "wiki": "NOT captured",
+        "attachments": "NOT captured"
+      },
+      "historical_file_revisions": "NOT captured"
+    },
+    {
+      "repository": "webuild-consortium/.github",
+      "state": "partial",
+      "captured_at": "2026-10-15T03:52:57.423656+00:00",
+      "commit": "ad241655aca61cf1a7339139aaf9264fb9802b28",
+      "counts": {
+        "files": 1,
+        "all_files": 2,
+        "binary_or_unsupported": 1
+      },
+      "types": {
+        "files": "complete supported default-branch text",
+        "issues": "NOT captured in this evidence run",
+        "pulls": "NOT captured",
+        "comments": "NOT captured",
+        "reviews": "NOT captured",
+        "releases": "NOT captured",
+        "discussions": "NOT captured",
+        "wiki": "NOT captured",
+        "attachments": "NOT captured"
+      },
+      "historical_file_revisions": "NOT captured"
+    }
+  ],
+  "records": 463,
+  "capture_time": "2026-10-15T03:52:57.488380+00:00",
+  "purpose": "integration evidence only; not release corpus"
+}

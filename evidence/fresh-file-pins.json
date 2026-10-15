@@ -1,0 +1,53 @@
+{
+  "coverage": [
+    {
+      "repository": "webuild-consortium/wp4-architecture",
+      "commit": "2c234782170ae136db0aedb747c4b04da201b401"
+    },
+    {
+      "repository": "webuild-consortium/wp4-trust-group",
+      "commit": "040e97f363db1645e1379444b08d440bc2cf5db1"
+    },
+    {
+      "repository": "webuild-consortium/wp4-semantics-group",
+      "commit": "a2306846c73de3272321bd82e3d83b3051f45f17"
+    },
+    {
+      "repository": "webuild-consortium/webuild-attestation-rulebooks-catalog",
+      "commit": "42542d20d0a0159d50842a5e95b00605214f0ac6"
+    },
+    {
+      "repository": "webuild-consortium/wp4-qtsp-group",
+      "commit": "189936a5764e9a5edeaeebc8570cdc16332486b2"
+    },
+    {
+      "repository": "webuild-consortium/wp4-wallets-group",
+      "commit": "c3ddd5d81e7be6570a84c1f7769b2d1052a5a33b"
+    },
+    {
+      "repository": "webuild-consortium/wp4-pid-ebwoid-group",
+      "commit": "f45f9564cfd800086a922819ff60e57424b24541"
+    },
+    {
+      "repository": "webuild-consortium/wp4-interop-test-bed",
+      "commit": "3233e1df3b5cd7781af65ac58709b680cfca6273"
+    },
+    {
+      "repository": "webuild-consortium/SC5",
+      "commit": "e8204fcb01aa8fbf6f623e555b0786846b22ecef"
+    },
+    {
+      "repository": "webuild-consortium/BU3",
+      "commit": "5465be86619fad474da22c98f3770aad359b5653"
+    },
+    {
+      "repository": "webuild-consortium/webuild-github-policies",
+      "commit": "3a79faad49266261831c7ac549f95c93e4d9999b"
+    },
+    {
+      "repository": "webuild-consortium/.github",
+      "commit": "ad241655aca61cf1a7339139aaf9264fb9802b28"
+    }
+  ],
+  "purpose": "fresh immutable revisions selected in native Cloud; not historical recovered corpus"
+}

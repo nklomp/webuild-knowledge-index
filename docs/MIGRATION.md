@@ -23,3 +23,32 @@ Generated files that were not fully present in recorded commands have not been i
 5. Update validation/runbook/requirement mapping and deliver a fresh source archive. Report exact live corpus coverage and remaining credentials, hosting, Pages, and monitoring setup.
 
 All existing repositories remain read-only. The new repository is the only source-write destination. Do not resume the Work task or create another Work conversation. No production deployment is part of this migration.
+
+## Native continuation audit — 15 October 2026
+
+The checkout began clean at imported commit `97898bb2a9f9bd3b7c22f972b9c5f483f220a5a6`.
+Recovery exceptions were inspected as source data, never executed:
+
+- Block 63: the missing historical requirements.lock is not recoverable. Its code
+  changes (rename reconciliation) are present; current execution uses committed
+  uv.lock. Do not invent the old dependency environment.
+- Block 74: historical evaluation/coverage artifacts are absent. The generated-site
+  ownership marker is implemented in site.py; fresh file evidence is separate.
+- Blocks 92/94: generated historical validation prose and archive cannot be trusted
+  as fresh evidence. Replaced by the current validation report and a new archive.
+- Block 119: both descriptive source-evidence fixture copies were regenerated from
+  authoritative public reads, pinned revisions, hashes and exact excerpts. The
+  regenerator records its limitations; ETSI reports remain attributed concerns.
+- The repaired SOURCE_READ_TOKEN lookup and JSON Pointer escaping both have fresh
+  controlled checks. No UID/runtime compatibility shim was restored.
+
+Original six evaluation questions and expected locators were recovered using
+literal AST data extraction from block 34, without executing the recorded program.
+`config/evaluation-original.json` is now the runner input; additional held-out
+questions remain unchanged. Historical file pins beyond the recorded architecture
+revision were unavailable, so fresh 12-repository pins are explicitly separate.
+
+The audit found REST/MCP history/filter parity, old SDK test field names and
+context-insensitive section-vector cache reuse defects. Fixes and integration
+regressions are included, but model-dependent verification remains blocked. See
+VALIDATION.md for actual commands, counts and remaining network gates.

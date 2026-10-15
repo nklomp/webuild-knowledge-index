@@ -1,0 +1,35 @@
+{
+  "provenance": "Recovered literal questions and expected locators from recorded-source-writes block 34; no historical scores recovered",
+  "questions": [
+    {
+      "split": "tuning",
+      "question": "How can a validator confirm the issuer signing key is bound to a legal person?",
+      "expected_locator": "adr/eaa-key-binding-authzen.md"
+    },
+    {
+      "split": "previous-held-out-now-regression",
+      "question": "How does the authorization endpoint establish an EAA issuer key binding?",
+      "expected_locator": "adr/eaa-key-binding-authzen.md"
+    },
+    {
+      "split": "tuning",
+      "question": "Where are SKOS and OWL used in the business wallet terminology?",
+      "expected_locator": "vocab/README.md"
+    },
+    {
+      "split": "previous-held-out-now-regression",
+      "question": "Which semantic layers define the European business wallet vocabulary?",
+      "expected_locator": "vocab/README.md"
+    },
+    {
+      "split": "tuning",
+      "question": "What is the role of architecture decisions and conformance specifications in governance?",
+      "expected_locator": "blueprint/07-governance-and-adr.md"
+    },
+    {
+      "split": "previous-held-out-now-regression",
+      "question": "How does WeBuild govern architecture and implementation conformance?",
+      "expected_locator": "blueprint/07-governance-and-adr.md"
+    }
+  ]
+}

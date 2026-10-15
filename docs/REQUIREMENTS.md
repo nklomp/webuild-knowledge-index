@@ -1,55 +1,32 @@
 # Requirement and source mapping
 
-Authoritative scope: user-provided approved plan dated 7 October 2026. No VDX-infra
-access was needed; the structured inventory/detail/overview/export/verification
-pattern was implemented independently. Existing repositories were not modified.
+Scope: `PLAN.md` and the native Cloud continuation request. `VALIDATION.md`
+distinguishes fresh results from historical Work reports. Release is blocked.
 
-| Requirement | Implementation | Evidence / limits |
-|---|---|---|
-| New write destination; source read-only | standalone root, GET-only `ingest.py`, query-only `discussions.py`, fetch-only `wiki.py` | Anonymous public corpus capture; no source mutation operations or existing local repositories |
-| Stable IDs/revisions/permissions/provenance | `model.py`, records JSONB and immutable snapshots | SHA/revision URLs; unique path/blob moves reconciled with evidence-backed aliases |
-| Initial four repositories and broader configuration | `config/sources.json`, paginated adapters | Live default-branch file evidence for all 12; historical discussion crawl hit anonymous quota |
-| Keyword and real vector search | `embeddings.py`, `store.py`, `sql/schema.sql` | Actual CPU neural embeddings, PostgreSQL 16 and pgvector queries; no mock embeddings |
-| Section locators/context | deterministic section extraction, `chunks` table, matched locator | Section line ranges and document-level status remain connected |
-| Exact status and lifecycle separation | deterministic status evidence and lifecycle fields | Accepted/proposed/draft/historical/unknown regression checks; merged does not imply accepted |
-| Exact external versions | `model.py`, link-only `catalogue.py` | Exact cited version separate from nullable upstream version; official URLs and clause fragments |
-| External catalogue and impacts | approved-host metadata, `catalogue.impacts` | Link-only; upstream official release comparison and clause-level catalogue remain limited |
-| Evidence relationships | extracted `references`, `relations` and exports | Strong inferred relationships remain candidates via `annotations.py`; no consensus/compliance inference |
-| GitHub Pages wiki/navigation/reading paths | `site.py`, daily Pages workflow | Working groups, topics, sources, reading paths, search filters, safe text rendering |
-| Same REST/MCP implementation | `api.py` delegates all six tools/routes to `Store` | Actual official MCP HTTP client initialization, tool discovery/calls and parity |
-| Read-only visitor access | no mutation routes/tools; DB reader role | Write denial tests, CORS and bounded queries; no chatbot/submissions/comments |
-| Credential separation | SQL roles, distinct deployment environments | Actual reader-role write denial; container environment excludes source/ingest credentials |
-| Coherent snapshots and recovery | transactional publication and pinned/latest search | Atomic failure, prior revision availability and model compatibility regression checks |
-| Deletion/visibility boundary | tombstones across prior snapshots; quarantine and safe re-publication | Controlled tests across search/source/history/relationships; hosted withdrawal drill pending |
-| Daily reconciliation | 03:17 UTC Actions, complete crawl every run, checkpoints | Full reconciliation daily also covers weekly requirement; incremental optimization pending |
-| Partial failures/freshness | ingestion reports, failure-gated CLI, health >36 hours | Controlled stale capture and health tests; independent healthcheck script supplied |
-| Safe parsing | archive streams never extracted/executed; escaped rendering; approved HTTP hosts | Source instructions remain data; PR test jobs receive no publication/source credentials |
-| Portable exports | JSONL, relationship JSON, Markdown, `llms.txt` | Permission-filtered text; embedding metadata recorded separately |
-| Source-derived evaluation/held-out questions | `scripts/live_validation.py`, controlled fixtures | No participant questions claimed; measured retrieval results and failures retained |
-| Independently deployable HTTPS | Docker/Compose/Caddy example, SQL, workflows/runbook | No production host/account/owner selected; loopback HTTP transport validated |
+| Requirement | Implementation / fresh evidence and limits |
+|---|---|
+| Standalone write destination; upstream read-only | This repository only. Anonymous source reads; destination connector identity kept separate. No upstream mutations. |
+| Stable IDs, revisions, provenance and permission boundary | `model.py`, immutable snapshots, rename reconciliation in `store.py`; runtime integration remains blocked by model fixture. |
+| Initial four repositories and broader sources | `ingest.py`, 12 configured WeBuild repositories plus two EUDI repositories. Fresh file evidence across all 12; historical live coverage blocked. |
+| Real embeddings and hybrid keyword/vector retrieval | Pinned CPU MiniLM, PostgreSQL FTS/pgvector. DB 16.15/extension 0.8.7 confirmed; real weights and fresh search validation blocked. No substitute vectors. |
+| Section citations and vector reuse | Line/page locators and context-aware cache; new real-encoder regression awaits weights. |
+| Status, unresolved questions and exact versions | Conservative deterministic evidence in `model.py`/`extraction.py`; independent controlled checks pass. Merged is not accepted; closed is not answered. |
+| Authoritative external sources | `official.py`, `tags.py`, `catalogue.py`; configured OpenID fetch and link-only IETF/ETSI/EC metadata. Controlled adapters pass; complete live catalogue and clause impacts remain limited. |
+| Evidence relationships | Explicit references; stronger inferred relations remain candidates. No inferred compliance or consensus. |
+| Generated Pages wiki and search | `site.py`, groups/topics/sources, source-derived reading paths, permission-filtered exports. Fresh real-backend/browser validation and Pages configuration pending. |
+| REST and read-only remote HTTP MCP | `api.py` shares `Store`; fixed specification filter/pagination and history snapshot parity. Live HTTP/HTTPS tests blocked by model fixture. |
+| No interaction features | Retrieval only, no chatbot/submissions/comments/messaging/collaboration; complete runtime surface checks pending. |
+| Credential separation | Ordinary DB reader/writer roles; direct SQL verifies reader restrictions. Full credential-denial tests pending model fixture. |
+| Atomic snapshots, deletion and visibility | Transactions, promotion leases, revocations and quarantine. Fresh integration and hosted withdrawal/rollback drills pending. |
+| Daily resumable ingestion | 03:17 UTC workflow, capture-scoped page journals; controlled resume/pagination checks pass. Every new day performs full network reconciliation. Incremental cursor polling is not implemented; embedding reuse is incremental. |
+| Freshness and partial failures | Failure-gated promotion, per-source coverage and 36-hour health threshold. Independent monitor/recipient unconfigured. |
+| Safe untrusted-source processing | Hash-checked blobs, archives not extracted/executed, escaped text and allowlisted hosts. Controlled checks pass. |
+| Portable exports | JSONL/Markdown/relationships/llms.txt, permission filtering; fresh full wiki integration pending. No private sources admitted. |
+| Independent evaluation | Original six expected locators recovered unchanged from block 34; unchanged additional held-out set. No fresh scores or participant-usefulness claim. |
+| Reproducible dependencies | Python 3.12, committed uv.lock; no historical requirements.lock or runtime shim. Source-evidence regeneration checks exact pinned content. |
 
-## Release gate
-
-Do not call Stage 1 publicly released merely because local checks pass. Complete
-historical issue/PR/comment/review ingestion with a read-only credential and inspect
-all coverage entries. Configure/deploy the new repository, database, HTTPS service,
-Pages, independent monitor, and recovery/withdrawal drills. Clause-level upstream
-impact navigation, ambiguous rename reconciliation, binary extraction, and measured
-production load remain explicit limitations rather than invented capabilities.
-
-## Official documentation checked for implementation choices
-
-- Official MCP Python SDK Streamable HTTP client/server and ASGI documentation:
-  https://py.sdk.modelcontextprotocol.io/client/transports/
-  https://github.com/modelcontextprotocol/python-sdk
-- pgvector PostgreSQL extension installation, cosine operator, indexes and grants:
-  https://github.com/pgvector/pgvector
-- Model repository and immutable revision:
-  https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/tree/1110a243fdf4706b3f48f1d95db1a4f5529b4d41
-
-Python dependencies resolved from their package releases in this cloud environment;
-`requirements.lock` records exact observed versions. PostgreSQL 16.15 and pgvector
-0.8.0 were exercised locally. Production Compose uses the matching pgvector 0.8.0
-PostgreSQL 16 image. MCP SDK 2.3.0 is pinned because its current public API and
-structured-output behavior were tested. The model is CPU-hosted, version-pinned,
-and requires no paid account or model API key.
+Before release: actual model encoding, full PostgreSQL-backed suite, HTTP MCP/REST
+parity, original and held-out retrieval, wiki/browser checks and source coverage
+review. Hosting/Pages/TLS/monitoring/backups/load and hosted privacy recovery remain
+configuration and validation work. No production or paid resource authorization.
+VDX-infra was neither modified nor needed for this continuation.

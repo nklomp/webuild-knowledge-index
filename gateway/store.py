@@ -2,7 +2,7 @@ import json, os
 import psycopg
 from psycopg.rows import dict_row
 from psycopg.types.json import Jsonb
-from .model import digest,now,validate,sections
+from .model import digest,now,validate,sections,section_context
 class Store:
     def __init__(self,dsn,embed):
         self.dsn,self.embed=dsn,embed
@@ -40,7 +40,7 @@ class Store:
         with self.connect() as c:
             prior=c.execute('SELECT data,embedding::text AS vector FROM records WHERE snapshot=(SELECT snapshot FROM publication)').fetchall()
             prior_manifest=c.execute('SELECT manifest FROM snapshots WHERE id=(SELECT snapshot FROM publication)').fetchone()
-            old_chunks=c.execute('SELECT source,content,embedding::text AS vector FROM chunks WHERE snapshot=(SELECT snapshot FROM publication)').fetchall() if prior_manifest and prior_manifest['manifest']['embeddings']==self.embed.metadata and prior_manifest['manifest'].get('index_recipe')=='section-context-v2' else []
+            old_chunks=c.execute('SELECT source,content,embedding::text AS vector FROM chunks WHERE snapshot=(SELECT snapshot FROM publication)').fetchall() if prior_manifest and prior_manifest['manifest']['embeddings']==self.embed.metadata and prior_manifest['manifest'].get('index_recipe')=='section-context-v3' else []
         base_snapshot=prior_manifest['manifest']['snapshot'] if prior_manifest else None
         old=[row['data'] for row in prior];incoming_ids={r['id'] for r in records};remap={}
         for r in records:
@@ -55,7 +55,7 @@ class Store:
             if previous and previous['repository']!=r['repository']:
                 r['repository_aliases']=sorted(set(previous.get('repository_aliases',[])+[previous['repository'],r['repository']]))
             for parent in r['provenance'].get('referenced_by',[]):parent['id']=remap.get(parent['id'],parent['id'])
-        sid=digest(json.dumps([{k:v for k,v in r.items() if k!='retrieved_at'} for r in sorted(records,key=lambda r:r['id'])],sort_keys=True)+json.dumps(coverage,sort_keys=True)+json.dumps(self.embed.metadata)+'section-context-v2')[:24]
+        sid=digest(json.dumps([{k:v for k,v in r.items() if k!='retrieved_at'} for r in sorted(records,key=lambda r:r['id'])],sort_keys=True)+json.dumps(coverage,sort_keys=True)+json.dumps(self.embed.metadata)+'section-context-v3')[:24]
         with self.connect() as c:
             if c.execute('SELECT 1 FROM snapshots WHERE id=%s',(sid,)).fetchone():return sid
         vector_cache={row['data']['id']:row for row in prior} if prior_manifest and prior_manifest['manifest']['embeddings']==self.embed.metadata else {}
@@ -67,15 +67,16 @@ class Store:
         fresh=self.embed.encode([records[i]['title']+'\n'+records[i]['text'] for i in missing]) if missing else []
         for index,vector in zip(missing,fresh):vectors[index]=vector
         pieces=[p for r in records for p in sections(r)]
-        piece_cache={(row['source'],digest(row['content'])):row['vector'] for row in old_chunks}
+        old_contexts={r['id']:section_context(r) for r in old}
+        piece_cache={(row['source'],old_contexts.get(row['source']),digest(row['content'])):row['vector'] for row in old_chunks}
         piece_vectors=[None]*len(pieces);missing=[]
         for index,piece in enumerate(pieces):
-            cached=piece_cache.get((piece['source'],digest(piece['text'])))
+            cached=piece_cache.get((piece['source'],piece['context'],digest(piece['text'])))
             if cached:piece_vectors[index]=json.loads(cached)
             else:missing.append(index)
         fresh=self.embed.encode([pieces[i]['context']+'\n'+pieces[i]['text'] for i in missing]) if missing else []
         for index,vector in zip(missing,fresh):piece_vectors[index]=vector
-        manifest={'snapshot':sid,'index_recipe':'section-context-v2','schema_version':2,'published_at':now(),'coverage':coverage,'embeddings':self.embed.metadata,'records':len(records)}
+        manifest={'snapshot':sid,'index_recipe':'section-context-v3','schema_version':2,'published_at':now(),'coverage':coverage,'embeddings':self.embed.metadata,'records':len(records)}
         with self.connect() as c:
             c.execute("SELECT pg_advisory_xact_lock(hashtext('webuild-publication'))")
             if c.execute('SELECT 1 FROM snapshots WHERE id=%s',(sid,)).fetchone(): return sid

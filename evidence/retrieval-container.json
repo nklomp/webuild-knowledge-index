@@ -1,0 +1,12 @@
+{
+  "live": {
+    "status": "live"
+  },
+  "search_snapshot": "5ff9210053b733340a718c3e",
+  "search_results": 1,
+  "real_embeddings": true,
+  "database_role": "gateway_reader",
+  "container_user": 65532,
+  "model": "pinned public weights mounted from cache; no credential files",
+  "image": "sha256:44af850c8e6db44db7a090f4d2a68c451ef4264df5f027c3536b15db62349669"
+}

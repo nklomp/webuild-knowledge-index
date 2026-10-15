@@ -23,9 +23,11 @@ def test_bounded_backoff_and_no_token_in_journal(tmp_path):
     def handle(req):
         attempts.append(req)
         return httpx.Response(503) if len(attempts)<3 else httpx.Response(200,json={'ok':True})
-    journal=CaptureJournal(tmp_path/'journal.sqlite');r=ReadClient(httpx.Client(transport=httpx.MockTransport(handle)),journal,token='[REDACTED_SECRET]',sleeper=delays.append)
+    marker='test-only-source-read-sentinel'
+    journal=CaptureJournal(tmp_path/'journal.sqlite');r=ReadClient(httpx.Client(transport=httpx.MockTransport(handle)),journal,token=marker,sleeper=delays.append)
     assert r.get('https://api.github.com/repos/o/r').json()['ok'];assert delays==[1,2]
-    assert b'secret-sentinel' not in (tmp_path/'journal.sqlite').read_bytes()
+    assert all(req.headers['Authorization']=='Bearer '+marker for req in attempts)
+    assert marker.encode() not in (tmp_path/'journal.sqlite').read_bytes()
 
 @pytest.mark.parametrize('target',['https://api.github.com.evil.test/data','https://secret@api.github.com/data','http://api.github.com/data','https://api.github.com:8443/data'])
 def test_allowlist_not_string_prefix(target):
@@ -35,6 +37,18 @@ def test_pagination_loop_and_escaped_connection():
     for next_url in ['https://api.github.com/repos/o/r/issues','https://api.github.com/repos/other/private/issues','https://evil.test/']:
         client=httpx.Client(transport=httpx.MockTransport(lambda req:httpx.Response(200,json=[],headers={'Link':'<'+next_url+'>; rel="next"'})))
         with pytest.raises(ValueError):list(ReadClient(client).pages('https://api.github.com/repos/o/r/issues'))
+
+@pytest.mark.parametrize('identity',[1,2])
+def test_numeric_pagination_requires_bound_repository_identity(identity):
+    def handle(req):
+        if req.url.path.startswith('/repositories/'):
+            return httpx.Response(200,json=[{'id':2}])
+        return httpx.Response(200,json=[{'id':1}],headers={'Link':f'<https://api.github.com/repositories/{identity}/issues?page=2>; rel="next"'})
+    reader=ReadClient(httpx.Client(transport=httpx.MockTransport(handle)))
+    reader.bind_repository('o/r',1)
+    if identity==1:assert [x['id'] for x in reader.pages('https://api.github.com/repos/o/r/issues')]==[1,2]
+    else:
+        with pytest.raises(ValueError,match='escaped'):list(reader.pages('https://api.github.com/repos/o/r/issues'))
 
 def test_graphql_errors_never_checkpoint_partial_data(tmp_path):
     journal=CaptureJournal(tmp_path/'j.sqlite');client=httpx.Client(transport=httpx.MockTransport(lambda req:httpx.Response(200,json={'data':{'partial':True},'errors':[{'message':'quota'}]})))

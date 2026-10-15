@@ -1,4 +1,8 @@
 {
+  "authoritative_github_repositories": [
+    "eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework",
+    "eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications"
+  ],
   "allowed_hosts": [
     "openid.net",
     "www.etsi.org",

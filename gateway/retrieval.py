@@ -8,7 +8,34 @@ def lexical_query(q):
     # OR terms allow partial evidence retrieval; the vector branch preserves full intent.
     return ' | '.join(tokens or re.findall(r'[\w]+',q)) or 'unmatchable_query_token'
 
-RANKING_VERSION='weighted-fts-rrf-v2'
+RANKING_VERSION='weighted-fts-rrf-v4'
+QUERY_TERM_PIVOT=12
+
+def semantic_weight_for_query(q,configured):
+    """Retain balanced keyword evidence for sparse queries; scale verbose intent."""
+    terms=len(lexical_query(q).split(' | '))
+    return max(1.0,configured*min(1.0,terms/QUERY_TERM_PIVOT)**2)
+
+def calibrate_weight(store,questions,snapshot,candidates=(0.5,0.75,1.0,1.25,1.5,1.75,2.0,4.0,8.0)):
+    """Choose fusion balance from original tuning data only, never held-out labels."""
+    tuning=[q for q in questions if q['split']=='tuning']
+    regressions=[q for q in questions if q['split']=='previous-held-out-now-regression']
+    if not tuning:raise ValueError('Ranking calibration requires original tuning questions')
+    measurements=[];previous=store.semantic_weight
+    try:
+        for weight in candidates:
+            if not 0.25<=weight<=8:raise ValueError('Invalid fusion weight')
+            store.semantic_weight=weight;ranks=[];regression_ranks=[]
+            for entry in tuning+regressions:
+                locators=[r['source']['locator'] for r in store.search(entry['question'],snapshot=snapshot,limit=10)['results']]
+                rank=locators.index(entry['expected_locator'])+1 if entry['expected_locator'] in locators else None
+                (ranks if entry['split']=='tuning' else regression_ranks).append(rank)
+            measurements.append({'semantic_weight':weight,'ranks':ranks,'regression_ranks':regression_ranks,'regressions_preserved':all(r is not None for r in regression_ranks),'retrieved_at_10':sum(r is not None for r in ranks),'mean_reciprocal_rank_at_10':sum(1/r if r else 0 for r in ranks)/len(ranks)})
+    finally:store.semantic_weight=previous
+    feasible=[m for m in measurements if m['regressions_preserved']]
+    if not feasible:raise ValueError('No fusion weight preserves the known original regressions')
+    best=max(feasible,key=lambda m:(m['retrieved_at_10'],m['mean_reciprocal_rank_at_10'],-abs(m['semantic_weight']-1)))
+    return {'ranking_version':RANKING_VERSION,'semantic_weight':best['semantic_weight'],'weight_rule':'max(1, configured_weight * min(1, unique_query_terms / 12)^2)','weight_selection':'preserve known original regressions; maximize tuning recall@10, then MRR@10; ties favor original equal fusion','weight_candidates':measurements,'tuning_questions':[q['question'] for q in tuning],'regression_questions':[q['question'] for q in regressions]}
 RRF_SQL='''WITH filtered AS MATERIALIZED (
  SELECT id,data,content,embedding,search FROM records
  WHERE snapshot=%(snapshot)s
@@ -29,7 +56,7 @@ RRF_SQL='''WITH filtered AS MATERIALIZED (
  SELECT *,row_number() OVER(ORDER BY distance,id) semantic_rank,
  CASE WHEN lexical>0 THEN row_number() OVER(ORDER BY lexical_coverage DESC,lexical DESC,id) END lexical_rank FROM signals
 ), fused AS (
- SELECT *,1.0/(60+semantic_rank)+COALESCE(1.0/(60+lexical_rank),0)+exact*0.04 score FROM ranked
+ SELECT *,%(semantic_weight)s::double precision/(60+semantic_rank)+COALESCE(1.0/(60+lexical_rank),0)+exact*0.04 score FROM ranked
 )
 SELECT data,distance,lexical,matched_locator,score,semantic_rank,lexical_rank,count(*) OVER() total
 FROM fused ORDER BY score DESC,id LIMIT %(limit)s OFFSET %(offset)s'''

@@ -1,0 +1,29 @@
+{
+  "run": "https://github.com/nklomp/webuild-knowledge-index/actions/runs/38687385513",
+  "commit": "c8f0b253f619a98fb5333e90022dd8186b684d1a",
+  "job": 116265246352,
+  "conclusion": "success",
+  "test_summary": "96 passed, 6 warnings in 32.36s",
+  "tests_are": "real PostgreSQL/pgvector and pinned MiniLM; actual HTTP/HTTPS MCP calls; transport/adversarial adapter fixtures separately controlled",
+  "original_source_derived": "6/6 expected locators in top 10",
+  "additional_source_derived": "3/3 expected locators in top 10; ranks 8, 1, 1",
+  "browser": "success; navigation, live backend search, snapshot pin, failure presentation; JSON and PNG in artifact",
+  "artifacts": [
+    {
+      "name": "isolated-test-evidence",
+      "url": "https://github.com/nklomp/webuild-knowledge-index/actions/runs/38687385513/artifacts/11951455302",
+      "sha256": "8a29c4c5a510181b230617d507a9f3f71530442ecd819ed911327a4ffe5473dc"
+    },
+    {
+      "name": "generated-public-wiki-evidence",
+      "url": "https://github.com/nklomp/webuild-knowledge-index/actions/runs/38687385513/artifacts/11952125534",
+      "sha256": "5bd2baf79c2b56c2ceaa9f9deda3106467738f3fb8c35bf2914363849002b487"
+    }
+  ],
+  "limits": [
+    "Fresh CI, not native model success",
+    "File-only corpus: 463 records / 13265 sections; historical conversations and official live bodies incomplete",
+    "No participant usefulness or blind generalization claim",
+    "No production deployment"
+  ]
+}

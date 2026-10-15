@@ -1,0 +1,78 @@
+{
+  "coverage": [
+    {
+      "source": "https://openid.net/specs/authorization-api-1_0.html",
+      "state": "complete-for-configured-mode",
+      "mode": "fetch",
+      "captured_at": "2026-10-15T12:35:13.986561+00:00"
+    },
+    {
+      "source": "https://www.ietf.org/archive/id/draft-johansson-authzen-trust-01.txt",
+      "state": "complete-for-configured-mode",
+      "mode": "link-only",
+      "captured_at": "2026-10-15T12:35:13.986955+00:00"
+    },
+    {
+      "source": "https://forge.etsi.org/rep/esi/x19_60201_lists_of_trusted_entities/-/raw/e84f427f0cde99513b574ef4b5a155ac4a38eab6/1960201_json_schema/1960201_json_schema.json",
+      "state": "complete-for-configured-mode",
+      "mode": "link-only",
+      "captured_at": "2026-10-15T12:35:13.987251+00:00"
+    },
+    {
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1183/oj",
+      "state": "complete-for-configured-mode",
+      "mode": "link-only",
+      "captured_at": "2026-10-15T12:35:13.987424+00:00"
+    }
+  ],
+  "records": [
+    {
+      "id": "official:f053a6618db5becda776cda6cc988d43cb3b58978b3f81435ec758e34bde0b7a",
+      "url": "https://openid.net/specs/authorization-api-1_0.html",
+      "revision": "37b54fc561dd442837caf4af59699fc0b7b02bb949b71afd474ced6ea564f9f7",
+      "content_hash": "37b54fc561dd442837caf4af59699fc0b7b02bb949b71afd474ced6ea564f9f7",
+      "extraction": {
+        "method": "safe-html-text-v1",
+        "retrieved_at": "2026-10-15T12:35:13.986538+00:00",
+        "media_type": "text/html"
+      },
+      "reuse_permissions": "metadata-only"
+    },
+    {
+      "id": "official:d02b3efcfa56777e3a862d5e4fbd0d0eae7f71e279dd7fbe5607d2d92fb8aaae",
+      "url": "https://www.ietf.org/archive/id/draft-johansson-authzen-trust-01.txt",
+      "revision": "e0a81e6f4059b14e78ea3f2614bfabef1d0809ebab70eee7eaed5250e9d72d22",
+      "content_hash": "e0a81e6f4059b14e78ea3f2614bfabef1d0809ebab70eee7eaed5250e9d72d22",
+      "extraction": {
+        "method": "configured-link-only-v1",
+        "retrieved_at": "2026-10-15T12:35:13.986949+00:00",
+        "media_type": null
+      },
+      "reuse_permissions": "metadata-only"
+    },
+    {
+      "id": "official:3e6392feca10a963f0f3b70a213a005bd731ecd51d0bc1e83e8d47d135f2e782",
+      "url": "https://forge.etsi.org/rep/esi/x19_60201_lists_of_trusted_entities/-/raw/e84f427f0cde99513b574ef4b5a155ac4a38eab6/1960201_json_schema/1960201_json_schema.json",
+      "revision": "0613762ee05dfb88cca9ad37ccfda237457be74f1c8b75df5aaeab4282cddbf1",
+      "content_hash": "0613762ee05dfb88cca9ad37ccfda237457be74f1c8b75df5aaeab4282cddbf1",
+      "extraction": {
+        "method": "configured-link-only-v1",
+        "retrieved_at": "2026-10-15T12:35:13.987248+00:00",
+        "media_type": null
+      },
+      "reuse_permissions": "metadata-only"
+    },
+    {
+      "id": "official:5a5ed1b0553b0374da2ec6cb5be7313d4a3f41cf8934713426dbad41a99489e4",
+      "url": "https://eur-lex.europa.eu/eli/reg/2024/1183/oj",
+      "revision": "bfd5c8d052e97ba2cef76dad06dbf8eccc424e1b6518449d02431390f8b6b1bf",
+      "content_hash": "bfd5c8d052e97ba2cef76dad06dbf8eccc424e1b6518449d02431390f8b6b1bf",
+      "extraction": {
+        "method": "configured-link-only-v1",
+        "retrieved_at": "2026-10-15T12:35:13.987420+00:00",
+        "media_type": null
+      },
+      "reuse_permissions": "metadata-only"
+    }
+  ]
+}

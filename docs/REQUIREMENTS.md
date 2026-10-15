@@ -1,55 +1,31 @@
 # Requirement and source mapping
 
-Authoritative scope: user-provided approved plan dated 7 October 2026. No VDX-infra
-access was needed; the structured inventory/detail/overview/export/verification
-pattern was implemented independently. Existing repositories were not modified.
+Scope: `PLAN.md` and the native Cloud continuation request. `VALIDATION.md`
+distinguishes fresh results from historical Work reports. Release is blocked.
 
-| Requirement | Implementation | Evidence / limits |
-|---|---|---|
-| New write destination; source read-only | standalone root, GET-only `ingest.py`, query-only `discussions.py`, fetch-only `wiki.py` | Anonymous public corpus capture; no source mutation operations or existing local repositories |
-| Stable IDs/revisions/permissions/provenance | `model.py`, records JSONB and immutable snapshots | SHA/revision URLs; unique path/blob moves reconciled with evidence-backed aliases |
-| Initial four repositories and broader configuration | `config/sources.json`, paginated adapters | Live default-branch file evidence for all 12; historical discussion crawl hit anonymous quota |
-| Keyword and real vector search | `embeddings.py`, `store.py`, `sql/schema.sql` | Actual CPU neural embeddings, PostgreSQL 16 and pgvector queries; no mock embeddings |
-| Section locators/context | deterministic section extraction, `chunks` table, matched locator | Section line ranges and document-level status remain connected |
-| Exact status and lifecycle separation | deterministic status evidence and lifecycle fields | Accepted/proposed/draft/historical/unknown regression checks; merged does not imply accepted |
-| Exact external versions | `model.py`, link-only `catalogue.py` | Exact cited version separate from nullable upstream version; official URLs and clause fragments |
-| External catalogue and impacts | approved-host metadata, `catalogue.impacts` | Link-only; upstream official release comparison and clause-level catalogue remain limited |
-| Evidence relationships | extracted `references`, `relations` and exports | Strong inferred relationships remain candidates via `annotations.py`; no consensus/compliance inference |
-| GitHub Pages wiki/navigation/reading paths | `site.py`, daily Pages workflow | Working groups, topics, sources, reading paths, search filters, safe text rendering |
-| Same REST/MCP implementation | `api.py` delegates all six tools/routes to `Store` | Actual official MCP HTTP client initialization, tool discovery/calls and parity |
-| Read-only visitor access | no mutation routes/tools; DB reader role | Write denial tests, CORS and bounded queries; no chatbot/submissions/comments |
-| Credential separation | SQL roles, distinct deployment environments | Actual reader-role write denial; container environment excludes source/ingest credentials |
-| Coherent snapshots and recovery | transactional publication and pinned/latest search | Atomic failure, prior revision availability and model compatibility regression checks |
-| Deletion/visibility boundary | tombstones across prior snapshots; quarantine and safe re-publication | Controlled tests across search/source/history/relationships; hosted withdrawal drill pending |
-| Daily reconciliation | 03:17 UTC Actions, complete crawl every run, checkpoints | Full reconciliation daily also covers weekly requirement; incremental optimization pending |
-| Partial failures/freshness | ingestion reports, failure-gated CLI, health >36 hours | Controlled stale capture and health tests; independent healthcheck script supplied |
-| Safe parsing | archive streams never extracted/executed; escaped rendering; approved HTTP hosts | Source instructions remain data; PR test jobs receive no publication/source credentials |
-| Portable exports | JSONL, relationship JSON, Markdown, `llms.txt` | Permission-filtered text; embedding metadata recorded separately |
-| Source-derived evaluation/held-out questions | `scripts/live_validation.py`, controlled fixtures | No participant questions claimed; measured retrieval results and failures retained |
-| Independently deployable HTTPS | Docker/Compose/Caddy example, SQL, workflows/runbook | No production host/account/owner selected; loopback HTTP transport validated |
+| Requirement | Implementation / fresh evidence and limits |
+|---|---|
+| Standalone write destination; upstream read-only | This repository only. Anonymous source reads; destination connector identity kept separate. No upstream mutations. |
+| Stable IDs, revisions, provenance and permission boundary | `model.py`, immutable snapshots, rename reconciliation in `store.py`; controlled integration passes in CI; native validation now succeeds; see the continuation evidence. |
+| Initial four repositories and broader sources | `ingest.py`, 12 configured WeBuild repositories plus two EUDI repositories. Fresh file evidence across all 12; live REST capture accounts for all 14 configured repositories, with 13,270 total records including 30 ARF tagged editions. Missing GraphQL/wiki coverage blocks publication. |
+| Real embeddings and hybrid keyword/vector retrieval | Pinned CPU MiniLM, PostgreSQL FTS/pgvector. DB 16.15/extension 0.8.7 confirmed; actual model and controlled retrieval pass in CI; native real encoding now succeeds. No substitute vectors. |
+| Section citations and vector reuse | Line/page locators and context-aware cache; real-encoder cache regression passes in native Cloud and CI; section-context-v3 forces rebuild. |
+| Status, unresolved questions and exact versions | Conservative deterministic evidence in `model.py`/`extraction.py`; independent controlled checks pass. Merged is not accepted; closed is not answered. |
+| Authoritative external sources | `official.py`, `tags.py`, `catalogue.py`; configured OpenID fetch and link-only IETF/ETSI/EC metadata. Controlled adapters pass; 30 live ARF editions including Unicode JSON, PDFs and symlink metadata verified. One official body fetched; complete catalogue and clause impacts remain limited. |
+| Evidence relationships | Explicit references; stronger inferred relations remain candidates. No inferred compliance or consensus. |
+| Generated Pages wiki and search | `site.py`, groups/topics/sources, source-derived reading paths, permission-filtered exports. Controlled generation passes in CI; full-corpus Chrome/Chromium search passes; Pages configuration pending. |
+| REST and read-only remote HTTP MCP | `api.py` shares `Store`; fixed specification filter/pagination and history snapshot parity. Actual HTTP/HTTPS initialization, discovery and all-tool REST parity pass in CI; native HTTP/HTTPS checks now pass. |
+| No interaction features | Retrieval only, no chatbot/submissions/comments/messaging/collaboration; controlled runtime surface checks pass in CI. |
+| Credential separation | Ordinary DB reader/writer roles; direct SQL verifies reader restrictions. Credential-denial controls pass against real PostgreSQL in CI. |
+| Atomic snapshots, deletion and visibility | Transactions, promotion leases, revocations and quarantine. Controlled atomicity/deletion/visibility integration passes in CI; hosted withdrawal/rollback drills pending. |
+| Daily resumable ingestion | 03:17 UTC workflow, capture-scoped page journals; controlled resume/pagination checks pass. Daily issue update cursors with a one-hour overlap, daily PR contribution refresh and weekly full reconciliation; capture-generation-pinned baselines and failure-safe cursor advancement. Embedding reuse is incremental. |
+| Freshness and partial failures | Failure-gated promotion, per-source coverage and 36-hour health threshold. Independent monitor/recipient unconfigured. |
+| Safe untrusted-source processing | Hash-checked blobs, archives not extracted/executed, escaped text and allowlisted hosts. Controlled checks pass. |
+| Portable exports | JSONL/Markdown/relationships/llms.txt, permission filtering; fresh full wiki generation and browser search pass in CI. No private sources admitted. |
+| Independent evaluation | Original six expected locators recovered unchanged from block 34; unchanged additional held-out set. Fresh original 6/6 and additional 3/3 in top 10, separately reported; no participant-usefulness claim. |
+| Reproducible dependencies | Python 3.12, committed uv.lock; no historical requirements.lock or runtime shim. Source-evidence regeneration checks exact pinned content. |
 
-## Release gate
-
-Do not call Stage 1 publicly released merely because local checks pass. Complete
-historical issue/PR/comment/review ingestion with a read-only credential and inspect
-all coverage entries. Configure/deploy the new repository, database, HTTPS service,
-Pages, independent monitor, and recovery/withdrawal drills. Clause-level upstream
-impact navigation, ambiguous rename reconciliation, binary extraction, and measured
-production load remain explicit limitations rather than invented capabilities.
-
-## Official documentation checked for implementation choices
-
-- Official MCP Python SDK Streamable HTTP client/server and ASGI documentation:
-  https://py.sdk.modelcontextprotocol.io/client/transports/
-  https://github.com/modelcontextprotocol/python-sdk
-- pgvector PostgreSQL extension installation, cosine operator, indexes and grants:
-  https://github.com/pgvector/pgvector
-- Model repository and immutable revision:
-  https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/tree/1110a243fdf4706b3f48f1d95db1a4f5529b4d41
-
-Python dependencies resolved from their package releases in this cloud environment;
-`requirements.lock` records exact observed versions. PostgreSQL 16.15 and pgvector
-0.8.0 were exercised locally. Production Compose uses the matching pgvector 0.8.0
-PostgreSQL 16 image. MCP SDK 2.3.0 is pinned because its current public API and
-structured-output behavior were tested. The model is CPU-hosted, version-pinned,
-and requires no paid account or model API key.
+Real model/PostgreSQL/MCP/retrieval/browser checks pass in native Cloud and prior CI. Before release:
+complete live source coverage review and supply a dedicated read-only GraphQL identity. Hosting/Pages/TLS/monitoring/backups/load and hosted privacy recovery remain
+configuration and validation work. No production or paid resource authorization.
+VDX-infra was neither modified nor needed for this continuation.

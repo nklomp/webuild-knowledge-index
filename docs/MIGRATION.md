@@ -23,3 +23,47 @@ Generated files that were not fully present in recorded commands have not been i
 5. Update validation/runbook/requirement mapping and deliver a fresh source archive. Report exact live corpus coverage and remaining credentials, hosting, Pages, and monitoring setup.
 
 All existing repositories remain read-only. The new repository is the only source-write destination. Do not resume the Work task or create another Work conversation. No production deployment is part of this migration.
+
+## Native continuation audit — 15 October 2026
+
+The checkout began clean at imported commit `97898bb2a9f9bd3b7c22f972b9c5f483f220a5a6`.
+Recovery exceptions were inspected as source data, never executed:
+
+- Block 63: the missing historical requirements.lock is not recoverable. Its code
+  changes (rename reconciliation) are present; current execution uses committed
+  uv.lock. Do not invent the old dependency environment.
+- Block 74: historical evaluation/coverage artifacts are absent. The generated-site
+  ownership marker is implemented in site.py; fresh file evidence is separate.
+- Blocks 92/94: generated historical validation prose and archive cannot be trusted
+  as fresh evidence. Replaced by the current validation report and a new archive.
+- Block 119: both descriptive source-evidence fixture copies were regenerated from
+  authoritative public reads, pinned revisions, hashes and exact excerpts. The
+  regenerator records its limitations; ETSI reports remain attributed concerns.
+- The repaired SOURCE_READ_TOKEN lookup and JSON Pointer escaping both have fresh
+  controlled checks. No UID/runtime compatibility shim was restored.
+
+Original six evaluation questions and expected locators were recovered using
+literal AST data extraction from block 34, without executing the recorded program.
+`config/evaluation-original.json` is now the runner input; additional held-out
+questions remain unchanged. Historical file pins beyond the recorded architecture
+revision were unavailable, so fresh 12-repository pins are explicitly separate.
+
+The audit found REST/MCP history/filter parity, typed structured-output, section
+cache-context, shared-reference withdrawal provenance, authority filtering and
+repository/edition identity defects. Fixes and integration regressions are included.
+Fresh CI passed 96 tests plus full-corpus retrieval (original 6/6, additional 3/3),
+live HTTP MCP/REST parity and real Chrome wiki search. Final authority and identity
+regressions pass; provenance is tracked in VALIDATION.md. Native model/API network access remains blocked. This
+is separate from the historical 84-test report and is not a readiness claim.
+
+## Native continuation after network recovery
+
+The unrestricted native environment successfully downloaded the pinned model and
+passed 113 tests with real PostgreSQL/pgvector and HTTP/HTTPS MCP parity. This
+supersedes the earlier native 49-pass/47-setup-error report. Fresh fixture
+regeneration again verified unchanged pinned upstream content. Incremental issue
+polling, weekly reconciliation and verified numeric pagination aliases are now
+implemented and covered by regressions. See `VALIDATION.md` and
+`evidence/native-continuation-summary.json` for current native measurements and the
+separate live-corpus/credential boundaries. The archive remains a reconstructed
+source delivery, not a recovered byte-for-byte copy of the stopped Work executor.

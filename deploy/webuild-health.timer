@@ -1,0 +1,10 @@
+[Unit]
+Description=Check WeBuild retrieval independently of ingestion
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=15min
+Persistent=yes
+
+[Install]
+WantedBy=timers.target

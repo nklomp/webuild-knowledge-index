@@ -51,3 +51,73 @@ def test_history_pins_to_snapshot(stores,corpus):
     sid=writer.publish(corpus,{'coverage':[{'state':'complete'}]})
     assert len(reader.history('authzen',snapshot=old)['history'])==1
     assert len(reader.history('authzen',snapshot=sid)['history'])==2
+def test_withdrawal_sanitizes_shared_reference_provenance_in_old_snapshots(stores,corpus):
+    import copy,json
+    from gateway.catalogue import references
+    from gateway.model import digest
+    writer,reader,_=stores
+    records=copy.deepcopy(corpus)
+    official='https://openid.net/specs/openid-4-verifiable-presentations-1_0.html'
+    records[3]['text']+='\nReference '+official
+    records[3]['content_hash']=digest(records[3]['text'])
+    external=references(records,['openid.net'])
+    assert len(external)==1
+    before=writer.publish(records+external,{'coverage':[{'repository':'architecture','state':'complete'},{'repository':'semantics','state':'complete'}]})
+    after,_=writer.quarantine(['architecture'],{})
+    for snapshot in [before,after]:
+        public=reader.source(external[0]['id'],snapshot)['source']
+        assert {p['id'] for p in public['provenance']['referenced_by']}=={'ebwv'}
+        exported=next(r for r in writer.export_records(snapshot) if r['id']==external[0]['id'])
+        assert {p['id'] for p in exported['provenance']['referenced_by']}=={'ebwv'}
+        assert records[0]['url'] not in json.dumps(public)
+        assert records[0]['url'] not in json.dumps(exported)
+
+
+def test_related_specs_include_declared_eudi_and_ietf_authorities(stores,corpus):
+    import copy
+    writer,reader,_=stores
+    records=copy.deepcopy(corpus)
+    official='https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/sha/docs/arf.md'
+    draft='https://www.ietf.org/archive/id/draft-johansson-authzen-trust-01.txt'
+    unrelated='https://github.com/other-owner/eudi-doc-architecture-and-reference-framework/blob/sha/docs/arf.md'
+    discussion='https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/issues/1'
+    records[0]['text']+='\n'+'\n'.join([official,draft,unrelated,discussion])
+    records[0]['content_hash']=digest(records[0]['text'])
+    writer.publish(records,{'coverage':[]})
+    targets={r['target'] for r in reader.related('authzen',specs=True)['relations']}
+    assert official in targets and draft in targets
+    assert unrelated not in targets and discussion not in targets
+
+
+@pytest.mark.parametrize('change',['repository-replacement','new-tagged-edition'])
+def test_identity_does_not_merge_repositories_or_editions(stores,corpus,change):
+    import copy
+    writer,reader,_=stores
+    records=copy.deepcopy(corpus)
+    records[0]['repository_id']=1
+    if change=='new-tagged-edition':records[0]['edition_tag']='v1'
+    before=writer.publish(records,{'coverage':[]})
+    replacement=copy.deepcopy(records[0])
+    replacement.update(id='new-source',revision='new-source-revision',url='https://github.com/o/r/blob/new-revision/adr/authzen.md')
+    if change=='repository-replacement':
+        replacement['repository_id']=2
+        incoming=[replacement]+records[1:]
+    else:
+        replacement['edition_tag']='v2'
+        incoming=records+[replacement]
+    after=writer.publish(incoming,{'coverage':[]})
+    assert reader.source('new-source',after)['source']['id']=='new-source'
+    if change=='repository-replacement':
+        with pytest.raises(LookupError):reader.source('authzen',before)
+    else:
+        assert reader.source('authzen',after)['source']['edition_tag']=='v1'
+        assert reader.source('new-source',after)['source']['edition_tag']=='v2'
+def test_quarantine_can_prepare_without_advancing_publication(stores):
+    writer, reader, old = stores
+    prepared, safe = writer.quarantine(['architecture'], {}, promote=False)
+    assert prepared != old
+    assert reader.manifest()['snapshot'] == old
+    assert reader.manifest(prepared)['snapshot'] == prepared
+    assert not any(r['repository'] == 'architecture' for r in reader.export_records(old))
+    writer.promote(prepared)
+    assert reader.manifest()['snapshot'] == prepared

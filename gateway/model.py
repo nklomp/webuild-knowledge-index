@@ -34,10 +34,13 @@ def validate(records):
             if s['evidence'] not in r['text']:raise ValueError('Specification lacks source evidence')
 
 
+def section_context(record):
+    first=next((line.lstrip('# ').strip() for line in record['text'].splitlines() if line.startswith('#')),record['title'])
+    return record['title']+'\n'+first
+
 def sections(record,words=150):
     for piece in _sections(record,words):
-        first=next((line.lstrip('# ').strip() for line in record['text'].splitlines() if line.startswith('#')),record['title'])
-        piece['context']=record['title']+'\n'+first
+        piece['context']=section_context(record)
         yield piece
 
 def _sections(record,words=150):

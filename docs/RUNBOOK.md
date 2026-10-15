@@ -2,8 +2,8 @@
 
 ## Boundaries and credentials
 
-Create a NEW repository named `webuild-knowledge-index` under an explicitly chosen
-owner. Never copy project files into consortium source repositories or VDX-infra.
+The standalone repository is `nklomp/webuild-knowledge-index`. Never copy project
+files into consortium source repositories or VDX-infra.
 The ingestion adapter uses only public repositories selected in `config/sources.json`.
 Organization discovery records new repositories but does not auto-admit them.
 Review configuration in this project to admit additions.
@@ -37,15 +37,38 @@ attachments are link/metadata records, with binary extraction explicitly exclude
 `capture` writes project-owned per-repository checkpoints and a coverage manifest.
 `publish` refuses failed/partial captures and writes records, sections, relationships
 and publication pointer in one DB transaction. `generate` emits pages and exports
-for the exact resulting snapshot. Daily `run` combines these steps. Full crawling
-on EVERY run reconciles removed records and all contribution updates; it is more
-expensive than incremental overlap polling but avoids cursor gaps. Weekly runs
-therefore already perform full reconciliation. Embedding reuse is keyed by content and model revision; incremental network cache
-optimization is a later performance improvement, not a completeness shortcut.
+for the exact resulting snapshot. Daily `run` combines these steps.
+
+Daily polling uses the last successful repository capture's start time minus a
+one-hour overlap for all-state issue updates. Changed issue subtrees replace prior
+comments; all retained PRs and their comments/reviews/threads are rechecked daily
+because review resolution need not update a parent timestamp. Repository metadata,
+file trees, releases, discussions, wikis, tagged editions and official sources are
+reconciled on each capture. Unchanged issues retain their original retrieval times.
+Coverage freshness uses the latest successful polling start;
+`oldest_record_retrieved_at` and `last_full_reconciliation` expose the older evidence
+and deletion-reconciliation boundaries.
+Every seven days a complete issue crawl also reconciles removed issues and changes
+that did not update a parent timestamp. Force it sooner with
+`python -m gateway.cli capture --full-reconciliation` (also accepted by `run`).
+This forced mode persists across interrupted-capture retries.
+Publication may retain removed issue evidence until that full reconciliation;
+use the emergency withdrawal procedure for a known removal immediately.
+
+`config/sources.json` controls `incremental_polling.enabled`, `overlap_seconds`
+(60–86400) and `reconcile_days` (1–7). Baselines are bound to configuration,
+repository ID and reuse permissions. Interrupted captures pin their baseline in
+the checkpoint journal (seal it before storing it outside the worker). Only a
+successful repository capture advances the cursor. An older configuration or missing baseline triggers a full
+crawl. Preserve the complete sealed artifacts directory between scheduled runs;
+starting in an empty directory intentionally performs a full crawl. Partial
+GraphQL/wiki coverage still blocks publication. Embedding reuse remains keyed
+by content, section context and model revision.
 
 Inspect whether GitHub Discussions are enabled but lack credentials; those gaps
 must be resolved before claiming coverage. `not-present-or-unavailable` wiki results
-need operator confirmation if wiki coverage matters. Source document status is
+remain incomplete. Exact empty-wiki UI evidence or a canonical wiki redirect to a
+freshly verified public repository confirms an empty or unpublished source wiki. Source document status is
 extracted conservatively; absent explicit status is unknown, even for merged files.
 Confirm any reviewed annotation with an exact source revision and evidence spans.
 Do not interpret a closed issue as an answered question.
@@ -87,7 +110,7 @@ DB storage, and embedding compatibility. Publication >36 hours old is failure.
 
 ## Production checks still requiring infrastructure
 
-- Selected repository owner, hosting account, persistent DB and HTTPS domain.
+- Hosting account, persistent DB and HTTPS domain (repository owner is nklomp).
 - Distinct random reader/writer passwords, restricted network and DB TLS.
 - Source read-only token and complete historical capture evidence.
 - GitHub Pages publication and rollback exercised against the live backend.
@@ -111,3 +134,66 @@ version. It cannot set source status or replace versions. Store reviewed outputs
 as project-owned overrides; invalid spans or revision mismatches fail validation.
 The exercised release path uses deterministic extraction and source-derived
 reading paths; no generated normative synopsis is presented.
+
+## Native Cloud continuation commands and current blockers
+
+Use Python 3.12 and `uv sync --frozen --extra test`. Keep uv and Hugging Face caches
+in writable workspace directories when the home directory is read-only. This is
+cache configuration, not runtime emulation. Never install the old UID shim.
+
+The native environment now has unrestricted network access. Real model weights,
+GitHub REST and the configured official-source host were fetched successfully.
+Earlier proxy CONNECT failures are historical; do not bypass network policy.
+
+With workspace cache variables and the three independent DB connection variables
+configured by the operator, run:
+
+```sh
+uv lock --check
+uv run --frozen python -m scripts.regenerate_source_evidence
+uv run --frozen python -c "from gateway.embeddings import Embeddings; e=Embeddings(); print(e.metadata); print(len(e.encode(['WeBuild knowledge gateway'])[0]))"
+uv run --frozen --extra test pytest -q --junitxml=evidence/test-results.xml
+uv run --frozen python -m scripts.public_file_evidence --broader --pinned-manifest evidence/fresh-file-pins.json
+uv run --frozen python -m scripts.live_validation
+```
+
+Set `EMBEDDING_REVISION` from `.env.example`. Do not set offline mode for the model
+retry; it must genuinely generate a 384-dimensional vector. The previous blocked
+suite
+attempt used HF_HUB_OFFLINE=1 only after a recorded live download failure; it
+produced errors. The continuation now downloads weights and passes the native
+suite. Run browser validation with Playwright/Chromium and `BROWSER_CHECK=1`.
+This is local TCP validation, not hosted deployment evidence.
+
+The evaluation runner reads frozen original questions from
+`config/evaluation-original.json` and unchanged additional formulations from
+`config/evaluation-holdout.json`. It must retain missing expected-source results;
+do not alter expected locators to improve scores. Fusion selection uses original tuning questions constrained by the three known original regression cases; the semantic cutoff uses tuning distances only. Additional questions are loaded after selection.
+The newly added cache-context regression requires the real encoder.
+
+A dedicated read-only source token remains absent. Keep that identity separate
+from the connector used for writing the standalone repository. Anonymous pinned
+file downloads succeeded; full historical issues/PRs/comments/reviews/discussions
+are not complete. A configured writer identity must never be reused for source
+capture. Current new-repository owner is `nklomp`; the user has now requested hosting, Pages and monitoring setup. See
+`deploy/README.md` for configuration and the current account-access boundary.
+No paid provisioning is authorized; hosted release drills still need execution.
+
+The section-context-v3 index recipe forces a fresh snapshot and section-vector
+rebuild from v2. Keep prior snapshots for recovery; re-run tuning calibration.
+
+## Native live-capture boundary after continuation
+
+The fresh replay captured 13,270 records from 14 repositories, 30 ARF tagged
+editions, configured official records and derived references. See
+`evidence/native-live-coverage.json`. All adapter failures found during the crawl
+were repaired: numeric GitHub pagination aliases, tagged symbolic links, historical
+Unicode JSON and tagged PDF page citations. The updated full native suite passes 136 tests.
+Wiki availability is now independently verified against fresh public repository
+metadata and GitHub wiki routes: one empty wiki and five unpublished wikis, with
+proof in `evidence/wiki-availability.json`. Unknown/authentication/error pages still
+block coverage. Eleven repository entries still need a dedicated read-only
+GraphQL token for Discussions and review-thread resolution. Do not bypass the publication gate:
+a real preparation attempt refused this capture and retained the previous snapshot.
+Raw checkpoints/bodies remain local; seal checkpoints before external storage.
+The 463-file retrieval benchmark and its generated wiki are separate evidence.

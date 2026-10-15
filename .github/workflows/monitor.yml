@@ -1,0 +1,22 @@
+name: Public retrieval health
+on:
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  health:
+    # Activate once the real HTTPS endpoint is configured. Failures use normal
+    # repository Actions notifications; no source/database credentials are needed.
+    if: vars.PUBLIC_API_URL != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/healthcheck.py
+        env:
+          PUBLIC_API_URL: ${{ vars.PUBLIC_API_URL }}

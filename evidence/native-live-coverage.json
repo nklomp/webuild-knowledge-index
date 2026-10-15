@@ -1,0 +1,1138 @@
+{
+  "coverage": [
+    {
+      "repository": "webuild-consortium/wp4-architecture",
+      "repository_id": 1046389650,
+      "state": "partial",
+      "captured_at": "2026-10-15T12:27:50.125064+00:00",
+      "oldest_record_retrieved_at": "2026-10-15T12:27:51.358469+00:00",
+      "completed_at": "2026-10-15T13:46:59.552250+00:00",
+      "started_at": "2026-10-15T12:27:50.125064+00:00",
+      "commit": "2c234782170ae136db0aedb747c4b04da201b401",
+      "counts": {
+        "tree_entries": 114,
+        "binary_or_unsupported": 38,
+        "files": 68,
+        "issues": 170,
+        "pulls": 187,
+        "comments": 1066,
+        "reviews": 1089,
+        "review_comments": 908,
+        "releases": 0,
+        "attachments": 0,
+        "pdf": 0,
+        "wiki_pages": 0,
+        "review_threads": 0
+      },
+      "limitations": [
+        "review thread resolution requires a read-only GraphQL token",
+        "unavailable: read-only GraphQL token required"
+      ],
+      "wiki_availability": {
+        "state": "empty-at-source",
+        "method": "github-empty-wiki-blankslate",
+        "repository_id": 1046389650,
+        "url": "https://github.com/webuild-consortium/wp4-architecture/wiki",
+        "http_status": 200,
+        "location": null,
+        "response_sha256": "b88f8352191ee7acde472df0431374b41a9e5cc003ada10ade1fc4786fc3b8fc",
+        "checked_at": "2026-10-15T13:46:59.541316+00:00"
+      },
+      "poll_mode": "full-reconciliation",
+      "poll_since": null,
+      "poll_cursor": "2026-10-15T12:27:50.125064+00:00",
+      "updated_issues_fetched": 357,
+      "last_full_reconciliation": "2026-10-15T12:27:50.125064+00:00",
+      "removal_reconciliation": "Changed issue subtrees daily; removed issues at full reconciliation (at most 7 days)",
+      "types": {
+        "files": "all tree entries: text/PDF extraction or explicit link-only metadata",
+        "issues": "all states, paginated",
+        "pulls": "all states and merge lifecycle",
+        "comments": "paginated",
+        "reviews": "paginated",
+        "review_comments": "paginated including replies",
+        "review_threads": "resolution unavailable",
+        "releases": "paginated",
+        "discussions": "unavailable: read-only GraphQL token required",
+        "wiki": "empty-at-source",
+        "attachments": "paginated metadata; attachment bodies not fetched"
+      },
+      "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
+      "reuse_permissions": "full-text",
+      "transport": {
+        "network_reads": 2,
+        "resumed_reads": 926,
+        "retries": 0
+      },
+      "checkpoint": {
+        "requests_completed": 927,
+        "records_checkpointed": 3526,
+        "resume_database": "webuild-consortium__wp4-architecture.sqlite"
+      }
+    },
+    {
+      "repository": "webuild-consortium/wp4-trust-group",
+      "repository_id": 1057202443,
+      "state": "partial",
+      "captured_at": "2026-10-15T12:29:48.072795+00:00",
+      "oldest_record_retrieved_at": "2026-10-15T12:29:49.342985+00:00",
+      "completed_at": "2026-10-15T13:47:12.455134+00:00",
+      "started_at": "2026-10-15T12:29:48.072795+00:00",
+      "commit": "040e97f363db1645e1379444b08d440bc2cf5db1",
+      "counts": {
+        "tree_entries": 253,
+        "binary_or_unsupported": 101,
+        "files": 109,
+        "issues": 63,
+        "pulls": 81,
+        "comments": 191,
+        "reviews": 543,
+        "review_comments": 753,
+        "releases": 6,
+        "attachments": 0,
+        "pdf": 7,
+        "wiki_pages": 0,
+        "review_threads": 0
+      },
+      "limitations": [
+        "review thread resolution requires a read-only GraphQL token"
+      ],
+      "wiki_availability": {
+        "state": "not-published-at-source",
+        "method": "github-wiki-route-redirects-to-public-repository",
+        "repository_id": 1057202443,
+        "url": "https://github.com/webuild-consortium/wp4-trust-group/wiki",
+        "http_status": 302,
+        "location": "https://github.com/webuild-consortium/wp4-trust-group",
+        "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "checked_at": "2026-10-15T13:47:12.448342+00:00"
+      },
+      "poll_mode": "full-reconciliation",
+      "poll_since": null,
+      "poll_cursor": "2026-10-15T12:29:48.072795+00:00",
+      "updated_issues_fetched": 144,
+      "last_full_reconciliation": "2026-10-15T12:29:48.072795+00:00",
+      "removal_reconciliation": "Changed issue subtrees daily; removed issues at full reconciliation (at most 7 days)",
+      "types": {
+        "files": "all tree entries: text/PDF extraction or explicit link-only metadata",
+        "issues": "all states, paginated",
+        "pulls": "all states and merge lifecycle",
+        "comments": "paginated",
+        "reviews": "paginated",
+        "review_comments": "paginated including replies",
+        "review_threads": "resolution unavailable",
+        "releases": "paginated",
+        "discussions": "disabled at source",
+        "wiki": "not-published-at-source",
+        "attachments": "paginated metadata; attachment bodies not fetched"
+      },
+      "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
+      "reuse_permissions": "metadata-only",
+      "transport": {
+        "network_reads": 2,
+        "resumed_reads": 400,
+        "retries": 0
+      },
+      "checkpoint": {
+        "requests_completed": 401,
+        "records_checkpointed": 1847,
+        "resume_database": "webuild-consortium__wp4-trust-group.sqlite"
+      }
+    },
+    {
+      "repository": "webuild-consortium/wp4-semantics-group",
+      "repository_id": 1079827628,
+      "state": "partial",
+      "captured_at": "2026-10-15T12:30:20.876211+00:00",
+      "oldest_record_retrieved_at": "2026-10-15T12:30:22.625725+00:00",
+      "completed_at": "2026-10-15T13:47:15.892896+00:00",
+      "started_at": "2026-10-15T12:30:20.876211+00:00",
+      "commit": "a2306846c73de3272321bd82e3d83b3051f45f17",
+      "counts": {
+        "tree_entries": 79,
+        "binary_or_unsupported": 28,
+        "files": 30,
+        "issues": 39,
+        "pulls": 26,
+        "comments": 16,
+        "reviews": 7,
+        "review_comments": 14,
+        "releases": 0,
+        "attachments": 0,
+        "pdf": 0,
+        "wiki_pages": 0,
+        "review_threads": 0
+      },
+      "limitations": [
+        "review thread resolution requires a read-only GraphQL token"
+      ],
+      "wiki_availability": {
+        "state": "not-published-at-source",
+        "method": "github-wiki-route-redirects-to-public-repository",
+        "repository_id": 1079827628,
+        "url": "https://github.com/webuild-consortium/wp4-semantics-group/wiki",
+        "http_status": 302,
+        "location": "https://github.com/webuild-consortium/wp4-semantics-group",
+        "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "checked_at": "2026-10-15T13:47:15.887026+00:00"
+      },
+      "poll_mode": "full-reconciliation",
+      "poll_since": null,
+      "poll_cursor": "2026-10-15T12:30:20.876211+00:00",
+      "updated_issues_fetched": 65,
+      "last_full_reconciliation": "2026-10-15T12:30:20.876211+00:00",
+      "removal_reconciliation": "Changed issue subtrees daily; removed issues at full reconciliation (at most 7 days)",
+      "types": {
+        "files": "all tree entries: text/PDF extraction or explicit link-only metadata",
+        "issues": "all states, paginated",
+        "pulls": "all states and merge lifecycle",
+        "comments": "paginated",
+        "reviews": "paginated",
+        "review_comments": "paginated including replies",
+        "review_threads": "resolution unavailable",
+        "releases": "paginated",
+        "discussions": "disabled at source",
+        "wiki": "not-published-at-source",
+        "attachments": "paginated metadata; attachment bodies not fetched"
+      },
+      "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
+      "reuse_permissions": "metadata-only",
+      "transport": {
+        "network_reads": 2,
+        "resumed_reads": 148,
+        "retries": 0
+      },
+      "checkpoint": {
+        "requests_completed": 149,
+        "records_checkpointed": 160,
+        "resume_database": "webuild-consortium__wp4-semantics-group.sqlite"
+      }
+    },
+    {
+      "repository": "webuild-consortium/webuild-attestation-rulebooks-catalog",
+      "repository_id": 1078127868,
+      "state": "partial",
+      "captured_at": "2026-10-15T12:31:16.964884+00:00",
+      "oldest_record_retrieved_at": "2026-10-15T12:31:18.100214+00:00",
+      "completed_at": "2026-10-15T13:47:20.133620+00:00",
+      "started_at": "2026-10-15T12:31:16.964884+00:00",
+      "commit": "42542d20d0a0159d50842a5e95b00605214f0ac6",
+      "counts": {
+        "tree_entries": 186,
+        "binary_or_unsupported": 4,
+        "files": 124,
+        "issues": 68,
+        "pulls": 193,
+        "comments": 200,
+        "reviews": 381,
+        "review_comments": 239,
+        "releases": 0,
+        "attachments": 0,
+        "pdf": 0,
+        "review_threads": 0
+      },
+      "limitations": [
+        "review thread resolution requires a read-only GraphQL token"
+      ],
+      "wiki_availability": null,
+      "poll_mode": "full-reconciliation",
+      "poll_since": null,
+      "poll_cursor": "2026-10-15T12:31:16.964884+00:00",
+      "updated_issues_fetched": 261,
+      "last_full_reconciliation": "2026-10-15T12:31:16.964884+00:00",
+      "removal_reconciliation": "Changed issue subtrees daily; removed issues at full reconciliation (at most 7 days)",
+      "types": {
+        "files": "all tree entries: text/PDF extraction or explicit link-only metadata",
+        "issues": "all states, paginated",
+        "pulls": "all states and merge lifecycle",
+        "comments": "paginated",
+        "reviews": "paginated",
+        "review_comments": "paginated including replies",
+        "review_threads": "resolution unavailable",
+        "releases": "paginated",
+        "discussions": "disabled at source",
+        "wiki": "disabled at source",
+        "attachments": "paginated metadata; attachment bodies not fetched"
+      },
+      "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
+      "reuse_permissions": "full-text",
+      "transport": {
+        "network_reads": 1,
+        "resumed_reads": 847,
+        "retries": 0
+      },
+      "checkpoint": {
+        "requests_completed": 848,
+        "records_checkpointed": 1209,
+        "resume_database": "webuild-consortium__webuild-attestation-rulebooks-catalog.sqlite"
+      }
+    },
+    {
+      "repository": "webuild-consortium/wp4-qtsp-group",
+      "repository_id": 1050448800,
+      "state": "partial",
+      "captured_at": "2026-10-15T12:44:23.196532+00:00",
+      "oldest_record_retrieved_at": "2026-10-15T12:44:24.484890+00:00",
+      "completed_at": "2026-10-15T13:47:21.286376+00:00",
+      "started_at": "2026-10-15T12:44:23.196532+00:00",
+      "commit": "189936a5764e9a5edeaeebc8570cdc16332486b2",
+      "counts": {
+        "tree_entries": 45,
+        "binary_or_unsupported": 7,
+        "files": 25,
+        "issues": 2,
+        "pulls": 34,
+        "comments": 29,
+        "reviews": 62,
+        "review_comments": 90,
+        "releases": 0,
+        "attachments": 0,
+        "pdf": 0,
+        "review_threads": 0
+      },
+      "limitations": [
+        "review thread resolution requires a read-only GraphQL token"
+      ],
+      "wiki_availability": null,
+      "poll_mode": "full-reconciliation",
+      "poll_since": null,
+      "poll_cursor": "2026-10-15T12:44:23.196532+00:00",
+      "updated_issues_fetched": 36,
+      "last_full_reconciliation": "2026-10-15T12:44:23.196532+00:00",
+      "removal_reconciliation": "Changed issue subtrees daily; removed issues at full reconciliation (at most 7 days)",
+      "types": {
+        "files": "all tree entries: text/PDF extraction or explicit link-only metadata",
+        "issues": "all states, paginated",
+        "pulls": "all states and merge lifecycle",
+        "comments": "paginated",
+        "reviews": "paginated",
+        "review_comments": "paginated including replies",
+        "review_threads": "resolution unavailable",
+        "releases": "paginated",
+        "discussions": "disabled at source",
+        "wiki": "disabled at source",
+        "attachments": "paginated metadata; attachment bodies not fetched"
+      },
+      "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
+      "reuse_permissions": "full-text",
+      "transport": {
+        "network_reads": 1,
+        "resumed_reads": 143,
+        "retries": 0
+      },
+      "checkpoint": {
+        "requests_completed": 144,
+        "records_checkpointed": 249,
+        "resume_database": "webuild-consortium__wp4-qtsp-group.sqlite"
+      }
+    },
+    {
+      "repository": "webuild-consortium/wp4-wallets-group",
+      "repository_id": 1054396572,
+      "state": "partial",
+      "captured_at": "2026-10-15T12:45:29.657534+00:00",
+      "oldest_record_retrieved_at": "2026-10-15T12:45:30.694115+00:00",
+      "completed_at": "2026-10-15T13:47:22.969075+00:00",
+      "started_at": "2026-10-15T12:45:29.657534+00:00",
+      "commit": "c3ddd5d81e7be6570a84c1f7769b2d1052a5a33b",
+      "counts": {
+        "tree_entries": 65,
+        "binary_or_unsupported": 28,
+        "files": 16,
+        "issues": 3,
+        "pulls": 13,
+        "comments": 8,
+        "reviews": 6,
+        "review_comments": 0,
+        "releases": 0,
+        "attachments": 0,
+        "pdf": 0,
+        "wiki_pages": 0,
+        "review_threads": 0
+      },
+      "limitations": [
+        "review thread resolution requires a read-only GraphQL token"
+      ],
+      "wiki_availability": {
+        "state": "not-published-at-source",
+        "method": "github-wiki-route-redirects-to-public-repository",
+        "repository_id": 1054396572,
+        "url": "https://github.com/webuild-consortium/wp4-wallets-group/wiki",
+        "http_status": 302,
+        "location": "https://github.com/webuild-consortium/wp4-wallets-group",
+        "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "checked_at": "2026-10-15T13:47:22.958486+00:00"
+      },
+      "poll_mode": "full-reconciliation",
+      "poll_since": null,
+      "poll_cursor": "2026-10-15T12:45:29.657534+00:00",
+      "updated_issues_fetched": 16,
+      "last_full_reconciliation": "2026-10-15T12:45:29.657534+00:00",
+      "removal_reconciliation": "Changed issue subtrees daily; removed issues at full reconciliation (at most 7 days)",
+      "types": {
+        "files": "all tree entries: text/PDF extraction or explicit link-only metadata",
+        "issues": "all states, paginated",
+        "pulls": "all states and merge lifecycle",
+        "comments": "paginated",
+        "reviews": "paginated",
+        "review_comments": "paginated including replies",
+        "review_threads": "resolution unavailable",
+        "releases": "paginated",
+        "discussions": "disabled at source",
+        "wiki": "not-published-at-source",
+        "attachments": "paginated metadata; attachment bodies not fetched"
+      },
+      "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
+      "reuse_permissions": "metadata-only",
+      "transport": {
+        "network_reads": 2,
+        "resumed_reads": 60,
+        "retries": 0
+      },
+      "checkpoint": {
+        "requests_completed": 61,
+        "records_checkpointed": 74,
+        "resume_database": "webuild-consortium__wp4-wallets-group.sqlite"
+      }
+    },
+    {
+      "repository": "webuild-consortium/wp4-pid-ebwoid-group",
+      "repository_id": 1347099866,
+      "state": "complete-for-supported-types",
+      "captured_at": "2026-10-15T12:45:54.940334+00:00",
+      "oldest_record_retrieved_at": "2026-10-15T12:45:56.048343+00:00",
+      "completed_at": "2026-10-15T13:47:24.259639+00:00",
+      "started_at": "2026-10-15T12:45:54.940334+00:00",
+      "commit": "f45f9564cfd800086a922819ff60e57424b24541",
+      "counts": {
+        "tree_entries": 3,
+        "binary_or_unsupported": 0,
+        "files": 3,
+        "issues": 2,
+        "pulls": 0,
+        "comments": 8,
+        "reviews": 0,
+        "review_comments": 0,
+        "releases": 0,
+        "attachments": 0,
+        "pdf": 0,
+        "wiki_pages": 0,
+        "review_threads": 0
+      },
+      "limitations": [],
+      "wiki_availability": {
+        "state": "not-published-at-source",
+        "method": "github-wiki-route-redirects-to-public-repository",
+        "repository_id": 1347099866,
+        "url": "https://github.com/webuild-consortium/wp4-pid-ebwoid-group/wiki",
+        "http_status": 302,
+        "location": "https://github.com/webuild-consortium/wp4-pid-ebwoid-group",
+        "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "checked_at": "2026-10-15T13:47:24.253624+00:00"
+      },
+      "poll_mode": "full-reconciliation",
+      "poll_since": null,
+      "poll_cursor": "2026-10-15T12:45:54.940334+00:00",
+      "updated_issues_fetched": 2,
+      "last_full_reconciliation": "2026-10-15T12:45:54.940334+00:00",
+      "removal_reconciliation": "Changed issue subtrees daily; removed issues at full reconciliation (at most 7 days)",
+      "types": {
+        "files": "all tree entries: text/PDF extraction or explicit link-only metadata",
+        "issues": "all states, paginated",
+        "pulls": "all states and merge lifecycle",
+        "comments": "paginated",
+        "reviews": "paginated",
+        "review_comments": "paginated including replies",
+        "review_threads": "resolution unavailable",
+        "releases": "paginated",
+        "discussions": "disabled at source",
+        "wiki": "not-published-at-source",
+        "attachments": "paginated metadata; attachment bodies not fetched"
+      },
+      "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
+      "reuse_permissions": "metadata-only",
+      "transport": {
+        "network_reads": 2,
+        "resumed_reads": 7,
+        "retries": 0
+      },
+      "checkpoint": {
+        "requests_completed": 8,
+        "records_checkpointed": 13,
+        "resume_database": "webuild-consortium__wp4-pid-ebwoid-group.sqlite"
+      }
+    },
+    {
+      "repository": "webuild-consortium/wp4-interop-test-bed",
+      "repository_id": 1055663482,
+      "state": "partial",
+      "captured_at": "2026-10-15T12:45:58.252571+00:00",
+      "oldest_record_retrieved_at": "2026-10-15T12:45:59.333705+00:00",
+      "completed_at": "2026-10-15T13:47:26.279846+00:00",
+      "started_at": "2026-10-15T12:45:58.252571+00:00",
+      "commit": "3233e1df3b5cd7781af65ac58709b680cfca6273",
+      "counts": {
+        "tree_entries": 65,
+        "binary_or_unsupported": 6,
+        "files": 47,
+        "issues": 47,
+        "pulls": 8,
+        "comments": 131,
+        "reviews": 1,
+        "review_comments": 0,
+        "releases": 0,
+        "attachments": 0,
+        "pdf": 0,
+        "wiki_pages": 0,
+        "review_threads": 0
+      },
+      "limitations": [
+        "review thread resolution requires a read-only GraphQL token"
+      ],
+      "wiki_availability": {
+        "state": "not-published-at-source",
+        "method": "github-wiki-route-redirects-to-public-repository",
+        "repository_id": 1055663482,
+        "url": "https://github.com/webuild-consortium/wp4-interop-test-bed/wiki",
+        "http_status": 302,
+        "location": "https://github.com/webuild-consortium/wp4-interop-test-bed",
+        "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "checked_at": "2026-10-15T13:47:26.271046+00:00"
+      },
+      "poll_mode": "full-reconciliation",
+      "poll_since": null,
+      "poll_cursor": "2026-10-15T12:45:58.252571+00:00",
+      "updated_issues_fetched": 55,
+      "last_full_reconciliation": "2026-10-15T12:45:58.252571+00:00",
+      "removal_reconciliation": "Changed issue subtrees daily; removed issues at full reconciliation (at most 7 days)",
+      "types": {
+        "files": "all tree entries: text/PDF extraction or explicit link-only metadata",
+        "issues": "all states, paginated",
+        "pulls": "all states and merge lifecycle",
+        "comments": "paginated",
+        "reviews": "paginated",
+        "review_comments": "paginated including replies",
+        "review_threads": "resolution unavailable",
+        "releases": "paginated",
+        "discussions": "disabled at source",
+        "wiki": "not-published-at-source",
+        "attachments": "paginated metadata; attachment bodies not fetched"
+      },
+      "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
+      "reuse_permissions": "full-text",
+      "transport": {
+        "network_reads": 2,
+        "resumed_reads": 84,
+        "retries": 0
+      },
+      "checkpoint": {
+        "requests_completed": 85,
+        "records_checkpointed": 240,
+        "resume_database": "webuild-consortium__wp4-interop-test-bed.sqlite"
+      }
+    },
+    {
+      "repository": "webuild-consortium/SC5",
+      "repository_id": 1162966518,
+      "state": "partial",
+      "captured_at": "2026-10-15T12:46:33.355187+00:00",
+      "oldest_record_retrieved_at": "2026-10-15T12:46:35.298354+00:00",
+      "completed_at": "2026-10-15T13:47:26.831062+00:00",
+      "started_at": "2026-10-15T12:46:33.355187+00:00",
+      "commit": "e8204fcb01aa8fbf6f623e555b0786846b22ecef",
+      "counts": {
+        "tree_entries": 19,
+        "binary_or_unsupported": 2,
+        "files": 13,
+        "issues": 4,
+        "pulls": 1,
+        "comments": 5,
+        "reviews": 0,
+        "review_comments": 0,
+        "releases": 0,
+        "attachments": 0,
+        "pdf": 0,
+        "review_threads": 0
+      },
+      "limitations": [
+        "review thread resolution requires a read-only GraphQL token"
+      ],
+      "wiki_availability": null,
+      "poll_mode": "full-reconciliation",
+      "poll_since": null,
+      "poll_cursor": "2026-10-15T12:46:33.355187+00:00",
+      "updated_issues_fetched": 5,
+      "last_full_reconciliation": "2026-10-15T12:46:33.355187+00:00",
+      "removal_reconciliation": "Changed issue subtrees daily; removed issues at full reconciliation (at most 7 days)",
+      "types": {
+        "files": "all tree entries: text/PDF extraction or explicit link-only metadata",
+        "issues": "all states, paginated",
+        "pulls": "all states and merge lifecycle",
+        "comments": "paginated",
+        "reviews": "paginated",
+        "review_comments": "paginated including replies",
+        "review_threads": "resolution unavailable",
+        "releases": "paginated",
+        "discussions": "disabled at source",
+        "wiki": "disabled at source",
+        "attachments": "paginated metadata; attachment bodies not fetched"
+      },
+      "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
+      "reuse_permissions": "metadata-only",
+      "transport": {
+        "network_reads": 1,
+        "resumed_reads": 13,
+        "retries": 0
+      },
+      "checkpoint": {
+        "requests_completed": 14,
+        "records_checkpointed": 25,
+        "resume_database": "webuild-consortium__SC5.sqlite"
+      }
+    },
+    {
+      "repository": "webuild-consortium/BU3",
+      "repository_id": 1162966323,
+      "state": "partial",
+      "captured_at": "2026-10-15T12:46:40.677205+00:00",
+      "oldest_record_retrieved_at": "2026-10-15T12:46:42.041116+00:00",
+      "completed_at": "2026-10-15T13:47:27.446977+00:00",
+      "started_at": "2026-10-15T12:46:40.677205+00:00",
+      "commit": "5465be86619fad474da22c98f3770aad359b5653",
+      "counts": {
+        "tree_entries": 7,
+        "binary_or_unsupported": 1,
+        "files": 5,
+        "issues": 25,
+        "pulls": 2,
+        "comments": 4,
+        "reviews": 0,
+        "review_comments": 0,
+        "releases": 0,
+        "attachments": 0,
+        "pdf": 0,
+        "review_threads": 0
+      },
+      "limitations": [
+        "review thread resolution requires a read-only GraphQL token"
+      ],
+      "wiki_availability": null,
+      "poll_mode": "full-reconciliation",
+      "poll_since": null,
+      "poll_cursor": "2026-10-15T12:46:40.677205+00:00",
+      "updated_issues_fetched": 27,
+      "last_full_reconciliation": "2026-10-15T12:46:40.677205+00:00",
+      "removal_reconciliation": "Changed issue subtrees daily; removed issues at full reconciliation (at most 7 days)",
+      "types": {
+        "files": "all tree entries: text/PDF extraction or explicit link-only metadata",
+        "issues": "all states, paginated",
+        "pulls": "all states and merge lifecycle",
+        "comments": "paginated",
+        "reviews": "paginated",
+        "review_comments": "paginated including replies",
+        "review_threads": "resolution unavailable",
+        "releases": "paginated",
+        "discussions": "disabled at source",
+        "wiki": "disabled at source",
+        "attachments": "paginated metadata; attachment bodies not fetched"
+      },
+      "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
+      "reuse_permissions": "metadata-only",
+      "transport": {
+        "network_reads": 1,
+        "resumed_reads": 38,
+        "retries": 0
+      },
+      "checkpoint": {
+        "requests_completed": 39,
+        "records_checkpointed": 37,
+        "resume_database": "webuild-consortium__BU3.sqlite"
+      }
+    },
+    {
+      "repository": "webuild-consortium/webuild-github-policies",
+      "repository_id": 1090916036,
+      "state": "complete-for-supported-types",
+      "captured_at": "2026-10-15T12:46:53.678686+00:00",
+      "oldest_record_retrieved_at": "2026-10-15T12:47:00.793485+00:00",
+      "completed_at": "2026-10-15T13:47:29.921230+00:00",
+      "started_at": "2026-10-15T12:46:53.678686+00:00",
+      "commit": "3a79faad49266261831c7ac549f95c93e4d9999b",
+      "counts": {
+        "tree_entries": 55,
+        "binary_or_unsupported": 14,
+        "files": 32,
+        "issues": 0,
+        "pulls": 0,
+        "comments": 0,
+        "reviews": 0,
+        "review_comments": 0,
+        "releases": 2,
+        "attachments": 2,
+        "pdf": 0,
+        "review_threads": 0
+      },
+      "limitations": [],
+      "wiki_availability": null,
+      "poll_mode": "full-reconciliation",
+      "poll_since": null,
+      "poll_cursor": "2026-10-15T12:46:53.678686+00:00",
+      "updated_issues_fetched": 0,
+      "last_full_reconciliation": "2026-10-15T12:46:53.678686+00:00",
+      "removal_reconciliation": "Changed issue subtrees daily; removed issues at full reconciliation (at most 7 days)",
+      "types": {
+        "files": "all tree entries: text/PDF extraction or explicit link-only metadata",
+        "issues": "all states, paginated",
+        "pulls": "all states and merge lifecycle",
+        "comments": "paginated",
+        "reviews": "paginated",
+        "review_comments": "paginated including replies",
+        "review_threads": "resolution unavailable",
+        "releases": "paginated",
+        "discussions": "disabled at source",
+        "wiki": "disabled at source",
+        "attachments": "paginated metadata; attachment bodies not fetched"
+      },
+      "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
+      "reuse_permissions": "metadata-only",
+      "transport": {
+        "network_reads": 1,
+        "resumed_reads": 7,
+        "retries": 0
+      },
+      "checkpoint": {
+        "requests_completed": 8,
+        "records_checkpointed": 50,
+        "resume_database": "webuild-consortium__webuild-github-policies.sqlite"
+      }
+    },
+    {
+      "repository": "webuild-consortium/.github",
+      "repository_id": 1046342156,
+      "state": "complete-for-supported-types",
+      "captured_at": "2026-10-15T12:47:04.634544+00:00",
+      "oldest_record_retrieved_at": "2026-10-15T12:47:05.569281+00:00",
+      "completed_at": "2026-10-15T13:47:30.267988+00:00",
+      "started_at": "2026-10-15T12:47:04.634544+00:00",
+      "commit": "ad241655aca61cf1a7339139aaf9264fb9802b28",
+      "counts": {
+        "tree_entries": 3,
+        "binary_or_unsupported": 1,
+        "files": 1,
+        "issues": 0,
+        "pulls": 0,
+        "comments": 0,
+        "reviews": 0,
+        "review_comments": 0,
+        "releases": 0,
+        "attachments": 0,
+        "pdf": 0,
+        "review_threads": 0
+      },
+      "limitations": [],
+      "wiki_availability": null,
+      "poll_mode": "full-reconciliation",
+      "poll_since": null,
+      "poll_cursor": "2026-10-15T12:47:04.634544+00:00",
+      "updated_issues_fetched": 0,
+      "last_full_reconciliation": "2026-10-15T12:47:04.634544+00:00",
+      "removal_reconciliation": "Changed issue subtrees daily; removed issues at full reconciliation (at most 7 days)",
+      "types": {
+        "files": "all tree entries: text/PDF extraction or explicit link-only metadata",
+        "issues": "all states, paginated",
+        "pulls": "all states and merge lifecycle",
+        "comments": "paginated",
+        "reviews": "paginated",
+        "review_comments": "paginated including replies",
+        "review_threads": "resolution unavailable",
+        "releases": "paginated",
+        "discussions": "disabled at source",
+        "wiki": "disabled at source",
+        "attachments": "paginated metadata; attachment bodies not fetched"
+      },
+      "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
+      "reuse_permissions": "full-text",
+      "transport": {
+        "network_reads": 1,
+        "resumed_reads": 5,
+        "retries": 0
+      },
+      "checkpoint": {
+        "requests_completed": 6,
+        "records_checkpointed": 2,
+        "resume_database": "webuild-consortium__.github.sqlite"
+      }
+    },
+    {
+      "repository": "eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework",
+      "repository_id": 594075873,
+      "state": "partial",
+      "captured_at": "2026-10-15T12:47:06.785868+00:00",
+      "oldest_record_retrieved_at": "2026-10-15T12:47:08.437656+00:00",
+      "completed_at": "2026-10-15T13:47:44.096770+00:00",
+      "started_at": "2026-10-15T12:47:06.785868+00:00",
+      "commit": "f5789a77dfc6d5a85834c431465afbe543d0141a",
+      "counts": {
+        "tree_entries": 241,
+        "binary_or_unsupported": 90,
+        "files": 118,
+        "issues": 347,
+        "pulls": 339,
+        "comments": 929,
+        "reviews": 583,
+        "review_comments": 245,
+        "releases": 30,
+        "attachments": 300,
+        "pdf": 13,
+        "wiki_pages": 2,
+        "review_threads": 0
+      },
+      "limitations": [
+        "review thread resolution requires a read-only GraphQL token",
+        "unavailable: read-only GraphQL token required"
+      ],
+      "wiki_availability": null,
+      "poll_mode": "full-reconciliation",
+      "poll_since": null,
+      "poll_cursor": "2026-10-15T12:47:06.785868+00:00",
+      "updated_issues_fetched": 686,
+      "last_full_reconciliation": "2026-10-15T12:47:06.785868+00:00",
+      "removal_reconciliation": "Changed issue subtrees daily; removed issues at full reconciliation (at most 7 days)",
+      "types": {
+        "files": "all tree entries: text/PDF extraction or explicit link-only metadata",
+        "issues": "all states, paginated",
+        "pulls": "all states and merge lifecycle",
+        "comments": "paginated",
+        "reviews": "paginated",
+        "review_comments": "paginated including replies",
+        "review_threads": "resolution unavailable",
+        "releases": "paginated",
+        "discussions": "unavailable: read-only GraphQL token required",
+        "wiki": "complete-supported-text",
+        "attachments": "paginated metadata; attachment bodies not fetched"
+      },
+      "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
+      "reuse_permissions": "metadata-only",
+      "transport": {
+        "network_reads": 1,
+        "resumed_reads": 1744,
+        "retries": 0
+      },
+      "checkpoint": {
+        "requests_completed": 1745,
+        "records_checkpointed": 2983,
+        "resume_database": "eu-digital-identity-wallet__eudi-doc-architecture-and-reference-framework.sqlite"
+      }
+    },
+    {
+      "repository": "eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications",
+      "repository_id": 859150481,
+      "state": "partial",
+      "captured_at": "2026-10-15T12:59:31.835564+00:00",
+      "oldest_record_retrieved_at": "2026-10-15T12:59:33.025955+00:00",
+      "completed_at": "2026-10-15T13:47:47.374238+00:00",
+      "started_at": "2026-10-15T12:59:31.835564+00:00",
+      "commit": "ee91a294c833af5188726fd8c302c641212192aa",
+      "counts": {
+        "tree_entries": 67,
+        "binary_or_unsupported": 24,
+        "files": 37,
+        "issues": 403,
+        "pulls": 84,
+        "comments": 106,
+        "reviews": 14,
+        "review_comments": 10,
+        "releases": 0,
+        "attachments": 0,
+        "pdf": 0,
+        "review_threads": 0
+      },
+      "limitations": [
+        "review thread resolution requires a read-only GraphQL token",
+        "unavailable: read-only GraphQL token required"
+      ],
+      "wiki_availability": null,
+      "poll_mode": "full-reconciliation",
+      "poll_since": null,
+      "poll_cursor": "2026-10-15T12:59:31.835564+00:00",
+      "updated_issues_fetched": 487,
+      "last_full_reconciliation": "2026-10-15T12:59:31.835564+00:00",
+      "removal_reconciliation": "Changed issue subtrees daily; removed issues at full reconciliation (at most 7 days)",
+      "types": {
+        "files": "all tree entries: text/PDF extraction or explicit link-only metadata",
+        "issues": "all states, paginated",
+        "pulls": "all states and merge lifecycle",
+        "comments": "paginated",
+        "reviews": "paginated",
+        "review_comments": "paginated including replies",
+        "review_threads": "resolution unavailable",
+        "releases": "paginated",
+        "discussions": "unavailable: read-only GraphQL token required",
+        "wiki": "disabled at source",
+        "attachments": "paginated metadata; attachment bodies not fetched"
+      },
+      "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
+      "reuse_permissions": "metadata-only",
+      "transport": {
+        "network_reads": 1,
+        "resumed_reads": 748,
+        "retries": 0
+      },
+      "checkpoint": {
+        "requests_completed": 749,
+        "records_checkpointed": 678,
+        "resume_database": "eu-digital-identity-wallet__eudi-doc-standards-and-technical-specifications.sqlite"
+      }
+    },
+    {
+      "source": "tagged-editions:eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework",
+      "state": "complete-for-supported-types",
+      "captured_at": "2026-10-15T13:49:35.646399+00:00",
+      "editions": [
+        {
+          "tag": "v3.0.0",
+          "commit": "c64f2cbb19aee37c571c58af66d359c4d5be29c8",
+          "files": 98,
+          "symbolic_links": 2
+        },
+        {
+          "tag": "v2.9.0",
+          "commit": "28644bfba9381fee5669f3eac90e96c5ef25f044",
+          "files": 83,
+          "symbolic_links": 2
+        },
+        {
+          "tag": "v2.8.0",
+          "commit": "0c9e7594cceda65d65912f5a32cd848508bf9e46",
+          "files": 76,
+          "symbolic_links": 2
+        },
+        {
+          "tag": "v2.7.3",
+          "commit": "c262102be0c17bf831e87ea42a0f6109c19eb104",
+          "files": 75,
+          "symbolic_links": 2
+        },
+        {
+          "tag": "v2.7.2",
+          "commit": "f3bbd284eda453a30f9560c57de31fc80c92a3e6",
+          "files": 75,
+          "symbolic_links": 2
+        },
+        {
+          "tag": "v2.7.1",
+          "commit": "82cc600073e5aef6c086b556d41e7889b9d6430f",
+          "files": 75,
+          "symbolic_links": 2
+        },
+        {
+          "tag": "v2.7.0",
+          "commit": "e285af715855f41499319152b35596cf202db3b8",
+          "files": 75,
+          "symbolic_links": 2
+        },
+        {
+          "tag": "v2.6.0",
+          "commit": "b73265184753988f2233ee21ad1cadc78603936a",
+          "files": 61,
+          "symbolic_links": 2
+        },
+        {
+          "tag": "v2.5.0",
+          "commit": "96e850fa929742c7cb5cd3efb40a63384e6ac64b",
+          "files": 56,
+          "symbolic_links": 2
+        },
+        {
+          "tag": "v2.4.0",
+          "commit": "a2dd2b2b10784eb785d7ba760fd560ce376914b3",
+          "files": 51,
+          "symbolic_links": 1
+        },
+        {
+          "tag": "v2.3.0",
+          "commit": "88b60f1ba4f8bf5b22a2ff4fd06a39c9845c4357",
+          "files": 51,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v2.2.0",
+          "commit": "2c944ce2d1ce88f7970c993a83f16f30394d3195",
+          "files": 50,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v2.1.0",
+          "commit": "bc20e0826273c350a603d50cf95bf039de4cfd58",
+          "files": 44,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v2.0.0",
+          "commit": "0a050e6697cc3c9e18069c7ab170061e3ac99f6a",
+          "files": 44,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v1.10.0",
+          "commit": "02cf1d413047602f8804a5b0454f054b6393f4df",
+          "files": 41,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v1.9.0",
+          "commit": "96c723c46f923da96e8941a51393660eee3946b8",
+          "files": 40,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v1.8.0",
+          "commit": "0e55ebbb6d2dd47206dec38e589f0b369f192313",
+          "files": 38,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v1.7.1",
+          "commit": "00f41924d155b9f1bc92b003376161ae9ef21bca",
+          "files": 38,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v1.7.0",
+          "commit": "303a5b1562a353fe2ff91ef510dacbe95de693ab",
+          "files": 38,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v1.6.1",
+          "commit": "999caf060dff2cb8f413c51cd69527b776db95fe",
+          "files": 37,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v1.6.0",
+          "commit": "156c5ddc4e495e0f076993e7a0975a51e9e1d1cc",
+          "files": 31,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v1.5.1",
+          "commit": "a03dd2a6ee20a8f5e63b12f6b6a68508392b5fd0",
+          "files": 31,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v1.5.0",
+          "commit": "a07a4025298f6c7ece0527cd30f200c01f40a5c3",
+          "files": 27,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v1.4.1",
+          "commit": "bcf94c0f239cc4267fb73fbe301c8fd560ddf96c",
+          "files": 22,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v1.4.0",
+          "commit": "7d8136448d7fa820f7a2b769eec281afea872c40",
+          "files": 22,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v1.3.0",
+          "commit": "09543bbb0457b03a661e63986909a866984d4662",
+          "files": 16,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v1.2.0",
+          "commit": "2d924993bd0ae08cf15fad63705287d3c133ca09",
+          "files": 11,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v1.1.0",
+          "commit": "26337f3a8a2ed97f3f058c4fed756f8e1a34b3ce",
+          "files": 1,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "v1.0.0",
+          "commit": "3ba07c0c38dc1e61af5176bf29dd97e0484b9bc0",
+          "files": 1,
+          "symbolic_links": 0
+        },
+        {
+          "tag": "Topic_AA_rr_paper_v0.8",
+          "commit": "f5789a77dfc6d5a85834c431465afbe543d0141a",
+          "files": 99,
+          "symbolic_links": 2
+        }
+      ],
+      "checkpoint": {
+        "requests_completed": 62,
+        "records_checkpointed": 0,
+        "resume_database": "eu-digital-identity-wallet__eudi-doc-architecture-and-reference-framework__tags.sqlite"
+      }
+    },
+    {
+      "source": "tagged-editions:eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications",
+      "state": "complete-for-supported-types",
+      "captured_at": "2026-10-15T13:49:36.093731+00:00",
+      "editions": [],
+      "checkpoint": {
+        "requests_completed": 2,
+        "records_checkpointed": 0,
+        "resume_database": "eu-digital-identity-wallet__eudi-doc-standards-and-technical-specifications__tags.sqlite"
+      }
+    },
+    {
+      "source": "https://openid.net/specs/authorization-api-1_0.html",
+      "state": "complete-for-configured-mode",
+      "mode": "fetch",
+      "captured_at": "2026-10-15T13:49:36.257677+00:00"
+    },
+    {
+      "source": "https://www.ietf.org/archive/id/draft-johansson-authzen-trust-01.txt",
+      "state": "complete-for-configured-mode",
+      "mode": "link-only",
+      "captured_at": "2026-10-15T13:49:36.257898+00:00"
+    },
+    {
+      "source": "https://forge.etsi.org/rep/esi/x19_60201_lists_of_trusted_entities/-/raw/e84f427f0cde99513b574ef4b5a155ac4a38eab6/1960201_json_schema/1960201_json_schema.json",
+      "state": "complete-for-configured-mode",
+      "mode": "link-only",
+      "captured_at": "2026-10-15T13:49:36.258245+00:00"
+    },
+    {
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1183/oj",
+      "state": "complete-for-configured-mode",
+      "mode": "link-only",
+      "captured_at": "2026-10-15T13:49:36.258443+00:00"
+    }
+  ],
+  "capture_id": "f6bd14efaaa0486dac95b5747590f789",
+  "started_at": "2026-10-15T12:27:49.173882+00:00",
+  "capture_time": "2026-10-15T13:49:36.516746+00:00",
+  "status": "incomplete",
+  "resumed": true,
+  "reconciled_repositories": [
+    "webuild-consortium/wp4-architecture",
+    "webuild-consortium/wp4-trust-group",
+    "webuild-consortium/wp4-semantics-group",
+    "webuild-consortium/webuild-attestation-rulebooks-catalog",
+    "webuild-consortium/wp4-qtsp-group",
+    "webuild-consortium/wp4-wallets-group",
+    "webuild-consortium/wp4-pid-ebwoid-group",
+    "webuild-consortium/wp4-interop-test-bed",
+    "webuild-consortium/SC5",
+    "webuild-consortium/BU3",
+    "webuild-consortium/webuild-github-policies",
+    "webuild-consortium/.github",
+    "eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework",
+    "eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications"
+  ],
+  "discovered_not_admitted": [],
+  "records": 13270
+}

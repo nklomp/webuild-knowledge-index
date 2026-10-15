@@ -54,5 +54,10 @@
   "tag_paths": [
     "README.md",
     "docs/"
-  ]
+  ],
+  "incremental_polling": {
+    "enabled": true,
+    "overlap_seconds": 3600,
+    "reconcile_days": 7
+  }
 }

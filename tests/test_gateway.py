@@ -111,7 +111,15 @@ def test_safe_site_navigation(stores,corpus,tmp_path):
 
 @pytest.mark.parametrize('scheme',['http','https'])
 def test_actual_remote_http_mcp_parity(stores,tmp_path,monkeypatch,scheme):
-    _,r,s=stores
+    import copy
+    w,r,s=stores
+    # Keep the selected snapshot older than latest, so dropping a snapshot argument
+    # changes observable history/source results rather than passing accidentally.
+    updated=copy.deepcopy(w.export_records(s))
+    updated[0]['revision']='new-revision'
+    updated[0]['text']+='\nNew reference https://example.org/new-policy'
+    updated[0]['content_hash']=digest(updated[0]['text'])
+    w.publish(updated,{'coverage':[{'state':'complete'}]})
     with socket.socket() as sock:sock.bind(('127.0.0.1',0));port=sock.getsockname()[1]
     tls={}
     if scheme=='https':
@@ -128,12 +136,35 @@ def test_actual_remote_http_mcp_parity(stores,tmp_path,monkeypatch,scheme):
     async def check():
         async with Client(f'{scheme}://127.0.0.1:{port}/mcp') as client:
             tools=await client.list_tools();assert len(tools.tools)==6
-            assert all(t.annotations.readOnlyHint and not t.annotations.destructiveHint for t in tools.tools)
+            assert all(t.annotations.read_only_hint and not t.annotations.destructive_hint for t in tools.tools)
             result=await client.call_tool('search',{'q':'historical authorization keys','snapshot':s})
-            assert not result.isError
-            assert result.structuredContent==r.search('historical authorization keys',snapshot=s)
-            for tool,args,expected in [('get_source',{'id':'authzen'},r.source('authzen')),('get_related_sources',{'id':'authzen'},r.related('authzen')),('get_related_specs',{'id':'authzen'},r.related('authzen',specs=True)),('get_decision_history',{'id':'authzen'},r.history('authzen')),('get_changes',{'before':s},r.changes(s))]:
-                got=await client.call_tool(tool,args);assert got.structuredContent==expected
+            assert not result.is_error
+            assert result.structured_content==r.search('historical authorization keys',snapshot=s)
+            for tool,args,path in [
+                ('get_source',{'id':'authzen','snapshot':s},'/v1/sources/authzen'),
+                ('get_related_sources',{'id':'authzen','snapshot':s,'offset':0,'limit':1},'/v1/relations'),
+                ('get_related_specs',{'id':'authzen','snapshot':s,'offset':0,'limit':1},'/v1/relations'),
+                ('get_decision_history',{'id':'authzen','snapshot':s,'offset':0,'limit':1},'/v1/decisions/authzen/history'),
+                ('get_changes',{'before':s,'after':s,'offset':0,'limit':1},'/v1/changes')]:
+                got=await client.call_tool(tool,args)
+                params=dict(args)
+                if tool in ['get_source','get_decision_history']:params.pop('id')
+                if tool=='get_related_specs':params['specs']=True
+                async with httpx.AsyncClient(verify=str(cert) if scheme=='https' else True,trust_env=False) as rest:
+                    response=await rest.get(f'{scheme}://127.0.0.1:{port}'+path,params=params)
+                assert response.status_code==200 and not got.is_error
+                assert got.structured_content==response.json()
+                assert got.structured_content['snapshot']==s
+                if tool=='get_decision_history':assert got.structured_content['total']==1
+            # Latest has an ordinary web reference as well as an official spec.
+            # Filtering must therefore change the paginated first relation.
+            args={'id':'authzen','limit':1}
+            specs=await client.call_tool('get_related_specs',args)
+            async with httpx.AsyncClient(verify=str(cert) if scheme=='https' else True,trust_env=False) as rest:
+                response=await rest.get(f'{scheme}://127.0.0.1:{port}/v1/relations',params=args|{'specs':True})
+            assert specs.structured_content==response.json()
+            assert specs.structured_content['total']==1
+            assert specs.structured_content['relations'][0]['target'].startswith('https://openid.net/')
     try:asyncio.run(check())
     finally:server.should_exit=True;thread.join(10)
 
@@ -155,3 +186,11 @@ def test_failed_run_exposes_last_capture(stores):
     w,r,s=stores;w.report_run({'coverage':[{'state':'failed','repository':'fixture','captured_at':None,'error':'simulation'}]})
     with TestClient(create_app(r)) as client:
         data=client.get('/health').json();assert data['snapshot']==s and data['failed_sources'][0]['state']=='failed'
+
+
+def test_liveness_before_first_publication(stores):
+    w,r,_=stores
+    with w.connect() as c:c.execute('DELETE FROM publication')
+    with TestClient(create_app(r)) as c:
+        assert c.get('/live').json()=={'status':'live'}
+        assert c.get('/health').status_code==404

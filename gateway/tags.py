@@ -10,21 +10,29 @@ def capture_tags(reader,repository,repository_id,permission,paths):
         edition=tag['name'];commit=tag['commit']['sha'];tree=reader.get(root+'/git/trees/'+commit+'?recursive=1').json()
         if tree.get('truncated'):raise ValueError('Truncated tagged tree')
         response=reader.get('https://codeload.github.com/'+repository+'/tar.gz/'+commit)
-        count=0
+        count=0;links=0
         with tarfile.open(fileobj=io.BytesIO(response.content),mode='r:gz') as archive:
             members={m.name.split('/',1)[1]:m for m in archive.getmembers() if m.isfile() and '/' in m.name}
             for entry in tree['tree']:
                 path=entry['path']
                 if entry['type']!='blob' or not any(path==p or path.startswith(p) for p in paths):continue
-                member=members.get(path)
-                if member is None:raise ValueError('Tag archive/tree mismatch')
-                if member.size>10_000_000:raise ValueError('Tagged source exceeds size limit')
-                text,extraction=parse_file(archive.extractfile(member).read(),path)
-                if text is None:continue
                 url=f'https://github.com/{repository}/blob/{commit}/'+quote(path,safe='/')
-                item=record(f'github:{repository_id}:tag:{edition}:{path}',entry['sha'],url,text,repository,'file',path=path,permissions=permission)
+                kind='pdf' if path.lower().endswith('.pdf') else 'file'
+                if entry.get('mode')=='120000':
+                    # A symlink is a Git blob but not a regular archive member.
+                    # Record its identity without reading or following its target.
+                    text=path;kind='binary-metadata';links+=1
+                    extraction={'method':'link-only','limitation':'symbolic link is never followed'}
+                else:
+                    member=members.get(path)
+                    if member is None:raise ValueError('Tag archive/tree mismatch')
+                    if member.size>10_000_000:raise ValueError('Tagged source exceeds size limit')
+                    text,extraction=parse_file(archive.extractfile(member).read(),path)
+                    if text is None:continue
+                    count+=1
+                item=record(f'github:{repository_id}:tag:{edition}:{path}',entry['sha'],url,text,repository,kind,path=path,permissions='metadata-only' if kind=='binary-metadata' else permission)
                 item.update(edition_tag=edition,edition_commit=commit,edition_status='tagged-edition',repository_id=repository_id)
                 item['provenance']['extraction']=extraction;item['provenance']['tag_url']='https://github.com/'+repository+'/releases/tag/'+quote(edition,safe='')
-                rows.append(item);count+=1
-        editions.append({'tag':edition,'commit':commit,'files':count})
+                rows.append(item)
+        editions.append({'tag':edition,'commit':commit,'files':count,'symbolic_links':links})
     return rows,editions

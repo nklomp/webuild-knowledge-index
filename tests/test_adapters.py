@@ -41,6 +41,13 @@ def test_jsonld_and_schema_entities_are_not_remote_fetches():
     assert result[0]['id']=='https://example.org/ebwv#Company' and result[0]['aliases']==['Business']
     assert any(r['locator']=='/properties/legalName' for r in result)
 
+@pytest.mark.parametrize('encoding',['utf-16','utf-32','utf-8-sig'])
+def test_explicit_unicode_bom_preserves_official_json_entities(encoding):
+    original='{"$id":"https://example.org/providers","properties":{"legalName":{"description":"Société"}}}'
+    text,provenance=parse_file(original.encode(encoding),'docs/technical-specifications/api/EUDI-Providers.json')
+    assert text==original and provenance['encoding']==encoding
+    assert any(e['locator']=='/properties/legalName' for e in entities(text,'providers.json'))
+
 def test_pdf_text_page_provenance():
     from pypdf import PdfWriter
     out=io.BytesIO();writer=PdfWriter();writer.add_blank_page(width=100,height=100);writer.write(out)
@@ -64,6 +71,51 @@ def test_tag_pages_preserve_independent_editions():
     rows,editions=capture_tags(ReadClient(httpx.Client(transport=httpx.MockTransport(handle))),'o/r',1,'metadata-only',['README.md'])
     assert len(rows)==2 and rows[0]['id']!=rows[1]['id'] and rows[0]['revision']=='blob'
     assert [e['tag'] for e in editions]==['v1','v2'] and all(r['edition_status']=='tagged-edition' for r in rows)
+
+
+def test_tagged_symlink_is_metadata_and_never_follows_target():
+    buffer=io.BytesIO()
+    with tarfile.open(fileobj=buffer,mode='w:gz') as tar:
+        link=tarfile.TarInfo('r-sha/docs/link');link.type=tarfile.SYMTYPE
+        link.linkname='../../private-marker';tar.addfile(link)
+        data=b'# ARF\nPublic text\n';member=tarfile.TarInfo('r-sha/docs/arf.md')
+        member.size=len(data);tar.addfile(member,io.BytesIO(data))
+    calls=[]
+    def handle(req):
+        calls.append(str(req.url))
+        if req.url.path.endswith('/tags'):return httpx.Response(200,json=[{'name':'v1','commit':{'sha':'sha'}}])
+        if '/git/trees/' in req.url.path:
+            return httpx.Response(200,json={'tree':[{'type':'blob','mode':'120000','path':'docs/link','sha':'link-sha'},
+                                                   {'type':'blob','mode':'100644','path':'docs/arf.md','sha':'text-sha'}]})
+        if req.url.host=='codeload.github.com':return httpx.Response(200,content=buffer.getvalue())
+        raise AssertionError('Unexpected target fetch')
+    rows,editions=capture_tags(ReadClient(httpx.Client(transport=httpx.MockTransport(handle))),'o/r',1,'full-text',['docs/'])
+    link=next(r for r in rows if r['kind']=='binary-metadata')
+    assert link['text']=='docs/link' and link['reuse_permissions']=='metadata-only'
+    assert 'private-marker' not in json.dumps(rows) and len(calls)==3
+    assert editions==[{'tag':'v1','commit':'sha','files':1,'symbolic_links':1}]
+
+
+def test_tagged_pdf_retains_page_citations_and_requested_permissions():
+    from pypdf import PdfWriter
+    from pypdf.generic import DictionaryObject,NameObject,DecodedStreamObject
+    from gateway.model import sections
+    pdf=io.BytesIO();writer=PdfWriter();page=writer.add_blank_page(width=100,height=100)
+    font=DictionaryObject({NameObject('/Type'):NameObject('/Font'),NameObject('/Subtype'):NameObject('/Type1'),NameObject('/BaseFont'):NameObject('/Helvetica')})
+    page[NameObject('/Resources')]=DictionaryObject({NameObject('/Font'):DictionaryObject({NameObject('/F1'):writer._add_object(font)})})
+    stream=DecodedStreamObject();stream.set_data(b'BT /F1 12 Tf 10 20 Td (Tagged specification) Tj ET')
+    page[NameObject('/Contents')]=writer._add_object(stream);writer.write(pdf)
+    archive=io.BytesIO()
+    with tarfile.open(fileobj=archive,mode='w:gz') as tar:
+        member=tarfile.TarInfo('r-sha/docs/spec.pdf');member.size=len(pdf.getvalue());tar.addfile(member,io.BytesIO(pdf.getvalue()))
+    def handle(req):
+        if req.url.path.endswith('/tags'):return httpx.Response(200,json=[{'name':'v1','commit':{'sha':'sha'}}])
+        if '/git/trees/' in req.url.path:return httpx.Response(200,json={'tree':[{'type':'blob','path':'docs/spec.pdf','sha':'pdf-blob'}]})
+        return httpx.Response(200,content=archive.getvalue())
+    rows,_=capture_tags(ReadClient(httpx.Client(transport=httpx.MockTransport(handle))),'o/r',1,'full-text',['docs/'])
+    assert rows[0]['kind']=='pdf' and rows[0]['reuse_permissions']=='full-text'
+    chunks=list(sections(rows[0]))
+    assert chunks[0]['locator'].endswith('/docs/spec.pdf#page=1') and 'Tagged specification' in chunks[0]['text']
 
 def test_etsi_and_openid_url_encoded_versions():
     from gateway.catalogue import references

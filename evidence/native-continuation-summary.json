@@ -1,0 +1,251 @@
+{
+  "date": "2026-10-15",
+  "environment": "native Codex Cloud",
+  "base_commit": "d7da87f640cf079817140ebb571a1f8f2c4fec64",
+  "scope": "Standalone nklomp/webuild-knowledge-index only; public upstream reads; no production deployment or paid resources",
+  "network": {
+    "policy_snapshot": "unrestricted",
+    "observed_https_status": {
+      "us.aws.cdn.hf.co": 200,
+      "api.github.com": 200,
+      "openid.net": 200
+    },
+    "source_read_identity_configured": false
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "postgresql": "16.15",
+    "pgvector": "0.8.7",
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "dimension": 384,
+    "weights_downloaded_and_encoded": true,
+    "lock_check": "82 packages; passed"
+  },
+  "tests": {
+    "tests": 113,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 22.332,
+    "evidence": "native-continuation-tests.xml",
+    "services": "Real PostgreSQL/pgvector and embeddings; live HTTP/HTTPS MCP init/discovery/all six tools with REST parity; controlled ingestion transports separately labeled"
+  },
+  "commands": [
+    "uv run --frozen python scripts/bootstrap.py",
+    "uv run --frozen --extra test pytest -q --junitxml=evidence/native-continuation-tests.xml",
+    "uv run --frozen python -m scripts.regenerate_source_evidence",
+    "uv lock --check",
+    "uv run --frozen python -m scripts.public_file_evidence --broader --pinned-manifest evidence/fresh-file-pins.json",
+    "uv run --frozen python -m scripts.live_validation (BROWSER_CHECK=1, system Chromium, scratch Playwright 1.58.1)",
+    "uv run --frozen python -m gateway.cli capture --config work/sources-before-polling.json --artifacts work/native-live-capture",
+    "uv run --frozen python -m gateway.cli prepare --artifacts work/native-live-capture --site work/refused-site (expected refusal)"
+  ],
+  "polling_smoke": {
+    "evidence": "native-live-polling.json",
+    "source": "webuild-consortium/.github",
+    "initial_and_overlap_runs": "complete",
+    "limitations": "This small live source has no issues or PRs; update, deletion, pagination and failure-resume behavior exercised by controlled regressions"
+  },
+  "official_capture": {
+    "evidence": "native-official-coverage.json",
+    "body_fetches": 1,
+    "link_only_records": 3,
+    "public_body_reuse": "metadata-only"
+  },
+  "release_ready": false,
+  "tested_code_commit": "fd9dfc102632bb84b5e5d6eec81f14bc1b9c1d3e",
+  "tested_runtime_sha256": {
+    "config/sources.json": "2243df5485aec6e18341cd54087a736260de8a1b25a74c0d9ef1d8daa457333f",
+    "gateway/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gateway/annotations.py": "81e69d9030f27f05e8a86e0d2141d16826b66f02ee9739c53bed75a01581b53e",
+    "gateway/api.py": "5cc7adccf89d7d727a8a82c56b8bcc3f2aff1bb9857dae0d913e34b19e5bbc90",
+    "gateway/catalogue.py": "38d0a1fac3a22d0a4a5d40c9756f8baf56bb0a763a30d83c8b34a2ea6eaedcf5",
+    "gateway/cli.py": "93a7b68017608c61335148e6bfc31c16e0b201a6604f086bb7d866d4a5ab7b40",
+    "gateway/discussions.py": "8376b9250497075c1281c16296f3b18a29635bc0038badf9ba70b13d7d29eb4e",
+    "gateway/embeddings.py": "041b21bb6797157edd8048ab6921919158dc66ba7b915515a11a0e170f839207",
+    "gateway/extraction.py": "86b918a0970dcca5f00cd1fe4c61d87f4d4328c7f237828d8db75be4f089a83e",
+    "gateway/http.py": "5a73b8023f9ab727dbc354721846959c9db4bb69bf676b27b93c6f47a841e0f0",
+    "gateway/ingest.py": "24e301c0c2b950a94cf114690b1978e774bff6663e151fef1bf287392ace9877",
+    "gateway/llm_annotations.py": "777ee987e36e29aadccdf88cf5149f0d7b0f12ab048ac827c5021ec08da7db44",
+    "gateway/model.py": "7ffa40757649fe85d54dbf005217fe4d05c62bd511f0d18a8e8cd1900f694cf4",
+    "gateway/official.py": "35431da7c5b6999fe39daee98d816f360300253d7a4445bc077a77f547da6491",
+    "gateway/retrieval.py": "07f03dce5b656c1836a3d3142f17519f3c7686f03926f773e8acfc20eeb98402",
+    "gateway/review_threads.py": "a72a2ec9550858f0f7f1c4110c24766aad791b60f48d32d0d682416d668fa44d",
+    "gateway/site.py": "6d57790ecb73682707fcd99f7bfab490567a7bab95a92b5dc9425160a069e029",
+    "gateway/store.py": "00f2a7ddd784cb53522ade4a9e1197d4825edba1c4df11effc7dcd0dbc669f7b",
+    "gateway/tags.py": "09fa2ad3d4f3261dcecf276e737ff6c43a32f9d4d28b768db9d536feb10de509",
+    "gateway/wiki.py": "8ba9d3d0b39f19269a38081590cf4def04e07508cb2bff03a9fb88420a3a9dd0",
+    "pyproject.toml": "aeb9af19941d26777bdfcfe59d2f8bc49a0d9a2a9eac333ac02186a8a72e5a44",
+    "tests/conftest.py": "8a8367afeae38f722dd6ca1e56b2ff95b809542c4e61131fd7b868587efd7523",
+    "tests/fixtures/source-evidence.json": "6df1ac913386a609a8cbcbf4ba224cfebf0e52a243efa9e4afc486191a5932fc",
+    "tests/test_adapters.py": "65ef3ce1a5153a3ca9f94669c65048e7f0d23030042aadd3e645cacb867b51b4",
+    "tests/test_evidence_recovery.py": "1ad154cbc2f739759174b58d7b7cc28f09c4514e79ccb198c5f3bf0c1fd57c60",
+    "tests/test_extended.py": "2ad6be358bf004c4ecc1303c47b8f593bcbdbd3f2dcf77fff05a36b69ac7d36e",
+    "tests/test_gateway.py": "dc119c3a646133b4256446c4e845cd91f7fcda07fe8f0abf82ab47c33e101ac4",
+    "tests/test_incremental_polling.py": "c702f7e4005c165b2c873788dc819924f08921df49b7c42252657a0138e54332",
+    "tests/test_ingestion_resume.py": "c686fb1be555412c75a5710c2cec58a2a74e61d942bf179e208fe38113309f11",
+    "tests/test_publication.py": "5c91bc634c4bddf3c2ffa094bb4dcd8631fc8e965062a28a0f34702b8c426a5a",
+    "tests/test_retrieval_regression.py": "4df79147f6dbe21eb5311c7a3db6457a6d54ed448138f56ed753d6fab3026ec0",
+    "uv.lock": "85f57d03c6f7822db027823b1be5066306f6ea1248851e6ea6361e00ac07a73b"
+  },
+  "retrieval": {
+    "validated_at": "2026-10-15T12:41:27.606152+00:00",
+    "snapshot": "5ff9210053b733340a718c3e",
+    "model": {
+      "model": "sentence-transformers/all-MiniLM-L6-v2",
+      "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+      "dimension": 384
+    },
+    "splits": {
+      "held-out-v2": {
+        "questions": 3,
+        "retrieved_at_10": 3
+      },
+      "previous-held-out-now-regression": {
+        "questions": 3,
+        "retrieved_at_10": 3
+      },
+      "tuning": {
+        "questions": 3,
+        "retrieved_at_10": 3
+      }
+    },
+    "counts": {
+      "records": 463,
+      "sections": 13265
+    },
+    "mcp": {
+      "initialized": true,
+      "transport": "Streamable HTTP over loopback TCP",
+      "tool_count": 6,
+      "rest_mcp_equal": true,
+      "all_tools_called": true,
+      "read_only_annotations": true
+    },
+    "evidence": "live-evaluation.json",
+    "additional_ranks": [
+      8,
+      1,
+      1
+    ],
+    "questions_and_expected_sources_changed": false,
+    "tested_code_commit": "25f08eed4a0bc2f5a82b4f169dd5c99ab5301388",
+    "later_runtime_change": "Capture-mode persistence, tagged symlink/PDF metadata and explicit Unicode BOM decoding changed; retrieval/database/embedding/MCP/REST/wiki code is identical and existing UTF-8 corpus decoding is unchanged."
+  },
+  "browser": {
+    "browserVersion": "154.0.8037.57",
+    "navigation": true,
+    "liveSearch": true,
+    "serviceFailureVisible": true,
+    "snapshotPinned": true,
+    "interactionFeatures": false,
+    "screenshot": "native-wiki-search.png"
+  },
+  "live_capture_configuration": {
+    "source_inventory": "d7da87f640cf079817140ebb571a1f8f2c4fec64:config/sources.json",
+    "sha256": "e2c9ebf63710b100e47adc196ada44d72c4541c38182771e959e7cba538b71c2",
+    "reason": "Resume the initial full crawl across the pagination fix; same source inventory as current configuration, without enabling cursor polling for that generation. Separate live polling smoke and controlled regressions exercise the new configuration."
+  },
+  "wiki": {
+    "generated_files": 477,
+    "deployed": false,
+    "api_url": "http://127.0.0.1:58000",
+    "purpose": "Local validation; configure the public HTTPS API URL before Pages publication"
+  },
+  "independent_ci": {
+    "code_commit": "b91c7fd78c26fefab52cbad160112e08b2634e28",
+    "run_url": "https://github.com/nklomp/webuild-knowledge-index/actions/runs/38738115183",
+    "status": "success",
+    "coverage": "108-test suite, pinned corpus retrieval and real browser; later live-tag repairs pass 113 tests natively; their own CI runs are separate"
+  },
+  "live_capture": {
+    "status": "incomplete",
+    "coverage_entries": 20,
+    "states": {
+      "partial": 11,
+      "complete-for-supported-types": 5,
+      "complete-for-configured-mode": 4
+    },
+    "records": 13270,
+    "repository_count": 14,
+    "repository_totals": {
+      "tree_entries": 1202,
+      "binary_or_unsupported": 344,
+      "files": 628,
+      "issues": 1173,
+      "pulls": 968,
+      "comments": 2693,
+      "reviews": 2686,
+      "review_comments": 2259,
+      "releases": 38,
+      "attachments": 302,
+      "pdf": 20,
+      "wiki_pages": 2,
+      "review_threads": 0
+    },
+    "record_kinds": {
+      "binary-metadata": 365,
+      "file": 1632,
+      "pull": 968,
+      "reviews": 2686,
+      "comment": 2693,
+      "review_comments": 2259,
+      "issue": 1173,
+      "pdf": 403,
+      "release": 38,
+      "attachment-metadata": 302,
+      "wiki": 2,
+      "official-specification": 4,
+      "external-reference": 745
+    },
+    "tagged_records": 1428,
+    "tagged_editions": 30,
+    "tagged_pdf_records": 383,
+    "evidence": "native-live-coverage.json",
+    "raw_bodies_and_checkpoints_in_delivery": false,
+    "limitations": [
+      "review thread resolution requires a read-only GraphQL token",
+      "unavailable: read-only GraphQL token required"
+    ],
+    "code_commit": "cb023ca"
+  },
+  "publication_gate": {
+    "exit_code": 1,
+    "reason": "Incomplete capture; publication refused",
+    "before_snapshot": "5ff9210053b733340a718c3e",
+    "after_snapshot": "5ff9210053b733340a718c3e",
+    "unchanged": true,
+    "source_capture": "native-live-coverage.json",
+    "raw_capture_not_published": true
+  },
+  "latest_ci": [
+    {
+      "url": "https://github.com/nklomp/webuild-knowledge-index/actions/runs/38741012062",
+      "code_commit": "fd9dfc102632bb84b5e5d6eec81f14bc1b9c1d3e",
+      "status_at_delivery": "success"
+    },
+    {
+      "url": "https://github.com/nklomp/webuild-knowledge-index/actions/runs/38741002055",
+      "code_commit": "fd9dfc102632bb84b5e5d6eec81f14bc1b9c1d3e",
+      "status_at_delivery": "success"
+    }
+  ],
+  "wiki_availability_evidence": "wiki-availability.json",
+  "publication_configuration_evidence": "publication-prerequisites.json",
+  "current_suite": {
+    "tests": 136,
+    "failures": 0,
+    "errors": 0,
+    "duration_seconds": 22.52,
+    "code_commit": "cb023ca",
+    "evidence": "native-continuation-tests.xml"
+  },
+  "deployment_preparation": {
+    "render_plugin": "installed and enabled; tools not exposed in this chat",
+    "resources_provisioned": false,
+    "monitoring_activated": false,
+    "compose_validation": "passed",
+    "systemd_unit_validation": "passed"
+  }
+}

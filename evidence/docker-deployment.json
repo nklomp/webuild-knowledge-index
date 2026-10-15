@@ -1,0 +1,13 @@
+{
+  "target": "user-owned Docker host; local continuation pending",
+  "render_resources_created": false,
+  "image_build": "retrieval target passed with platform CA mount",
+  "image_import": "passed as uid 65532; no ingestion scripts or git metadata",
+  "compose_validation": "passed with generated private settings and empty source token",
+  "env_helper": "mode 0600, distinct random credentials, refuses overwrite, invalid hostname rejected",
+  "database_exposed": false,
+  "api_bind": "127.0.0.1:8000",
+  "runtime_smoke_evidence": "docker-sizing.json",
+  "full_test_suite_rerun": false,
+  "hosted_deployment_attempted": false
+}

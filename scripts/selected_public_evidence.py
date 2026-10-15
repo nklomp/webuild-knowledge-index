@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 from gateway.http import ReadClient,CaptureJournal
 from gateway.model import record,digest,now
+Path('artifacts').mkdir(exist_ok=True);Path('evidence').mkdir(exist_ok=True)
 reader=ReadClient(journal=CaptureJournal('artifacts/selected-evidence.sqlite'));records=[];coverage=[]
 for repo,kind,number in [('webuild-consortium/wp4-trust-group','issue',104),('webuild-consortium/wp4-architecture','pull',336)]:
     endpoint='issues' if kind=='issue' else 'pulls';url=f'https://api.github.com/repos/{repo}/{endpoint}/{number}'

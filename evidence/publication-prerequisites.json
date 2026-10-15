@@ -1,0 +1,10 @@
+{
+  "repository": "nklomp/webuild-knowledge-index",
+  "pages": "not-enabled",
+  "inputs_ready": {
+    "SOURCE_READ_TOKEN": false,
+    "INGEST_DATABASE_URL": false,
+    "PUBLIC_API_URL": false
+  },
+  "can_apply": false
+}

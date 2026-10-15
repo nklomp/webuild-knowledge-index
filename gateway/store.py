@@ -2,17 +2,28 @@ import json, os
 import psycopg
 from psycopg.rows import dict_row
 from psycopg.types.json import Jsonb
-from .model import digest,now,validate,sections
+from .model import digest,now,validate,sections,section_context
+
+def same_repository_edition(previous,current):
+    if previous.get('edition_tag')!=current.get('edition_tag'):return False
+    old_id,new_id=previous.get('repository_id'),current.get('repository_id')
+    if old_id is not None and new_id is not None:return old_id==new_id
+    return previous['repository']==current['repository']
+
 class Store:
-    def __init__(self,dsn,embed):
+    def __init__(self,dsn,embed,load_calibration=True):
         self.dsn,self.embed=dsn,embed
         from pathlib import Path
         calibration=Path(os.getenv('RETRIEVAL_CALIBRATION','config/retrieval-calibration.json'))
-        self.semantic_limit=None
-        if calibration.exists():
+        self.semantic_limit=None;self.semantic_weight=1.0
+        if load_calibration and calibration.exists():
             data=json.loads(calibration.read_text())
             if data['embeddings']!=embed.metadata:raise ValueError('Calibration embedding model mismatch')
+            from .retrieval import RANKING_VERSION
+            if data.get('ranking_version')!=RANKING_VERSION or data.get('index_recipe')!='section-context-v3':raise ValueError('Calibration recipe mismatch; regenerate from original tuning questions')
             self.semantic_limit=float(data['semantic_distance_limit'])
+            self.semantic_weight=float(data['semantic_weight'])
+            if not 0.25<=self.semantic_weight<=8:raise ValueError('Invalid calibrated fusion weight')
     def connect(self): return psycopg.connect(self.dsn,row_factory=dict_row)
     def manifest(self,snapshot=None):
         with self.connect() as c:
@@ -40,12 +51,12 @@ class Store:
         with self.connect() as c:
             prior=c.execute('SELECT data,embedding::text AS vector FROM records WHERE snapshot=(SELECT snapshot FROM publication)').fetchall()
             prior_manifest=c.execute('SELECT manifest FROM snapshots WHERE id=(SELECT snapshot FROM publication)').fetchone()
-            old_chunks=c.execute('SELECT source,content,embedding::text AS vector FROM chunks WHERE snapshot=(SELECT snapshot FROM publication)').fetchall() if prior_manifest and prior_manifest['manifest']['embeddings']==self.embed.metadata and prior_manifest['manifest'].get('index_recipe')=='section-context-v2' else []
+            old_chunks=c.execute('SELECT source,content,embedding::text AS vector FROM chunks WHERE snapshot=(SELECT snapshot FROM publication)').fetchall() if prior_manifest and prior_manifest['manifest']['embeddings']==self.embed.metadata and prior_manifest['manifest'].get('index_recipe')=='section-context-v3' else []
         base_snapshot=prior_manifest['manifest']['snapshot'] if prior_manifest else None
         old=[row['data'] for row in prior];incoming_ids={r['id'] for r in records};remap={}
         for r in records:
             if r['kind']!='file':continue
-            matches=[p for p in old if p['kind']=='file' and ((p.get('repository_id') is not None and p.get('repository_id')==r.get('repository_id')) or p['repository']==r['repository']) and (p['locator']==r['locator'] or (p['revision']==r['revision'] and p['id'] not in incoming_ids))]
+            matches=[p for p in old if p['kind']=='file' and same_repository_edition(p,r) and (p['locator']==r['locator'] or (p['revision']==r['revision'] and p['id'] not in incoming_ids))]
             if len(matches)==1 and (matches[0]['id']!=r['id'] or matches[0].get('aliases')):
                 p=matches[0];remap[r['id']]=p['id'];r['id']=p['id']
                 r['aliases']=sorted(set(p.get('aliases',[])+[p['locator'],r['locator']]))
@@ -55,7 +66,7 @@ class Store:
             if previous and previous['repository']!=r['repository']:
                 r['repository_aliases']=sorted(set(previous.get('repository_aliases',[])+[previous['repository'],r['repository']]))
             for parent in r['provenance'].get('referenced_by',[]):parent['id']=remap.get(parent['id'],parent['id'])
-        sid=digest(json.dumps([{k:v for k,v in r.items() if k!='retrieved_at'} for r in sorted(records,key=lambda r:r['id'])],sort_keys=True)+json.dumps(coverage,sort_keys=True)+json.dumps(self.embed.metadata)+'section-context-v2')[:24]
+        sid=digest(json.dumps([{k:v for k,v in r.items() if k!='retrieved_at'} for r in sorted(records,key=lambda r:r['id'])],sort_keys=True)+json.dumps(coverage,sort_keys=True)+json.dumps(self.embed.metadata)+'section-context-v3')[:24]
         with self.connect() as c:
             if c.execute('SELECT 1 FROM snapshots WHERE id=%s',(sid,)).fetchone():return sid
         vector_cache={row['data']['id']:row for row in prior} if prior_manifest and prior_manifest['manifest']['embeddings']==self.embed.metadata else {}
@@ -67,15 +78,16 @@ class Store:
         fresh=self.embed.encode([records[i]['title']+'\n'+records[i]['text'] for i in missing]) if missing else []
         for index,vector in zip(missing,fresh):vectors[index]=vector
         pieces=[p for r in records for p in sections(r)]
-        piece_cache={(row['source'],digest(row['content'])):row['vector'] for row in old_chunks}
+        old_contexts={r['id']:section_context(r) for r in old}
+        piece_cache={(row['source'],old_contexts.get(row['source']),digest(row['content'])):row['vector'] for row in old_chunks}
         piece_vectors=[None]*len(pieces);missing=[]
         for index,piece in enumerate(pieces):
-            cached=piece_cache.get((piece['source'],digest(piece['text'])))
+            cached=piece_cache.get((piece['source'],piece['context'],digest(piece['text'])))
             if cached:piece_vectors[index]=json.loads(cached)
             else:missing.append(index)
         fresh=self.embed.encode([pieces[i]['context']+'\n'+pieces[i]['text'] for i in missing]) if missing else []
         for index,vector in zip(missing,fresh):piece_vectors[index]=vector
-        manifest={'snapshot':sid,'index_recipe':'section-context-v2','schema_version':2,'published_at':now(),'coverage':coverage,'embeddings':self.embed.metadata,'records':len(records)}
+        manifest={'snapshot':sid,'index_recipe':'section-context-v3','schema_version':2,'published_at':now(),'coverage':coverage,'embeddings':self.embed.metadata,'records':len(records)}
         with self.connect() as c:
             c.execute("SELECT pg_advisory_xact_lock(hashtext('webuild-publication'))")
             if c.execute('SELECT 1 FROM snapshots WHERE id=%s',(sid,)).fetchone(): return sid
@@ -109,14 +121,15 @@ class Store:
         manifest=self.manifest(snapshot); sid=manifest['snapshot']
         if manifest['embeddings']!=self.embed.metadata: raise ValueError('Embedding model mismatch')
         v=str(self.embed.encode([q])[0])
-        from .retrieval import RRF_SQL,lexical_query
-        parameters={'snapshot':sid,'status':status,'scope':scope,'version':version,'vector':v,'lexical':lexical_query(q),'terms':lexical_query(q).split(' | '),'q':q,'limit':limit,'offset':offset}
+        from .retrieval import RRF_SQL,lexical_query,RANKING_VERSION,semantic_weight_for_query
+        weight=semantic_weight_for_query(q,self.semantic_weight)
+        parameters={'snapshot':sid,'status':status,'scope':scope,'version':version,'vector':v,'lexical':lexical_query(q),'terms':lexical_query(q).split(' | '),'q':q,'limit':limit,'offset':offset,'semantic_weight':weight}
         with self.connect() as c:
             rows=c.execute(RRF_SQL,parameters).fetchall()
             if not rows:
                 total=c.execute("SELECT count(*) AS n FROM records WHERE snapshot=%s AND (%s::text IS NULL OR data->>'decision_status'=%s) AND (%s::text IS NULL OR data->>'repository'=%s) AND (%s::text IS NULL OR EXISTS(SELECT 1 FROM jsonb_array_elements(data->'specifications') s WHERE s->>'cited_version'=%s))",(sid,status,status,scope,scope,version,version)).fetchone()['n']
             else:total=rows[0]['total']
-        return {'snapshot':sid,'published_at':manifest['published_at'],'offset':offset,'limit':limit,'total':total,'ranking_version':'weighted-fts-rrf-v2','semantic_distance_limit':self.semantic_limit,'answer_status':'retrieval-only: results do not establish consensus or a normative answer','results':[dict(source=self.permitted(r['data']),score=float(r['score']),vector_distance=r['distance'],lexical_score=r['lexical'],semantic_rank=r['semantic_rank'],lexical_rank=r['lexical_rank'],matched_locator=r['matched_locator'],semantic_match=(r['distance']<=self.semantic_limit) if self.semantic_limit is not None else None) for r in rows]}
+        return {'snapshot':sid,'published_at':manifest['published_at'],'offset':offset,'limit':limit,'total':total,'ranking_version':RANKING_VERSION,'configured_semantic_weight':self.semantic_weight,'semantic_weight':weight,'semantic_distance_limit':self.semantic_limit,'answer_status':'retrieval-only: results do not establish consensus or a normative answer','results':[dict(source=self.permitted(r['data']),score=float(r['score']),vector_distance=r['distance'],lexical_score=r['lexical'],semantic_rank=r['semantic_rank'],lexical_rank=r['lexical_rank'],matched_locator=r['matched_locator'],semantic_match=(r['distance']<=self.semantic_limit) if self.semantic_limit is not None else None) for r in rows]}
     @staticmethod
     def permitted(data):
         import copy
@@ -142,8 +155,12 @@ class Store:
         predicate="""snapshot=%(snapshot)s AND (%(id)s::text IS NULL OR source=%(id)s)
           AND NOT EXISTS(SELECT 1 FROM revoked WHERE revoked.id=source OR revoked.id=target)
           AND (%(topic)s::text IS NULL OR EXISTS(SELECT 1 FROM records r WHERE r.snapshot=relations.snapshot AND r.id=relations.source AND EXISTS(SELECT 1 FROM jsonb_array_elements_text(r.data->'topics') t WHERE lower(t)=lower(%(topic)s))))
-          AND (NOT %(specs)s OR (regexp_match(target,'^https?://([^/:]+)'))[1]=ANY(%(hosts)s))"""
-        parameters={'snapshot':sid,'id':id,'topic':topic,'specs':specs,'hosts':['www.etsi.org','etsi.org','forge.etsi.org','openid.net','www.rfc-editor.org','datatracker.ietf.org','eur-lex.europa.eu'],'limit':limit,'offset':offset}
+          AND (NOT %(specs)s OR (regexp_match(target,'^https?://([^/:]+)'))[1]=ANY(%(hosts)s)
+            OR (regexp_match(target,%(github_pattern)s))[1]=ANY(%(official_repositories)s))"""
+        from pathlib import Path
+        authority=Path('config/official-sources.json')
+        official=json.loads(authority.read_text()).get('authoritative_github_repositories',[]) if authority.exists() else []
+        parameters={'snapshot':sid,'id':id,'topic':topic,'specs':specs,'hosts':['www.etsi.org','etsi.org','forge.etsi.org','openid.net','www.rfc-editor.org','rfc-editor.org','datatracker.ietf.org','www.ietf.org','ietf.org','eur-lex.europa.eu'],'official_repositories':official,'github_pattern':r'^https://github\.com/([^/?#]+/[^/?#]+)(?:/(?:blob|tree)/|/releases/tag/|/?(?:[?#].*)?$)','limit':limit,'offset':offset}
         with self.connect() as c:
             total=c.execute('SELECT count(*) n FROM relations WHERE '+predicate,parameters).fetchone()['n']
             rows=c.execute('SELECT * FROM relations WHERE '+predicate+' ORDER BY source,target,kind LIMIT %(limit)s OFFSET %(offset)s',parameters).fetchall()
@@ -171,7 +188,7 @@ class Store:
     def latest_run(self):
         with self.connect() as c:r=c.execute('SELECT report FROM ingestion_runs ORDER BY captured_at DESC LIMIT 1').fetchone()
         return r['report'] if r else None
-    def quarantine(self,repositories,report):
+    def quarantine(self,repositories,report,promote=True):
         """Confirmed missing/private repository: suppress all old reads and publish safe remainder."""
         old=self.manifest()
         with self.connect() as c:
@@ -185,14 +202,14 @@ class Store:
                 for old_url in c.execute('SELECT DISTINCT data->>\'url\' AS url FROM records WHERE id=%s',(identity,)).fetchall():c.execute("INSERT INTO revoked VALUES(%s,'withdrawn source URL') ON CONFLICT(id) DO NOTHING",(old_url['url'],))
         safe=[r['data'] for r in rows if r['data']['id'] not in removed]
         coverage={'coverage':[s for s in old['coverage'].get('coverage',[]) if s.get('repository') not in repositories],'withdrawal':{'repositories':repositories,'time':now()},'latest_capture_failed':True}
-        return self.publish(safe,coverage),safe
+        return self.publish(safe,coverage,promote=promote),safe
 
     def withdrawals(self):
         with self.connect() as c:return [row['id'] for row in c.execute('SELECT id FROM revoked').fetchall()]
 
     def export_records(self,snapshot=None):
         sid=self.manifest(snapshot)['snapshot']
-        with self.connect() as c:return [r['data'] for r in c.execute('SELECT data FROM records WHERE snapshot=%s AND NOT EXISTS(SELECT 1 FROM revoked v WHERE v.id=records.id) ORDER BY id',(sid,)).fetchall()]
+        with self.connect() as c:return [r['data'] for r in c.execute('SELECT data FROM retrieval.records WHERE snapshot=%s ORDER BY id',(sid,)).fetchall()]
 
     def promote(self,snapshot,expected_current=None,rollback=False):
         self.manifest(snapshot)

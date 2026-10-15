@@ -1,0 +1,289 @@
+{
+  "coverage": [
+    {
+      "source": "discovery",
+      "state": "failed",
+      "error": "DeferredRead",
+      "retry_at": null
+    },
+    {
+      "repository": "webuild-consortium/wp4-architecture",
+      "state": "failed",
+      "error": "DeferredRead: Source transport unavailable",
+      "captured_at": null,
+      "retained_data": false,
+      "quarantine": false,
+      "retry_at": null,
+      "checkpoint": {
+        "requests_completed": 0,
+        "records_checkpointed": 0,
+        "resume_database": "webuild-consortium__wp4-architecture.sqlite"
+      },
+      "phase": "metadata"
+    },
+    {
+      "repository": "webuild-consortium/wp4-trust-group",
+      "state": "failed",
+      "error": "DeferredRead: Source transport unavailable",
+      "captured_at": null,
+      "retained_data": false,
+      "quarantine": false,
+      "retry_at": null,
+      "checkpoint": {
+        "requests_completed": 0,
+        "records_checkpointed": 0,
+        "resume_database": "webuild-consortium__wp4-trust-group.sqlite"
+      },
+      "phase": "metadata"
+    },
+    {
+      "repository": "webuild-consortium/wp4-semantics-group",
+      "state": "failed",
+      "error": "DeferredRead: Source transport unavailable",
+      "captured_at": null,
+      "retained_data": false,
+      "quarantine": false,
+      "retry_at": null,
+      "checkpoint": {
+        "requests_completed": 0,
+        "records_checkpointed": 0,
+        "resume_database": "webuild-consortium__wp4-semantics-group.sqlite"
+      },
+      "phase": "metadata"
+    },
+    {
+      "repository": "webuild-consortium/webuild-attestation-rulebooks-catalog",
+      "state": "failed",
+      "error": "DeferredRead: Source transport unavailable",
+      "captured_at": null,
+      "retained_data": false,
+      "quarantine": false,
+      "retry_at": null,
+      "checkpoint": {
+        "requests_completed": 0,
+        "records_checkpointed": 0,
+        "resume_database": "webuild-consortium__webuild-attestation-rulebooks-catalog.sqlite"
+      },
+      "phase": "metadata"
+    },
+    {
+      "repository": "webuild-consortium/wp4-qtsp-group",
+      "state": "failed",
+      "error": "DeferredRead: Source transport unavailable",
+      "captured_at": null,
+      "retained_data": false,
+      "quarantine": false,
+      "retry_at": null,
+      "checkpoint": {
+        "requests_completed": 0,
+        "records_checkpointed": 0,
+        "resume_database": "webuild-consortium__wp4-qtsp-group.sqlite"
+      },
+      "phase": "metadata"
+    },
+    {
+      "repository": "webuild-consortium/wp4-wallets-group",
+      "state": "failed",
+      "error": "DeferredRead: Source transport unavailable",
+      "captured_at": null,
+      "retained_data": false,
+      "quarantine": false,
+      "retry_at": null,
+      "checkpoint": {
+        "requests_completed": 0,
+        "records_checkpointed": 0,
+        "resume_database": "webuild-consortium__wp4-wallets-group.sqlite"
+      },
+      "phase": "metadata"
+    },
+    {
+      "repository": "webuild-consortium/wp4-pid-ebwoid-group",
+      "state": "failed",
+      "error": "DeferredRead: Source transport unavailable",
+      "captured_at": null,
+      "retained_data": false,
+      "quarantine": false,
+      "retry_at": null,
+      "checkpoint": {
+        "requests_completed": 0,
+        "records_checkpointed": 0,
+        "resume_database": "webuild-consortium__wp4-pid-ebwoid-group.sqlite"
+      },
+      "phase": "metadata"
+    },
+    {
+      "repository": "webuild-consortium/wp4-interop-test-bed",
+      "state": "failed",
+      "error": "DeferredRead: Source transport unavailable",
+      "captured_at": null,
+      "retained_data": false,
+      "quarantine": false,
+      "retry_at": null,
+      "checkpoint": {
+        "requests_completed": 0,
+        "records_checkpointed": 0,
+        "resume_database": "webuild-consortium__wp4-interop-test-bed.sqlite"
+      },
+      "phase": "metadata"
+    },
+    {
+      "repository": "webuild-consortium/SC5",
+      "state": "failed",
+      "error": "DeferredRead: Source transport unavailable",
+      "captured_at": null,
+      "retained_data": false,
+      "quarantine": false,
+      "retry_at": null,
+      "checkpoint": {
+        "requests_completed": 0,
+        "records_checkpointed": 0,
+        "resume_database": "webuild-consortium__SC5.sqlite"
+      },
+      "phase": "metadata"
+    },
+    {
+      "repository": "webuild-consortium/BU3",
+      "state": "failed",
+      "error": "DeferredRead: Source transport unavailable",
+      "captured_at": null,
+      "retained_data": false,
+      "quarantine": false,
+      "retry_at": null,
+      "checkpoint": {
+        "requests_completed": 0,
+        "records_checkpointed": 0,
+        "resume_database": "webuild-consortium__BU3.sqlite"
+      },
+      "phase": "metadata"
+    },
+    {
+      "repository": "webuild-consortium/webuild-github-policies",
+      "state": "failed",
+      "error": "DeferredRead: Source transport unavailable",
+      "captured_at": null,
+      "retained_data": false,
+      "quarantine": false,
+      "retry_at": null,
+      "checkpoint": {
+        "requests_completed": 0,
+        "records_checkpointed": 0,
+        "resume_database": "webuild-consortium__webuild-github-policies.sqlite"
+      },
+      "phase": "metadata"
+    },
+    {
+      "repository": "webuild-consortium/.github",
+      "state": "failed",
+      "error": "DeferredRead: Source transport unavailable",
+      "captured_at": null,
+      "retained_data": false,
+      "quarantine": false,
+      "retry_at": null,
+      "checkpoint": {
+        "requests_completed": 0,
+        "records_checkpointed": 0,
+        "resume_database": "webuild-consortium__.github.sqlite"
+      },
+      "phase": "metadata"
+    },
+    {
+      "repository": "eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework",
+      "state": "failed",
+      "error": "DeferredRead: Source transport unavailable",
+      "captured_at": null,
+      "retained_data": false,
+      "quarantine": false,
+      "retry_at": null,
+      "checkpoint": {
+        "requests_completed": 0,
+        "records_checkpointed": 0,
+        "resume_database": "eu-digital-identity-wallet__eudi-doc-architecture-and-reference-framework.sqlite"
+      },
+      "phase": "metadata"
+    },
+    {
+      "repository": "eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications",
+      "state": "failed",
+      "error": "DeferredRead: Source transport unavailable",
+      "captured_at": null,
+      "retained_data": false,
+      "quarantine": false,
+      "retry_at": null,
+      "checkpoint": {
+        "requests_completed": 0,
+        "records_checkpointed": 0,
+        "resume_database": "eu-digital-identity-wallet__eudi-doc-standards-and-technical-specifications.sqlite"
+      },
+      "phase": "metadata"
+    },
+    {
+      "source": "tagged-editions:eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework",
+      "state": "failed",
+      "captured_at": null,
+      "error": "DeferredRead",
+      "checkpoint": {
+        "requests_completed": 0,
+        "records_checkpointed": 0,
+        "resume_database": "eu-digital-identity-wallet__eudi-doc-architecture-and-reference-framework__tags.sqlite"
+      }
+    },
+    {
+      "source": "tagged-editions:eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications",
+      "state": "failed",
+      "captured_at": null,
+      "error": "DeferredRead",
+      "checkpoint": {
+        "requests_completed": 0,
+        "records_checkpointed": 0,
+        "resume_database": "eu-digital-identity-wallet__eudi-doc-standards-and-technical-specifications__tags.sqlite"
+      }
+    },
+    {
+      "source": "https://openid.net/specs/authorization-api-1_0.html",
+      "state": "failed",
+      "captured_at": null,
+      "error": "DeferredRead"
+    },
+    {
+      "source": "https://www.ietf.org/archive/id/draft-johansson-authzen-trust-01.txt",
+      "state": "complete-for-configured-mode",
+      "mode": "link-only",
+      "captured_at": "2026-10-15T03:57:36.297256+00:00"
+    },
+    {
+      "source": "https://forge.etsi.org/rep/esi/x19_60201_lists_of_trusted_entities/-/raw/e84f427f0cde99513b574ef4b5a155ac4a38eab6/1960201_json_schema/1960201_json_schema.json",
+      "state": "complete-for-configured-mode",
+      "mode": "link-only",
+      "captured_at": "2026-10-15T03:57:36.297451+00:00"
+    },
+    {
+      "source": "https://eur-lex.europa.eu/eli/reg/2024/1183/oj",
+      "state": "complete-for-configured-mode",
+      "mode": "link-only",
+      "captured_at": "2026-10-15T03:57:36.297562+00:00"
+    }
+  ],
+  "capture_id": "c3fc75035f2f4b25ae485620a3103bba",
+  "started_at": "2026-10-15T03:55:29.464261+00:00",
+  "capture_time": "2026-10-15T03:57:36.301267+00:00",
+  "status": "incomplete",
+  "resumed": false,
+  "reconciled_repositories": [
+    "webuild-consortium/wp4-architecture",
+    "webuild-consortium/wp4-trust-group",
+    "webuild-consortium/wp4-semantics-group",
+    "webuild-consortium/webuild-attestation-rulebooks-catalog",
+    "webuild-consortium/wp4-qtsp-group",
+    "webuild-consortium/wp4-wallets-group",
+    "webuild-consortium/wp4-pid-ebwoid-group",
+    "webuild-consortium/wp4-interop-test-bed",
+    "webuild-consortium/SC5",
+    "webuild-consortium/BU3",
+    "webuild-consortium/webuild-github-policies",
+    "webuild-consortium/.github",
+    "eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework",
+    "eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications"
+  ],
+  "discovered_not_admitted": [],
+  "records": 6
+}

@@ -81,6 +81,20 @@ def test_failed_update_preserves_durable_baseline_and_cursor(tmp_path):
     assert not any(r['kind']=='comment' for r in rows)
 
 
+def test_forced_full_reconciliation_remains_forced_after_restart(tmp_path):
+    cfg=tmp_path/'sources.json'
+    cfg.write_text(json.dumps({'organization':'o','repositories':['r'],'initial':['r'],'allowed_reference_hosts':[],
+                              'incremental_polling':{'enabled':True}}))
+    healthy,_=fixture_api();capture(cfg,tmp_path/'owned',client=healthy)
+    broken,_=changed_client(fail=True)
+    _,failed=capture(cfg,tmp_path/'owned',client=broken,force_full=True)
+    assert failed['status']=='incomplete'
+    healthy,_=changed_client(comments=[])
+    _,completed=capture(cfg,tmp_path/'owned',client=healthy)
+    assert completed['resumed'] and completed['status']=='complete'
+    assert completed['coverage'][0]['poll_mode']=='full-reconciliation'
+
+
 def test_overlap_follows_every_page_and_deduplicates_by_identity():
     previous=baseline();client,requests=fixture_api();original=client._transport
     def handle(req):

@@ -200,6 +200,7 @@ def capture(config,out,initial=False,client=None,force_full=False):
     within_window=(datetime.now(timezone.utc)-datetime.fromisoformat(old.get('started_at',now()))).total_seconds()<36*3600
     resume=old.get('status')=='incomplete' and old.get('configuration')==fingerprint and within_window
     state=old if resume else {'id':uuid.uuid4().hex,'configuration':fingerprint,'started_at':now()}
+    state['force_full']=bool(force_full or state.get('force_full',False))
     state['status']='incomplete';atomic_json(state_path,state)
     records=[];coverage=[];discovery=[]
     discovery_reader=ReadClient(client,CaptureJournal(out/'captures'/state['id']/'discovery.sqlite'))
@@ -218,7 +219,7 @@ def capture(config,out,initial=False,client=None,force_full=False):
                 baseline=json.loads(baseline_path.read_text()) if baseline_path.exists() else {}
                 if baseline.get('configuration')!=fingerprint:baseline={}
                 journal.set('poll_baseline',baseline)
-            rows,entry=gh.repo(name,baseline if polling.get('enabled') else None,overlap_seconds=polling.get('overlap_seconds',3600),reconcile_days=polling.get('reconcile_days',7),force_full=force_full)
+            rows,entry=gh.repo(name,baseline if polling.get('enabled') else None,overlap_seconds=polling.get('overlap_seconds',3600),reconcile_days=polling.get('reconcile_days',7),force_full=state['force_full'])
             records.extend(rows);entry['checkpoint']=journal.summary();coverage.append(entry)
             journal.set('complete',True);journal.set('coverage',entry)
             atomic_json(out/(name.replace('/','__')+'.json'),{'records':rows,'coverage':entry,'configuration':fingerprint})

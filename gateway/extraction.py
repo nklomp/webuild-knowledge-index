@@ -71,5 +71,11 @@ def parse_file(content,path):
         if len(text)>2_000_000:raise ValueError('PDF text exceeds size limit')
         return text,{'method':'pypdf-text-v1','pages':len(pages),'ocr':False}
     if path.lower().endswith(('.md','.txt','.json','.jsonld','.yaml','.yml','.ttl','.xml','.csv','.rst','.adoc','.xsd')):
+        # Older official editions include UTF-16 JSON. Decode only explicit
+        # Unicode byte-order marks; do not guess encodings or replace bad bytes.
+        encoding=('utf-32' if content.startswith((b'\xff\xfe\x00\x00',b'\x00\x00\xfe\xff')) else
+                  'utf-16' if content.startswith((b'\xff\xfe',b'\xfe\xff')) else
+                  'utf-8-sig' if content.startswith(b'\xef\xbb\xbf') else None)
+        if encoding:return content.decode(encoding,errors='strict'),{'method':'bom-text-v1','encoding':encoding}
         return content.decode('utf-8',errors='strict'),{'method':'utf8-text-v2'}
     return None,{'method':'link-only','limitation':'unsupported binary/source type'}

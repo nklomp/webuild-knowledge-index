@@ -1,0 +1,1 @@
+{"source_id":"github:REPOSITORY_ID:file:adr/example.md","source_revision":"EXACT_SOURCE_REVISION","model":"maintainer-review","prompt_version":"evidence-only-v1","claims":[{"kind":"topic","value":"key binding","evidence":["EXACT_SOURCE_SPAN"]}]}

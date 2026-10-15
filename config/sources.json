@@ -1,0 +1,58 @@
+{
+  "organization": "webuild-consortium",
+  "repositories": [
+    "wp4-architecture",
+    "wp4-trust-group",
+    "wp4-semantics-group",
+    "webuild-attestation-rulebooks-catalog",
+    "wp4-qtsp-group",
+    "wp4-wallets-group",
+    "wp4-pid-ebwoid-group",
+    "wp4-interop-test-bed",
+    "SC5",
+    "BU3",
+    "webuild-github-policies",
+    ".github"
+  ],
+  "initial": [
+    "wp4-architecture",
+    "wp4-trust-group",
+    "wp4-semantics-group",
+    "webuild-attestation-rulebooks-catalog"
+  ],
+  "external_repositories": [
+    "eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework",
+    "eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications"
+  ],
+  "allowed_reference_hosts": [
+    "openid.net",
+    "www.etsi.org",
+    "eur-lex.europa.eu",
+    "www.rfc-editor.org",
+    "github.com",
+    "forge.etsi.org",
+    "datatracker.ietf.org",
+    "www.ietf.org",
+    "www.w3.org"
+  ],
+  "aliases": {
+    "EBWV": [
+      "European Business Wallet Vocabulary",
+      "business wallet vocabulary"
+    ],
+    "AuthZEN": [
+      "authorization",
+      "key binding",
+      "historical keys"
+    ]
+  },
+  "official_sources_config": "config/official-sources.json",
+  "tagged_repositories": [
+    "eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework",
+    "eu-digital-identity-wallet/eudi-doc-standards-and-technical-specifications"
+  ],
+  "tag_paths": [
+    "README.md",
+    "docs/"
+  ]
+}

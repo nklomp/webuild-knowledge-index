@@ -1,0 +1,24 @@
+services:
+  db:
+    image: pgvector/pgvector:0.8.7-pg16
+    environment:
+      POSTGRES_DB: knowledge
+      POSTGRES_PASSWORD: ${DATABASE_ADMIN_PASSWORD:?required}
+    volumes: ["database:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d knowledge"]
+      interval: 5s
+      retries: 10
+  retrieval:
+    build: .
+    environment:
+      RETRIEVAL_DATABASE_URL: ${RETRIEVAL_DATABASE_URL:?required}
+      EMBEDDING_REVISION: 1110a243fdf4706b3f48f1d95db1a4f5529b4d41
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:?required}
+      SERVICE_HOST: ${SERVICE_HOST:?required}
+    ports: ["127.0.0.1:8000:8000"]
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  database:

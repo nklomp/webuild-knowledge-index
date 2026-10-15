@@ -1,0 +1,5 @@
+[
+ {"split":"held-out-v2","question":"What gives a conformance specification its implementation role compared with an architecture decision record?","expected_locator":"blueprint/07-governance-and-adr.md"},
+ {"split":"held-out-v2","question":"Can the issuer key verification endpoint answer for a timestamp in the past already?","expected_locator":"adr/eaa-key-binding-authzen.md"},
+ {"split":"held-out-v2","question":"Where are OWL modelling and SKOS terminology connected in the business wallet vocabulary?","expected_locator":"vocab/README.md"}
+]

@@ -1,0 +1,965 @@
+[
+  {
+    "block": 0,
+    "command_id": "exec-411cd4d9-0908-4422-9ed2-6af5b19cc03f",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/pyproject.toml"
+  },
+  {
+    "block": 1,
+    "command_id": "exec-411cd4d9-0908-4422-9ed2-6af5b19cc03f",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/.gitignore"
+  },
+  {
+    "block": 2,
+    "command_id": "exec-411cd4d9-0908-4422-9ed2-6af5b19cc03f",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/config/sources.json"
+  },
+  {
+    "block": 3,
+    "command_id": "exec-411cd4d9-0908-4422-9ed2-6af5b19cc03f",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/gateway/__init__.py"
+  },
+  {
+    "block": 4,
+    "command_id": "exec-411cd4d9-0908-4422-9ed2-6af5b19cc03f",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/gateway/model.py"
+  },
+  {
+    "block": 5,
+    "command_id": "exec-411cd4d9-0908-4422-9ed2-6af5b19cc03f",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/gateway/embeddings.py"
+  },
+  {
+    "block": 6,
+    "command_id": "exec-411cd4d9-0908-4422-9ed2-6af5b19cc03f",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/sql/schema.sql"
+  },
+  {
+    "block": 7,
+    "command_id": "exec-411cd4d9-0908-4422-9ed2-6af5b19cc03f",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/gateway/store.py"
+  },
+  {
+    "block": 8,
+    "command_id": "exec-200ee7c2-fce5-4627-82bf-14c54ee52d68",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/gateway/ingest.py"
+  },
+  {
+    "block": 9,
+    "command_id": "exec-200ee7c2-fce5-4627-82bf-14c54ee52d68",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/gateway/site.py"
+  },
+  {
+    "block": 10,
+    "command_id": "exec-45202653-0a89-4d48-ad4a-ca3e8941e696",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/gateway/api.py"
+  },
+  {
+    "block": 11,
+    "command_id": "exec-45202653-0a89-4d48-ad4a-ca3e8941e696",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/gateway/cli.py"
+  },
+  {
+    "block": 12,
+    "command_id": "exec-45202653-0a89-4d48-ad4a-ca3e8941e696",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 13,
+    "command_id": "exec-45202653-0a89-4d48-ad4a-ca3e8941e696",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/.env.example"
+  },
+  {
+    "block": 14,
+    "command_id": "exec-45202653-0a89-4d48-ad4a-ca3e8941e696",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/Dockerfile"
+  },
+  {
+    "block": 15,
+    "command_id": "exec-45202653-0a89-4d48-ad4a-ca3e8941e696",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/compose.yaml"
+  },
+  {
+    "block": 16,
+    "command_id": "exec-c2f2ee78-9a14-4571-b4a3-d6fbda3bbe07",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 17,
+    "command_id": "exec-c2f2ee78-9a14-4571-b4a3-d6fbda3bbe07",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/.github/workflows/ingest.yml"
+  },
+  {
+    "block": 18,
+    "command_id": "exec-c2f2ee78-9a14-4571-b4a3-d6fbda3bbe07",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/.github/workflows/test.yml"
+  },
+  {
+    "block": 19,
+    "command_id": "exec-c2f2ee78-9a14-4571-b4a3-d6fbda3bbe07",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/scripts/bootstrap.py"
+  },
+  {
+    "block": 20,
+    "command_id": "exec-ac3377e7-1427-45d3-8526-88b6480b3958",
+    "original_exit": 1,
+    "state": "written",
+    "path": "/tmp/pg-cloud-uid.c"
+  },
+  {
+    "block": 21,
+    "command_id": "exec-e8508321-bae3-464a-90b8-50a9455d293e",
+    "original_exit": 1,
+    "state": "written",
+    "path": "/tmp/pg-cloud-uid.c"
+  },
+  {
+    "block": 22,
+    "command_id": "exec-c7598169-e0a4-4528-9c61-70879996382a",
+    "original_exit": 1,
+    "state": "written",
+    "path": "/tmp/pg-cloud-uid.c"
+  },
+  {
+    "block": 23,
+    "command_id": "exec-97be9ace-60ed-43a5-826b-6281ca836fd3",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/scripts/public_file_evidence.py"
+  },
+  {
+    "block": 24,
+    "command_id": "exec-ba9afca1-aade-4c31-9182-25154d552d90",
+    "original_exit": 1,
+    "state": "written",
+    "path": "webuild-knowledge-index/tests/conftest.py"
+  },
+  {
+    "block": 25,
+    "command_id": "exec-ba9afca1-aade-4c31-9182-25154d552d90",
+    "original_exit": 1,
+    "state": "written",
+    "path": "webuild-knowledge-index/tests/test_gateway.py"
+  },
+  {
+    "block": 26,
+    "command_id": "exec-4fee51cc-68d7-4de5-ac46-137ca86e5dca",
+    "original_exit": 1,
+    "state": "transformed"
+  },
+  {
+    "block": 27,
+    "command_id": "exec-c57058ad-f673-4fa2-9bd8-24b3f255be46",
+    "original_exit": 1,
+    "state": "written",
+    "path": "/tmp/validate-webuild.sh"
+  },
+  {
+    "block": 28,
+    "command_id": "exec-c996d264-3fb1-4552-bcf0-b4b0708c0b8a",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 29,
+    "command_id": "exec-c996d264-3fb1-4552-bcf0-b4b0708c0b8a",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/gateway/catalogue.py"
+  },
+  {
+    "block": 30,
+    "command_id": "exec-c996d264-3fb1-4552-bcf0-b4b0708c0b8a",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/gateway/annotations.py"
+  },
+  {
+    "block": 31,
+    "command_id": "exec-c996d264-3fb1-4552-bcf0-b4b0708c0b8a",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 34,
+    "command_id": "exec-4bb60c26-6a8b-4fb2-bb35-185c33bc3a84",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/scripts/live_validation.py"
+  },
+  {
+    "block": 35,
+    "command_id": "exec-4bb60c26-6a8b-4fb2-bb35-185c33bc3a84",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/scripts/browser-check.cjs"
+  },
+  {
+    "block": 36,
+    "command_id": "exec-4bb60c26-6a8b-4fb2-bb35-185c33bc3a84",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/Caddyfile.example"
+  },
+  {
+    "block": 37,
+    "command_id": "exec-4bb60c26-6a8b-4fb2-bb35-185c33bc3a84",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 38,
+    "command_id": "exec-5a45ffaa-45b1-4338-92f9-06abeebeccf8",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/gateway/discussions.py"
+  },
+  {
+    "block": 39,
+    "command_id": "exec-5a45ffaa-45b1-4338-92f9-06abeebeccf8",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/gateway/wiki.py"
+  },
+  {
+    "block": 40,
+    "command_id": "exec-5a45ffaa-45b1-4338-92f9-06abeebeccf8",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 41,
+    "command_id": "exec-5a45ffaa-45b1-4338-92f9-06abeebeccf8",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/tests/test_gateway.py"
+  },
+  {
+    "block": 42,
+    "command_id": "exec-276a371a-6146-4991-bfc9-b38e93fe85d4",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 43,
+    "command_id": "exec-276a371a-6146-4991-bfc9-b38e93fe85d4",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/scripts/healthcheck.py"
+  },
+  {
+    "block": 44,
+    "command_id": "exec-276a371a-6146-4991-bfc9-b38e93fe85d4",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/config/annotation.example.json"
+  },
+  {
+    "block": 45,
+    "command_id": "exec-276a371a-6146-4991-bfc9-b38e93fe85d4",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/tests/test_extended.py"
+  },
+  {
+    "block": 46,
+    "command_id": "exec-b41e2d2d-2232-4ade-b56d-3ca6a3e67a91",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 47,
+    "command_id": "exec-b41e2d2d-2232-4ade-b56d-3ca6a3e67a91",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/README.md"
+  },
+  {
+    "block": 48,
+    "command_id": "exec-b41e2d2d-2232-4ade-b56d-3ca6a3e67a91",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/docs/RUNBOOK.md"
+  },
+  {
+    "block": 49,
+    "command_id": "exec-a5f711df-04bf-4c14-b2cf-63f6e83c081c",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/gateway/store.py"
+  },
+  {
+    "block": 50,
+    "command_id": "exec-a5f711df-04bf-4c14-b2cf-63f6e83c081c",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 51,
+    "command_id": "exec-a5f711df-04bf-4c14-b2cf-63f6e83c081c",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/tests/test_extended.py"
+  },
+  {
+    "block": 52,
+    "command_id": "exec-de2dd1e3-0afe-47c5-8be5-353552f4ba1a",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 54,
+    "command_id": "exec-88829942-6883-485d-aaf9-33ae4ac03cd9",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 55,
+    "command_id": "exec-f3fa689f-de09-4b0d-8e92-826c5b6102c0",
+    "original_exit": 130,
+    "state": "transformed"
+  },
+  {
+    "block": 57,
+    "command_id": "exec-98fa9d93-4e56-4e44-83ed-0cf548822f0c",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 58,
+    "command_id": "exec-98fa9d93-4e56-4e44-83ed-0cf548822f0c",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/tests/test_extended.py"
+  },
+  {
+    "block": 59,
+    "command_id": "exec-98fa9d93-4e56-4e44-83ed-0cf548822f0c",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/.gitignore"
+  },
+  {
+    "block": 60,
+    "command_id": "exec-98fa9d93-4e56-4e44-83ed-0cf548822f0c",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/docs/REQUIREMENTS.md"
+  },
+  {
+    "block": 62,
+    "command_id": "exec-38540d5f-1586-4643-96b2-8f84b5a816ba",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 63,
+    "command_id": "exec-fbf01fe5-7871-45b7-9576-8acfa14ba98a",
+    "original_exit": 0,
+    "state": "needs-review",
+    "error": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\nklom\\\\.codex\\\\artifacts\\\\webuild-migration-20261015\\\\project\\\\requirements.lock'"
+  },
+  {
+    "block": 64,
+    "command_id": "exec-fbf01fe5-7871-45b7-9576-8acfa14ba98a",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/tests/test_extended.py"
+  },
+  {
+    "block": 65,
+    "command_id": "exec-0179a18a-538a-4352-bc59-3b294908f71d",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 66,
+    "command_id": "exec-0179a18a-538a-4352-bc59-3b294908f71d",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/tests/test_extended.py"
+  },
+  {
+    "block": 68,
+    "command_id": "exec-692f14df-7f29-44f1-869f-3379edf52d29",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 69,
+    "command_id": "exec-692f14df-7f29-44f1-869f-3379edf52d29",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/tests/test_extended.py"
+  },
+  {
+    "block": 70,
+    "command_id": "exec-713e17a3-ab3c-4be0-b7d1-2d305bddfdf4",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 72,
+    "command_id": "exec-5e1b8e96-080e-491e-9ea3-034cc9324f50",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 73,
+    "command_id": "exec-5e1b8e96-080e-491e-9ea3-034cc9324f50",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/tests/test_extended.py"
+  },
+  {
+    "block": 74,
+    "command_id": "exec-e5e23328-9cb4-4bc1-bcef-49dcaf472d18",
+    "original_exit": 0,
+    "state": "needs-review",
+    "error": "FileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Users\\\\nklom\\\\.codex\\\\artifacts\\\\webuild-migration-20261015\\\\project\\\\evidence\\\\live-evaluation.json'"
+  },
+  {
+    "block": 75,
+    "command_id": "exec-97ef49a2-ed45-44c5-b7e6-db2dd20c1b60",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 76,
+    "command_id": "exec-ad2d2e8b-2826-4258-b7ec-04e373cce583",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 77,
+    "command_id": "exec-597ad01f-525d-4c83-808b-6a26bb25900f",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 78,
+    "command_id": "exec-597ad01f-525d-4c83-808b-6a26bb25900f",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/tests/test_extended.py"
+  },
+  {
+    "block": 80,
+    "command_id": "exec-c4f9dcb3-a732-4571-81f0-e51572157d3b",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 81,
+    "command_id": "exec-3c168ab6-1b93-4a07-8c1c-51e169b0e6f4",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/sql/schema.sql"
+  },
+  {
+    "block": 82,
+    "command_id": "exec-3c168ab6-1b93-4a07-8c1c-51e169b0e6f4",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/tests/test_extended.py"
+  },
+  {
+    "block": 83,
+    "command_id": "exec-f4911058-e06c-48a7-9ef5-2f8c3148c729",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/gateway/llm_annotations.py"
+  },
+  {
+    "block": 84,
+    "command_id": "exec-f4911058-e06c-48a7-9ef5-2f8c3148c729",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/docs/RUNBOOK.md"
+  },
+  {
+    "block": 85,
+    "command_id": "exec-50b4471d-04ec-4ce3-8354-8646ebd69e89",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 86,
+    "command_id": "exec-50b4471d-04ec-4ce3-8354-8646ebd69e89",
+    "original_exit": 0,
+    "state": "written",
+    "path": "tests/test_extended.py"
+  },
+  {
+    "block": 87,
+    "command_id": "exec-73d07691-5c7f-44a1-b414-31eefda74568",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/scripts/bootstrap.py"
+  },
+  {
+    "block": 88,
+    "command_id": "exec-73d07691-5c7f-44a1-b414-31eefda74568",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 89,
+    "command_id": "exec-73d07691-5c7f-44a1-b414-31eefda74568",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/tests/test_extended.py"
+  },
+  {
+    "block": 90,
+    "command_id": "exec-eacde86b-a1fe-4e9c-be1b-a9bc2710c3e8",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 92,
+    "command_id": "exec-dd48b1bf-5645-45be-ac54-ed9ebd5a4301",
+    "original_exit": 0,
+    "state": "needs-review",
+    "error": "ValueError: Unsupported imports"
+  },
+  {
+    "block": 93,
+    "command_id": "exec-cbaf7691-ad50-4c48-9a0a-03b957dd1df1",
+    "original_exit": 0,
+    "state": "written",
+    "path": "webuild-knowledge-index/.gitignore"
+  },
+  {
+    "block": 94,
+    "command_id": "exec-cbaf7691-ad50-4c48-9a0a-03b957dd1df1",
+    "original_exit": 0,
+    "state": "needs-review",
+    "error": "ValueError: Unsupported imports"
+  },
+  {
+    "block": 98,
+    "command_id": "exec-0219a038-8440-459e-a0c4-880e2d241c60",
+    "original_exit": 0,
+    "state": "written",
+    "path": "gateway/http.py"
+  },
+  {
+    "block": 99,
+    "command_id": "exec-228cf2a2-b3a0-493c-8548-81cc7ba3a020",
+    "original_exit": 0,
+    "state": "written",
+    "path": "gateway/retrieval.py"
+  },
+  {
+    "block": 100,
+    "command_id": "exec-228cf2a2-b3a0-493c-8548-81cc7ba3a020",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 102,
+    "command_id": "exec-5fe63577-164e-4f54-b739-7d8bec8c4554",
+    "original_exit": 1,
+    "state": "written",
+    "path": "/tmp/webuild-cloud-uid.c"
+  },
+  {
+    "block": 103,
+    "command_id": "exec-5fe63577-164e-4f54-b739-7d8bec8c4554",
+    "original_exit": 1,
+    "state": "written",
+    "path": "/tmp/webuild-pg/pg_hba.conf"
+  },
+  {
+    "block": 104,
+    "command_id": "exec-5fe63577-164e-4f54-b739-7d8bec8c4554",
+    "original_exit": 1,
+    "state": "written",
+    "path": "/tmp/webuild-check.sh"
+  },
+  {
+    "block": 105,
+    "command_id": "exec-bc456506-172d-47f1-93ba-8811f69755d8",
+    "original_exit": 0,
+    "state": "written",
+    "path": "gateway/extraction.py"
+  },
+  {
+    "block": 106,
+    "command_id": "exec-bc456506-172d-47f1-93ba-8811f69755d8",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 107,
+    "command_id": "exec-bbfe7f28-2f2f-46da-8d6d-a52552ed7955",
+    "original_exit": 0,
+    "state": "written",
+    "path": "gateway/ingest.py"
+  },
+  {
+    "block": 108,
+    "command_id": "exec-bbfe7f28-2f2f-46da-8d6d-a52552ed7955",
+    "original_exit": 0,
+    "state": "written",
+    "path": "gateway/review_threads.py"
+  },
+  {
+    "block": 109,
+    "command_id": "exec-bbfe7f28-2f2f-46da-8d6d-a52552ed7955",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 110,
+    "command_id": "exec-907baf45-53a5-46df-b5cb-acf01509b79d",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 111,
+    "command_id": "exec-f3241846-5850-4adf-a59b-eea1b8263fa7",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 112,
+    "command_id": "exec-f3241846-5850-4adf-a59b-eea1b8263fa7",
+    "original_exit": 0,
+    "state": "written",
+    "path": "sql/schema.sql"
+  },
+  {
+    "block": 113,
+    "command_id": "exec-f3241846-5850-4adf-a59b-eea1b8263fa7",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 114,
+    "command_id": "exec-dabf710a-c337-44ba-9b3b-fadbe66d854c",
+    "original_exit": 0,
+    "state": "written",
+    "path": "sql/schema.sql"
+  },
+  {
+    "block": 115,
+    "command_id": "exec-dabf710a-c337-44ba-9b3b-fadbe66d854c",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 116,
+    "command_id": "exec-dabf710a-c337-44ba-9b3b-fadbe66d854c",
+    "original_exit": 0,
+    "state": "written",
+    "path": "gateway/cli.py"
+  },
+  {
+    "block": 118,
+    "command_id": "exec-5394bf3c-0e76-4063-9efd-4b44cfc78a91",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 119,
+    "command_id": "exec-5394bf3c-0e76-4063-9efd-4b44cfc78a91",
+    "original_exit": 0,
+    "state": "needs-review",
+    "error": "ValueError: Unsupported imports"
+  },
+  {
+    "block": 120,
+    "command_id": "exec-5394bf3c-0e76-4063-9efd-4b44cfc78a91",
+    "original_exit": 0,
+    "state": "written",
+    "path": "tests/test_ingestion_resume.py"
+  },
+  {
+    "block": 121,
+    "command_id": "exec-5394bf3c-0e76-4063-9efd-4b44cfc78a91",
+    "original_exit": 0,
+    "state": "written",
+    "path": "tests/test_publication.py"
+  },
+  {
+    "block": 122,
+    "command_id": "exec-2d7c61cc-e633-4f15-8105-6e98c405f86b",
+    "original_exit": 0,
+    "state": "written",
+    "path": "config/evaluation-holdout.json"
+  },
+  {
+    "block": 123,
+    "command_id": "exec-2d7c61cc-e633-4f15-8105-6e98c405f86b",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 124,
+    "command_id": "exec-0bc99cc1-ac22-4dfc-a1d3-5c97b24413f3",
+    "original_exit": 1,
+    "state": "transformed"
+  },
+  {
+    "block": 125,
+    "command_id": "exec-0bc99cc1-ac22-4dfc-a1d3-5c97b24413f3",
+    "original_exit": 1,
+    "state": "written",
+    "path": "tests/test_retrieval_regression.py"
+  },
+  {
+    "block": 126,
+    "command_id": "exec-34f968be-a375-44c0-9f39-e23fddbf48f1",
+    "original_exit": 1,
+    "state": "transformed"
+  },
+  {
+    "block": 127,
+    "command_id": "exec-34f968be-a375-44c0-9f39-e23fddbf48f1",
+    "original_exit": 1,
+    "state": "written",
+    "path": "scripts/live_validation.py"
+  },
+  {
+    "block": 128,
+    "command_id": "exec-b9f7049d-89b5-488d-8bc2-e6a1c9762225",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 129,
+    "command_id": "exec-b9f7049d-89b5-488d-8bc2-e6a1c9762225",
+    "original_exit": 0,
+    "state": "written",
+    "path": "gateway/official.py"
+  },
+  {
+    "block": 130,
+    "command_id": "exec-b9f7049d-89b5-488d-8bc2-e6a1c9762225",
+    "original_exit": 0,
+    "state": "written",
+    "path": "config/official-sources.json"
+  },
+  {
+    "block": 131,
+    "command_id": "exec-b9f7049d-89b5-488d-8bc2-e6a1c9762225",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 132,
+    "command_id": "exec-b9f7049d-89b5-488d-8bc2-e6a1c9762225",
+    "original_exit": 0,
+    "state": "written",
+    "path": "gateway/tags.py"
+  },
+  {
+    "block": 133,
+    "command_id": "exec-b9f7049d-89b5-488d-8bc2-e6a1c9762225",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 134,
+    "command_id": "exec-e32a1303-a5a1-4c9b-9601-e6d7e26edfd8",
+    "original_exit": 0,
+    "state": "written",
+    "path": "tests/test_adapters.py"
+  },
+  {
+    "block": 135,
+    "command_id": "exec-e32a1303-a5a1-4c9b-9601-e6d7e26edfd8",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 136,
+    "command_id": "exec-7aa5ee4e-e519-44fe-a6b0-86462a33a215",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 137,
+    "command_id": "exec-d5d735f9-f927-4565-83b8-98f2f956c6c0",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 138,
+    "command_id": "exec-995d44c5-c46f-42df-a0ff-6dd3f6c3c25e",
+    "original_exit": 0,
+    "state": "written",
+    "path": "scripts/checkpoints.py"
+  },
+  {
+    "block": 139,
+    "command_id": "exec-995d44c5-c46f-42df-a0ff-6dd3f6c3c25e",
+    "original_exit": 0,
+    "state": "written",
+    "path": ".github/workflows/ingest.yml"
+  },
+  {
+    "block": 140,
+    "command_id": "exec-995d44c5-c46f-42df-a0ff-6dd3f6c3c25e",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 141,
+    "command_id": "exec-cd2ea4b7-5efa-4fb2-bc6f-77b9573fec1b",
+    "original_exit": 0,
+    "state": "written",
+    "path": ".github/workflows/test.yml"
+  },
+  {
+    "block": 142,
+    "command_id": "exec-cd2ea4b7-5efa-4fb2-bc6f-77b9573fec1b",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 143,
+    "command_id": "exec-b9966397-5908-428c-a4ea-657da6ef8457",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 144,
+    "command_id": "exec-0b38169a-bbe2-43cb-abda-18ffaa5e245d",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 145,
+    "command_id": "exec-0b38169a-bbe2-43cb-abda-18ffaa5e245d",
+    "original_exit": 0,
+    "state": "written",
+    "path": "scripts/selected_public_evidence.py"
+  },
+  {
+    "block": 147,
+    "command_id": "exec-79a08547-c4f3-4c2a-8db8-b0af914c134d",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 148,
+    "command_id": "exec-79a08547-c4f3-4c2a-8db8-b0af914c134d",
+    "original_exit": 0,
+    "state": "written",
+    "path": "tests/test_adapters.py"
+  },
+  {
+    "block": 149,
+    "command_id": "exec-79a08547-c4f3-4c2a-8db8-b0af914c134d",
+    "original_exit": 0,
+    "state": "written",
+    "path": "tests/test_publication.py"
+  },
+  {
+    "block": 150,
+    "command_id": "exec-a69bf34b-2aed-44c9-a6a8-8dd9d72672a6",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 151,
+    "command_id": "exec-07d96b2b-1440-44d3-bde6-c3a49c8024e1",
+    "original_exit": 0,
+    "state": "written",
+    "path": "scripts/reproduce_legacy.py"
+  },
+  {
+    "block": 152,
+    "command_id": "exec-1779ceb1-c12b-4e3a-bca6-c68392973069",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 154,
+    "command_id": "exec-8f261df5-c7a4-427d-b786-1b453f15795d",
+    "original_exit": 0,
+    "state": "written",
+    "path": "scripts/compare_legacy.py"
+  },
+  {
+    "block": 155,
+    "command_id": "exec-a707191b-3ee0-4b6a-80a9-f70a4f9b91b2",
+    "original_exit": 0,
+    "state": "written",
+    "path": "pyproject.toml"
+  },
+  {
+    "block": 156,
+    "command_id": "exec-b314b841-d636-4025-92cc-0c71e3d11560",
+    "original_exit": 0,
+    "state": "written",
+    "path": "tests/test_ingestion_resume.py"
+  },
+  {
+    "block": 157,
+    "command_id": "exec-b314b841-d636-4025-92cc-0c71e3d11560",
+    "original_exit": 0,
+    "state": "written",
+    "path": "scripts/reparse_public_rows.py"
+  },
+  {
+    "block": 158,
+    "command_id": "exec-b314b841-d636-4025-92cc-0c71e3d11560",
+    "original_exit": 0,
+    "state": "transformed"
+  },
+  {
+    "block": 159,
+    "command_id": "exec-64453461-a643-40b1-8dc9-b8eacdb79751",
+    "original_exit": 130,
+    "state": "transformed"
+  },
+  {
+    "block": 160,
+    "command_id": "exec-64453461-a643-40b1-8dc9-b8eacdb79751",
+    "original_exit": 130,
+    "state": "written",
+    "path": "scripts/current_measurement.py"
+  }
+]

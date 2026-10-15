@@ -1,0 +1,98 @@
+name: Daily derived publication
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: public-snapshot
+  cancel-in-progress: false
+jobs:
+  ingest:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    environment: knowledge-publication
+    permissions:
+      contents: read
+    env:
+      CHECKPOINT_KEY: ${{ secrets.CHECKPOINT_KEY }}
+    outputs:
+      snapshot: ${{ steps.snapshot.outputs.id }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.12.23'
+      - run: uv sync --frozen
+      - uses: actions/cache/restore@v4
+        with:
+          path: checkpoint-cache/sealed.bin
+          key: knowledge-capture-${{ hashFiles('config/**') }}-${{ github.run_id }}
+          restore-keys: knowledge-capture-${{ hashFiles('config/**') }}-
+      - name: Restore authenticated checkpoints when configured
+        if: env.CHECKPOINT_KEY != ''
+        run: if [ -f checkpoint-cache/sealed.bin ]; then uv run --frozen python scripts/checkpoints.py restore; fi
+        env:
+          CHECKPOINT_KEY: ${{ secrets.CHECKPOINT_KEY }}
+      - name: Capture, validate, prepare and generate (does not promote live pointer)
+        run: uv run --frozen python -m gateway.cli run
+        env:
+          SOURCE_READ_TOKEN: ${{ secrets.SOURCE_READ_TOKEN }}
+          INGEST_DATABASE_URL: ${{ secrets.INGEST_DATABASE_URL }}
+          EMBEDDING_REVISION: 1110a243fdf4706b3f48f1d95db1a4f5529b4d41
+          PUBLIC_API_URL: ${{ vars.PUBLIC_API_URL }}
+      - name: Preserve authenticated checkpoints even on quota failure
+        if: always() && env.CHECKPOINT_KEY != ''
+        run: uv run --frozen python scripts/checkpoints.py seal
+        env:
+          CHECKPOINT_KEY: ${{ secrets.CHECKPOINT_KEY }}
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: checkpoint-cache/sealed.bin
+          key: knowledge-capture-${{ hashFiles('config/**') }}-${{ github.run_id }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: capture-coverage
+          # No raw source records or unencrypted journals in a public artifact.
+          path: |
+            artifacts/coverage.json
+            artifacts/publication.json
+            artifacts/snapshot.txt
+      - id: snapshot
+        run: echo "id=$(cat artifacts/snapshot.txt)" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/
+  pages:
+    needs: ingest
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deploy
+  promote:
+    needs: [ingest, pages]
+    runs-on: ubuntu-latest
+    environment: knowledge-publication
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.12.23'
+      - run: uv sync --frozen
+      - name: Promote only after Pages deployment succeeds
+        run: uv run --frozen python -m gateway.cli promote --snapshot "$SNAPSHOT"
+        env:
+          SNAPSHOT: ${{ needs.ingest.outputs.snapshot }}
+          INGEST_DATABASE_URL: ${{ secrets.INGEST_DATABASE_URL }}
+          EMBEDDING_REVISION: 1110a243fdf4706b3f48f1d95db1a4f5529b4d41

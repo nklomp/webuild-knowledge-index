@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.env
+artifacts/
+site/
+evidence/live-records.json
+evidence/broader-capture.log
+*.egg-info/

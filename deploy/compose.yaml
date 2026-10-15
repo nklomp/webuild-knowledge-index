@@ -23,6 +23,8 @@ services:
       ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:?required}
       SERVICE_HOST: ${SERVICE_HOST:?required}
     volumes: [models:/models]
+    # Optional host reverse proxy access; never expose the raw API publicly.
+    ports: ['127.0.0.1:${API_PORT:-8000}:8000']
     healthcheck:
       test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/live', timeout=5)"]
       interval: 15s
@@ -34,7 +36,7 @@ services:
   edge:
     image: caddy:2.10.2
     restart: unless-stopped
-    ports: ['80:80', '443:443']
+    ports: ['${HTTP_PORT:-80}:80', '${HTTPS_PORT:-443}:443']
     environment:
       SERVICE_HOST: ${SERVICE_HOST:?required}
     volumes:
@@ -62,7 +64,9 @@ services:
       target: ingestion
     environment:
       INGEST_DATABASE_URL: ${INGEST_DATABASE_URL:?required}
-      SOURCE_READ_TOKEN: ${SOURCE_READ_TOKEN:?dedicated read-only GitHub credential required}
+      # Startup/initialization does not need a source credential. Complete
+      # ingestion still fails its coverage gate if GraphQL access is missing.
+      SOURCE_READ_TOKEN: ${SOURCE_READ_TOKEN:-}
       PUBLIC_API_URL: ${PUBLIC_API_URL:?required}
       EMBEDDING_REVISION: 1110a243fdf4706b3f48f1d95db1a4f5529b4d41
     volumes:

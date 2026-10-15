@@ -1,11 +1,10 @@
 # Deployment configuration
 
 These files prepare deployment; they have not provisioned a host, database or
-monitor. The user selected Render on 15 October. The plugin directory confirms
-it is installed and enabled, but this running chat has no callable Render tools.
-Inspect existing Render workspaces, services and databases once the connection
-appears. Reuse suitable existing resources and check capacity and cost before
-creating paid resources. No plan or price is assumed here.
+monitor. On 15 October the user chose their own Docker environment and requested
+a committed, pushed handover for continuation on their local computer. Follow
+[LOCAL-HANDOVER.md](LOCAL-HANDOVER.md). Render was inspected in the confirmed
+workspace and had no services or databases; no Render resources were created.
 
 ## Render
 
@@ -84,19 +83,27 @@ The monitor fails for unavailable endpoints, redirects, invalid health responses
 missing snapshots, publications older than 36 hours, stale sources and capture
 failures. It deliberately checks `/health`, not `/live`.
 
-## Alternative: existing Linux host
+## Selected target: existing Docker host
 
 `compose.yaml` supplies PostgreSQL/pgvector, the retrieval image and Caddy HTTPS.
-Bind credentials through an ignored, mode-0600 `.env`, add `ADMIN_DATABASE_URL`,
-and use the names in `.env.example`. Use internal `db:5432` connections here;
-the database has no published port. Initialize with:
+Generate distinct credentials in an ignored, mode-0600 `.env` with
+`python scripts/configure_docker.py --host <your-api-hostname>`. This includes
+`ADMIN_DATABASE_URL` for the isolated initializer. Use internal `db:5432`
+connections here; the database has no published port. Initialize with:
 
 ```sh
 docker compose --env-file .env -f deploy/compose.yaml --profile operator run --rm initialize
-docker compose --env-file .env -f deploy/compose.yaml up -d db retrieval edge
+docker compose --env-file .env -f deploy/compose.yaml up -d --build db retrieval edge
 ```
 
 Point the selected hostname at that existing host before starting Caddy. This
+publishes ports 80/443, configurable with `HTTP_PORT`/`HTTPS_PORT`. For an existing
+host reverse proxy, start only `db retrieval`; the API is available on
+`127.0.0.1:8000` (override `API_PORT` if occupied), and the existing proxy must
+terminate HTTPS and forward to it. A proxy in another container requires a shared
+Docker network or explicit host routing; its loopback is a different namespace.
+The database remains internal and the API's loopback port is not a public endpoint.
+This
 alternative does not make the database reachable from GitHub Actions; use a
 self-hosted runner on the private network or configure an authenticated TLS
 network path separately. The operator ingestion profile prepares a snapshot but

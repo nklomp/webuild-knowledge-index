@@ -1,0 +1,17 @@
+{
+  "kind": "fresh local deployment sizing smoke; not a load test",
+  "api_liveness": 200,
+  "health_before_publication": 404,
+  "peak_rss_mib": 439.5,
+  "embedding_dimension": 384,
+  "database": "real PostgreSQL 16 / pgvector",
+  "reader_role": "gateway_reader",
+  "model_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "query_smoke": {
+    "kind": "isolated controlled local fixture; no Render publication",
+    "query_characters": 1000,
+    "rest_status": 200,
+    "health_after_local_fixture": 200,
+    "peak_rss_mib": 488.2
+  }
+}

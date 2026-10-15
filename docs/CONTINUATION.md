@@ -1,41 +1,50 @@
-# Continue deployment after plugin refresh
+# Continue deployment on the local computer
 
-15 October 2026. User requests completion of publication, hosting, Pages and monitoring,
-and installed Render. Plugin directory confirms Render ENABLED/installed=true.
-This chat still exposes no Render callable tools or skills and has no RENDER_*
-runtime credential bindings. Recheck tool discovery in the refreshed chat. Do not
-ask the user to reinstall or paste a token. No paid resources are authorized.
+15 October 2026. The user selected their own existing Docker environment and
+requested all work committed and pushed for local continuation. The selected
+branch is `codex/native-cloud-recovery-validation` in
+`nklomp/webuild-knowledge-index`; draft PR:
+https://github.com/nklomp/webuild-knowledge-index/pull/1.
 
-Repository: nklomp/webuild-knowledge-index. Draft PR: https://github.com/nklomp/webuild-knowledge-index/pull/1
-Local branch: codex/native-cloud-continuation; push destination:
-codex/native-cloud-recovery-validation. All upstream repositories remain read-only.
+Start with `AGENTS.md`, `deploy/LOCAL-HANDOVER.md`, `deploy/README.md` and
+`docs/RUNBOOK.md`. All upstream WeBuild/VDX repositories remain read-only.
+No actual host, hostname or remote access was supplied. No deployment was
+attempted. Render tools now work: the user confirmed My Workspace
+(`tea-db8d91rncjis73ffpu40`), which had no services or databases. Nothing was
+provisioned and no paid resources were created. Do not resume Render deployment
+unless the user selects it again.
 
-Current changes verify six wiki availability gaps from fresh public metadata and
-GitHub UI/redirect evidence, preserve the fail-closed publication gate, prepare
-separate Docker ingestion/retrieval targets, add /live for startup and Render host
-validation, add deployment templates and a source/admin-separated Pages setup
-helper. Full native suite passes 136 tests with real pgvector and pinned MiniLM.
-Read deploy/README.md, AGENTS.md and docs/RUNBOOK.md.
+The Docker stack supplies persistent PostgreSQL/pgvector, separate non-root
+retrieval/ingestion images, and optional Caddy HTTPS. `configure_docker.py`
+creates a mode-0600 `.env` with distinct random administrator, reader and writer
+credentials and refuses to overwrite an existing file. Initialization and API
+startup no longer require a source token. PostgreSQL has no published port;
+the raw API binds only to host loopback for an optional existing reverse proxy.
+Use `/live` for startup checks and `/health` for publication/freshness checks.
 
-Source GraphQL authentication is still missing. Public REST/Git already work;
-GraphQL requires authentication even for public Discussions/review threads.
-Visitors do not need credentials. Bind a dedicated read-only SOURCE_READ_TOKEN
-to ingestion only; never reuse the gateway write integration for source crawling.
-Eleven repositories remain partial due to GraphQL. Pages is currently not enabled
-(GET returns 404); production writer URL and HTTPS API URL are also not configured.
+Fresh checks in this continuation: retrieval image build and non-root import;
+private env creation/no-overwrite/input validation; Compose credential/network
+checks; reader-role API startup and a 1,000-character REST query against an
+isolated controlled fixture using real PostgreSQL 16/pgvector and the pinned
+MiniLM model. Peak query RSS was 488.2 MiB. See `evidence/docker-deployment.json`
+and `evidence/docker-sizing.json`. The preceding full native suite passed
+136 tests at `cb023ca`; it was not rerun for these deployment-file changes.
+No controlled sizing fixture is a source corpus or public publication.
 
-Inspect existing Render workspaces/services/databases first. Create no paid resource
-without reviewing capacity and price with the user. Bootstrap database roles with
-a separate one-off ingestion image; expose only gateway_reader to retrieval.
-Use /live for platform health, /health for freshness monitoring. Never put a
-Render administrator database connection in retrieval. GitHub Actions ingestion
-requires a reachable writer-role TLS URL with sslmode=verify-full.
+Six wiki availability gaps are resolved with public evidence. Eleven repositories
+remain partial because a dedicated read-only `SOURCE_READ_TOKEN` is missing for
+GraphQL Discussions/review resolution. Complete publication must remain gated.
+The retrieval service must never receive that token, the admin URL or writer URL.
 
-Monitoring workflow activates only after PUBLIC_API_URL is configured; independent
-monitor and existing authorized notification destination still need activation.
-The systemd example is prepared, not installed. No alerts have been sent.
+Remaining local inputs: actual Docker host and HTTPS hostname, source-read token,
+and publication runner/network. GitHub Pages remains the current wiki design,
+but GitHub-hosted Actions cannot access the private Compose database. Choose a
+trusted runner with private database access or explicitly select local wiki
+hosting before enabling daily publication. Do not expose PostgreSQL globally.
+The operator ingestion command prepares a site/snapshot; it does not deploy
+Pages or promote the live snapshot. Preserve site-before-promotion ordering.
 
-Native DB/model credentials are in ignored mode-0600 work/validation-env.json
-and work/validation-suite-env.json; do not print or upload them. Docker uses
-unix:///var/run/docker.sock with DOCKER_HOST/CONTEXT/TLS selector vars unset.
-Existing validation database container: webuild-native-validation.
+Pages was not enabled at the last check. Independent monitoring, alert destination,
+backups/restore, hosted rollback/withdrawal and load checks still require the real
+host. Monitoring examples are prepared, not activated, and no alerts were sent.
+No cloud workspace secrets or local validation databases need to be transferred.

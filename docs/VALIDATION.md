@@ -12,7 +12,7 @@ The network block is resolved in this new native session. Real HTTPS probes to
 MiniLM weights downloaded and generated a 384-dimensional vector. Python 3.12.14,
 PostgreSQL 16.15, pgvector 0.8.7 and the frozen 82-package lock were verified.
 
-**107 tests passed, zero failures/errors/skips** in 24.37 seconds. These include
+**113 tests passed, zero failures/errors/skips** in 22.33 seconds. These include
 real embeddings and database operations, HTTP/HTTPS MCP client initialization,
 discovery and all six tools with REST parity. Controlled transport fixtures cover
 ingestion failure paths independently. See `evidence/native-continuation-tests.xml`
@@ -25,6 +25,8 @@ daily to catch resolution changes independently of parent timestamps. Full issue
 reconciliation runs at least weekly and can be forced with `--full-reconciliation`.
 Baselines bind to configuration, repository identity and reuse policy; interrupted
 captures pin the same baseline and failed repository captures never advance it.
+A forced full reconciliation remains forced after restart, even if the retry
+omits the flag; a dedicated regression covers this failure path.
 Deleted issues or changes without a parent timestamp update may remain until the
 next full reconciliation. Known removals require the immediate withdrawal path.
 
@@ -42,6 +44,63 @@ configured OpenID body; three IETF/ETSI/EC entries remain intentionally link-onl
 and all four remain metadata-only for public reuse
 (`evidence/native-official-coverage.json`). Source-evidence fixture regeneration
 also passed against the unchanged pinned upstream content.
+
+The full pinned corpus was regenerated and validated natively: **12 repositories,
+463 text records / 702 total files / 13,265 sections**. Original expected-source
+retrieval is **6/6** in the top 10 (original tuning and regression splits each 3/3);
+additional source-derived formulations are **3/3**, ranks **8, 1, 1**. Questions
+and expected locators are unchanged. These remain small source-derived regression
+sets, not new blind or participant evaluations. The full-corpus MCP client called
+all six tools with REST parity. Chromium **154.0.8037.57** passed wiki navigation,
+live search, snapshot pinning and visible service-failure checks. Evidence:
+`evidence/live-evaluation.json`, `evidence/live-coverage.json`,
+`evidence/browser-results.json` and `evidence/native-wiki-search.png`.
+Section encoding took 9 minutes 10 seconds. Snapshot: `5ff9210053b733340a718c3e`.
+Native calibration keeps semantic weight 8; only snapshot and measured floating
+point cutoff differ from the prior CI artifact. No ranking code or expected
+sources were changed for this rerun.
+
+The completed native checkpoint replay accounts for **20 coverage entries** with
+**zero adapter failures**: 14 repository captures, two tagged-edition sources and
+four configured official sources. It captured **13,270 records**. Repository
+contributions include **1,173 issues, 968 PRs, 2,693 comments, 2,686 reviews and
+2,259 inline review comments**, plus 628 text/PDF files, 344 unsupported/binary
+metadata records, 38 releases, 302 attachment metadata records and two wiki pages.
+No attachment bodies were fetched. All 12 configured WeBuild repositories and the
+two EUDI repositories are accounted for; discovery found no unadmitted repositories.
+
+ARF tagged extraction initially failed on symbolic links and later on an older
+UTF-16 JSON specification. The failures are retained in
+`evidence/native-live-capture-before-tag-fix.json` and
+`evidence/native-tag-recovery.json`. The repaired adapter records symlinks as
+metadata without following targets; explicit Unicode byte-order marks preserve
+text/schema entities; tagged PDFs keep page citations and their requested reuse
+permissions. All **30 ARF editions** now yield **1,428 records**, including **383
+PDFs, 21 symbolic-link metadata records and four BOM-decoded text records**.
+Tag scope is the configured README/docs paths; all tagged records remain
+metadata-only for public reuse. The standards repository returned no tags.
+
+Final coverage remains **incomplete**: 12 repository entries are partial, four
+sources complete for supported types and four official entries complete for their
+configured mode. Discussion bodies and review-thread resolution require the
+missing dedicated read-only GraphQL identity; six repository wikis have unconfirmed
+absence/availability. These are actual coverage gates, not hidden successful
+captures. `evidence/native-live-coverage.json` records counts, revisions, omissions,
+checkpoints, capture times and transport statistics for every source. Raw bodies
+and unencrypted journals are excluded from delivery. A real CLI preparation attempt
+against this capture was refused and preserved the last published local snapshot
+(`evidence/native-publication-gate.json`). It was never published or indexed as a
+complete historical corpus. The separate file-only retrieval benchmark above is
+not a retrieval-quality measurement of all 13,270 live records.
+
+The final complete suite was run at `fd9dfc102632bb84b5e5d6eec81f14bc1b9c1d3e`.
+Native corpus/browser evidence was generated at `25f08eed4a0bc2f5a82b4f169dd5c99ab5301388`;
+later changes affect capture and tagged/BOM extraction. Retrieval, embeddings,
+database, MCP/REST and wiki code are identical, and the benchmark's existing UTF-8
+text decoding is unchanged. CI run 38738115183 independently passed the preceding
+108-test polling/restart revision and its complete corpus/browser step. Later
+adapter commits have their own CI runs; current status is recorded in the native
+continuation summary rather than inferred from an earlier green run.
 
 No dedicated source-read GraphQL identity is configured. Missing discussion and
 review-resolution coverage still prevents publication; successful anonymous REST
@@ -200,3 +259,30 @@ Hosting/persistent DB/TLS, Pages environment/URL, independent monitor and recipi
 backup/restore, hosted withdrawal/rollback and measured load remain unconfigured.
 Production deployment is not authorized. The stopped Work report of **84 tests,
 6/6 plus 2/3** is historical only and is not used as current evidence.
+
+## Additional native continuation commands
+
+With workspace cache variables, the pinned model revision and separate local test
+DB URLs set as described in the runbook, the final suite command was:
+
+```sh
+uv run --frozen --extra test pytest -q --junitxml=evidence/native-continuation-tests.xml
+```
+
+The full capture was resumed across the pagination and historical-tag fixes using
+the same source inventory and generation:
+
+```sh
+git show d7da87f640cf079817140ebb571a1f8f2c4fec64:config/sources.json > work/sources-before-polling.json
+uv run --frozen python -m gateway.cli capture --config work/sources-before-polling.json --artifacts work/native-live-capture
+uv run --frozen python -m gateway.cli prepare --artifacts work/native-live-capture --site work/refused-site
+```
+
+The last command intentionally returned exit 1 with `Incomplete capture;
+publication refused`; the snapshot pointer remained unchanged. The old inventory
+configuration disables new polling for that in-progress full generation. A separate
+two-capture anonymous smoke run exercised final polling behavior; update/deletion,
+numeric pagination, Unicode/PDF and forced-reconciliation restart behavior is also
+covered by the complete regression suite. The capture replay fetched fresh public
+repository metadata and reused durable completed pages; it did not repeat all
+historical network reads or bypass missing GraphQL coverage.

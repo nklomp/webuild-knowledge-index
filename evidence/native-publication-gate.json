@@ -1,0 +1,9 @@
+{
+  "exit_code": 1,
+  "reason": "Incomplete capture; publication refused",
+  "before_snapshot": "5ff9210053b733340a718c3e",
+  "after_snapshot": "5ff9210053b733340a718c3e",
+  "unchanged": true,
+  "source_capture": "native-live-coverage.json",
+  "raw_capture_not_published": true
+}

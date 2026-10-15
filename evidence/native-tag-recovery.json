@@ -1,0 +1,43 @@
+{
+  "failures_observed": [
+    {
+      "error": "Tag archive/tree mismatch",
+      "cause": "Symbolic links are Git blobs but not regular archive members",
+      "paths": [
+        "docs/media/5.01",
+        "docs/media/5.02"
+      ],
+      "commit": "c64f2cbb19aee37c571c58af66d359c4d5be29c8"
+    },
+    {
+      "error": "UnicodeDecodeError",
+      "cause": "Historical official JSON uses a UTF-16 byte-order mark",
+      "path": "docs/technical-specifications/api/EUDI-Providers.json",
+      "commit": "0e55ebbb6d2dd47206dec38e589f0b369f192313"
+    }
+  ],
+  "replay": {
+    "editions": 30,
+    "records": 1428,
+    "extraction_methods": {
+      "utf8-text-v2": 1020,
+      "pypdf-text-v1": 383,
+      "link-only": 21,
+      "bom-text-v1": 4
+    },
+    "all_permissions_metadata_only": true,
+    "symbolic_links": 21,
+    "pdf_records": 383
+  },
+  "scope": [
+    "README.md",
+    "docs/"
+  ],
+  "tests": [
+    "test_tagged_symlink_is_metadata_and_never_follows_target",
+    "test_explicit_unicode_bom_preserves_official_json_entities",
+    "test_tagged_pdf_retains_page_citations_and_requested_permissions"
+  ],
+  "regression_suite": "113 passed with real PostgreSQL/pgvector and embeddings",
+  "pdf_citations": "Tagged PDFs retain PDF type, page locators and requested reuse permissions"
+}

@@ -3,7 +3,7 @@
     {
       "repository": "webuild-consortium/wp4-architecture",
       "state": "partial",
-      "captured_at": "2026-10-15T03:52:40.916153+00:00",
+      "captured_at": "2026-10-15T12:29:01.911178+00:00",
       "commit": "2c234782170ae136db0aedb747c4b04da201b401",
       "counts": {
         "files": 68,
@@ -26,7 +26,7 @@
     {
       "repository": "webuild-consortium/wp4-trust-group",
       "state": "partial",
-      "captured_at": "2026-10-15T03:52:42.320359+00:00",
+      "captured_at": "2026-10-15T12:29:03.054201+00:00",
       "commit": "040e97f363db1645e1379444b08d440bc2cf5db1",
       "counts": {
         "files": 99,
@@ -49,7 +49,7 @@
     {
       "repository": "webuild-consortium/wp4-semantics-group",
       "state": "partial",
-      "captured_at": "2026-10-15T03:52:43.678904+00:00",
+      "captured_at": "2026-10-15T12:29:04.327798+00:00",
       "commit": "a2306846c73de3272321bd82e3d83b3051f45f17",
       "counts": {
         "files": 30,
@@ -72,7 +72,7 @@
     {
       "repository": "webuild-consortium/webuild-attestation-rulebooks-catalog",
       "state": "partial",
-      "captured_at": "2026-10-15T03:52:44.965357+00:00",
+      "captured_at": "2026-10-15T12:29:05.559351+00:00",
       "commit": "42542d20d0a0159d50842a5e95b00605214f0ac6",
       "counts": {
         "files": 124,
@@ -95,7 +95,7 @@
     {
       "repository": "webuild-consortium/wp4-qtsp-group",
       "state": "partial",
-      "captured_at": "2026-10-15T03:52:45.522246+00:00",
+      "captured_at": "2026-10-15T12:29:05.828502+00:00",
       "commit": "189936a5764e9a5edeaeebc8570cdc16332486b2",
       "counts": {
         "files": 25,
@@ -118,7 +118,7 @@
     {
       "repository": "webuild-consortium/wp4-wallets-group",
       "state": "partial",
-      "captured_at": "2026-10-15T03:52:45.998437+00:00",
+      "captured_at": "2026-10-15T12:29:06.177070+00:00",
       "commit": "c3ddd5d81e7be6570a84c1f7769b2d1052a5a33b",
       "counts": {
         "files": 16,
@@ -141,7 +141,7 @@
     {
       "repository": "webuild-consortium/wp4-pid-ebwoid-group",
       "state": "partial",
-      "captured_at": "2026-10-15T03:52:46.363871+00:00",
+      "captured_at": "2026-10-15T12:29:06.435189+00:00",
       "commit": "f45f9564cfd800086a922819ff60e57424b24541",
       "counts": {
         "files": 3,
@@ -164,7 +164,7 @@
     {
       "repository": "webuild-consortium/wp4-interop-test-bed",
       "state": "partial",
-      "captured_at": "2026-10-15T03:52:46.924485+00:00",
+      "captured_at": "2026-10-15T12:29:06.903195+00:00",
       "commit": "3233e1df3b5cd7781af65ac58709b680cfca6273",
       "counts": {
         "files": 47,
@@ -187,7 +187,7 @@
     {
       "repository": "webuild-consortium/SC5",
       "state": "partial",
-      "captured_at": "2026-10-15T03:52:47.379224+00:00",
+      "captured_at": "2026-10-15T12:29:07.181926+00:00",
       "commit": "e8204fcb01aa8fbf6f623e555b0786846b22ecef",
       "counts": {
         "files": 13,
@@ -210,7 +210,7 @@
     {
       "repository": "webuild-consortium/BU3",
       "state": "partial",
-      "captured_at": "2026-10-15T03:52:47.561036+00:00",
+      "captured_at": "2026-10-15T12:29:07.496232+00:00",
       "commit": "5465be86619fad474da22c98f3770aad359b5653",
       "counts": {
         "files": 5,
@@ -233,7 +233,7 @@
     {
       "repository": "webuild-consortium/webuild-github-policies",
       "state": "partial",
-      "captured_at": "2026-10-15T03:52:57.248194+00:00",
+      "captured_at": "2026-10-15T12:29:14.737635+00:00",
       "commit": "3a79faad49266261831c7ac549f95c93e4d9999b",
       "counts": {
         "files": 32,
@@ -256,7 +256,7 @@
     {
       "repository": "webuild-consortium/.github",
       "state": "partial",
-      "captured_at": "2026-10-15T03:52:57.423656+00:00",
+      "captured_at": "2026-10-15T12:29:14.971740+00:00",
       "commit": "ad241655aca61cf1a7339139aaf9264fb9802b28",
       "counts": {
         "files": 1,
@@ -278,6 +278,6 @@
     }
   ],
   "records": 463,
-  "capture_time": "2026-10-15T03:52:57.488380+00:00",
+  "capture_time": "2026-10-15T12:29:15.044926+00:00",
   "purpose": "integration evidence only; not release corpus"
 }

@@ -55,3 +55,15 @@ Fresh CI passed 96 tests plus full-corpus retrieval (original 6/6, additional 3/
 live HTTP MCP/REST parity and real Chrome wiki search. Final authority and identity
 regressions pass; provenance is tracked in VALIDATION.md. Native model/API network access remains blocked. This
 is separate from the historical 84-test report and is not a readiness claim.
+
+## Native continuation after network recovery
+
+The unrestricted native environment successfully downloaded the pinned model and
+passed 113 tests with real PostgreSQL/pgvector and HTTP/HTTPS MCP parity. This
+supersedes the earlier native 49-pass/47-setup-error report. Fresh fixture
+regeneration again verified unchanged pinned upstream content. Incremental issue
+polling, weekly reconciliation and verified numeric pagination aliases are now
+implemented and covered by regressions. See `VALIDATION.md` and
+`evidence/native-continuation-summary.json` for current native measurements and the
+separate live-corpus/credential boundaries. The archive remains a reconstructed
+source delivery, not a recovered byte-for-byte copy of the stopped Work executor.

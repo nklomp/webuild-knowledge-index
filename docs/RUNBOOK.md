@@ -51,6 +51,7 @@ and deletion-reconciliation boundaries.
 Every seven days a complete issue crawl also reconciles removed issues and changes
 that did not update a parent timestamp. Force it sooner with
 `python -m gateway.cli capture --full-reconciliation` (also accepted by `run`).
+This forced mode persists across interrupted-capture retries.
 Publication may retain removed issue evidence until that full reconciliation;
 use the emergency withdrawal procedure for a known removal immediately.
 
@@ -181,3 +182,16 @@ hosted release drills remain unconfigured and are not authorized for deployment.
 
 The section-context-v3 index recipe forces a fresh snapshot and section-vector
 rebuild from v2. Keep prior snapshots for recovery; re-run tuning calibration.
+
+## Native live-capture boundary after continuation
+
+The fresh replay captured 13,270 records from 14 repositories, 30 ARF tagged
+editions, configured official records and derived references. See
+`evidence/native-live-coverage.json`. All adapter failures found during the crawl
+were repaired: numeric GitHub pagination aliases, tagged symbolic links, historical
+Unicode JSON and tagged PDF page citations. The full native suite passes 113 tests.
+The remaining 12 partial entries require a dedicated read-only GraphQL token and
+confirmation of six wiki availability gaps. Do not bypass the publication gate:
+a real preparation attempt refused this capture and retained the previous snapshot.
+Raw checkpoints/bodies remain local; seal checkpoints before external storage.
+The 463-file retrieval benchmark and its generated wiki are separate evidence.

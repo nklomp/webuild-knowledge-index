@@ -102,7 +102,7 @@ def test_stale_health(stores):
 def test_safe_site_navigation(stores,corpus,tmp_path):
     _,r,s=stores;corpus[0]['text']+='<script>alert(1)</script>'
     generate(corpus,r.manifest(),tmp_path,'https://api.example.org')
-    pages=list(tmp_path.glob('*.html'));assert len(pages)==9
+    pages=list(tmp_path.glob('*.html'));assert {'index.html','groups.html','topics.html','questions.html','decisions.html','developers.html'}|{digest(r['id'])[:24]+'.html' for r in corpus}<={p.name for p in pages}
     assert '&lt;script&gt;' in ''.join(p.read_text() for p in pages)
     assert '<script>alert' not in ''.join(p.read_text() for p in pages)
     assert json.loads((tmp_path/'config.json').read_text())['snapshot']==s

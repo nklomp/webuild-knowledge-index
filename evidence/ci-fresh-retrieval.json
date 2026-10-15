@@ -1,0 +1,795 @@
+{
+  "ci_run": "https://github.com/nklomp/webuild-knowledge-index/actions/runs/38687385513",
+  "commit": "c8f0b253f619a98fb5333e90022dd8186b684d1a",
+  "extraction": "Complete JSON emitted by scripts.live_validation in successful CI; canonical artifact includes browser result and screenshot.",
+  "validated_at": "2026-10-15T05:50:05.828106+00:00",
+  "snapshot": "1717f78282ae94a18708b439",
+  "model": {
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "dimension": 384
+  },
+  "index_recipe": "section-context-v3",
+  "ranking": "weighted-fts-rrf-v4",
+  "configured_semantic_weight": 8,
+  "questions": [
+    {
+      "split": "tuning",
+      "question": "How can a validator confirm the issuer signing key is bound to a legal person?",
+      "expected_locator": "adr/eaa-key-binding-authzen.md",
+      "rank": 6,
+      "retrieved_locators": [
+        "rulebooks/rb-e-receipt/README.md",
+        "rulebooks/rb-authorised-signatories/README.md",
+        "rulebooks/rb-ubo/README.md",
+        "docs/qes/SigningAndSealing.md",
+        "rulebooks/templates/webuild-rulebook-generic-template.md",
+        "adr/eaa-key-binding-authzen.md",
+        "rulebooks/rb-poa-pox/README.md",
+        "rulebooks/rb-base/verifier-base-verification.md",
+        "rulebooks/rb-residence/README.md",
+        "conformance-specs/cs-03-remote-signing-with-wallet-units.md"
+      ],
+      "snapshot": "1717f78282ae94a18708b439",
+      "expected_vector_distance": 0.4548453688621521,
+      "semantic_weight": 3.5555555555555554,
+      "top_signals": [
+        {
+          "locator": "rulebooks/rb-e-receipt/README.md",
+          "semantic_rank": 1,
+          "lexical_rank": 4,
+          "score": 0.07391279599271403
+        },
+        {
+          "locator": "rulebooks/rb-authorised-signatories/README.md",
+          "semantic_rank": 2,
+          "lexical_rank": 7,
+          "score": 0.07227304338522442
+        },
+        {
+          "locator": "rulebooks/rb-ubo/README.md",
+          "semantic_rank": 5,
+          "lexical_rank": 5,
+          "score": 0.07008547008547009
+        },
+        {
+          "locator": "docs/qes/SigningAndSealing.md",
+          "semantic_rank": 7,
+          "lexical_rank": 1,
+          "score": 0.06946143598945165
+        },
+        {
+          "locator": "rulebooks/templates/webuild-rulebook-generic-template.md",
+          "semantic_rank": 3,
+          "lexical_rank": 19,
+          "score": 0.06909561761882436
+        },
+        {
+          "locator": "adr/eaa-key-binding-authzen.md",
+          "semantic_rank": 4,
+          "lexical_rank": 21,
+          "score": 0.06790123456790123
+        },
+        {
+          "locator": "rulebooks/rb-poa-pox/README.md",
+          "semantic_rank": 10,
+          "lexical_rank": 2,
+          "score": 0.06692268305171531
+        },
+        {
+          "locator": "rulebooks/rb-base/verifier-base-verification.md",
+          "semantic_rank": 9,
+          "lexical_rank": 14,
+          "score": 0.06504330417373896
+        },
+        {
+          "locator": "rulebooks/rb-residence/README.md",
+          "semantic_rank": 6,
+          "lexical_rank": 47,
+          "score": 0.06321784826457723
+        },
+        {
+          "locator": "conformance-specs/cs-03-remote-signing-with-wallet-units.md",
+          "semantic_rank": 8,
+          "lexical_rank": 43,
+          "score": 0.061996319563424065
+        }
+      ]
+    },
+    {
+      "split": "previous-held-out-now-regression",
+      "question": "How does the authorization endpoint establish an EAA issuer key binding?",
+      "expected_locator": "adr/eaa-key-binding-authzen.md",
+      "rank": 1,
+      "retrieved_locators": [
+        "adr/eaa-key-binding-authzen.md",
+        "rulebooks/rb-base/verifier-base-verification.md",
+        "rulebooks/rb-e-receipt/README.md",
+        "rulebooks/rb-ubo/README.md",
+        "Rulebooks/AuthorizedServiceProvider.md",
+        "rulebooks/templates/webuild-rulebook-generic-template.md",
+        "rulebooks/rb-authorized-service-provider/README.md",
+        "task2-trust-framework/eaa-provider-identity-verification-chaining-LoTL.md",
+        "rulebooks/rb-authorised-signatories/README.md",
+        "Rulebooks/eInvoiceAttestationRulebook.md"
+      ],
+      "snapshot": "1717f78282ae94a18708b439",
+      "expected_vector_distance": 0.31286231798754105,
+      "semantic_weight": 2.7222222222222228,
+      "top_signals": [
+        {
+          "locator": "adr/eaa-key-binding-authzen.md",
+          "semantic_rank": 1,
+          "lexical_rank": 43,
+          "score": 0.054335331670999354
+        },
+        {
+          "locator": "rulebooks/rb-base/verifier-base-verification.md",
+          "semantic_rank": 2,
+          "lexical_rank": 36,
+          "score": 0.05432347670250897
+        },
+        {
+          "locator": "rulebooks/rb-e-receipt/README.md",
+          "semantic_rank": 11,
+          "lexical_rank": 3,
+          "score": 0.054214173932483796
+        },
+        {
+          "locator": "rulebooks/rb-ubo/README.md",
+          "semantic_rank": 3,
+          "lexical_rank": 33,
+          "score": 0.0539625647152529
+        },
+        {
+          "locator": "Rulebooks/AuthorizedServiceProvider.md",
+          "semantic_rank": 4,
+          "lexical_rank": 37,
+          "score": 0.05284400057273769
+        },
+        {
+          "locator": "rulebooks/templates/webuild-rulebook-generic-template.md",
+          "semantic_rank": 13,
+          "lexical_rank": 5,
+          "score": 0.052675330757522544
+        },
+        {
+          "locator": "rulebooks/rb-authorized-service-provider/README.md",
+          "semantic_rank": 5,
+          "lexical_rank": 35,
+          "score": 0.05240665766981557
+        },
+        {
+          "locator": "task2-trust-framework/eaa-provider-identity-verification-chaining-LoTL.md",
+          "semantic_rank": 6,
+          "lexical_rank": 39,
+          "score": 0.051346801346801356
+        },
+        {
+          "locator": "rulebooks/rb-authorised-signatories/README.md",
+          "semantic_rank": 7,
+          "lexical_rank": 44,
+          "score": 0.05024556703661182
+        },
+        {
+          "locator": "Rulebooks/eInvoiceAttestationRulebook.md",
+          "semantic_rank": 16,
+          "lexical_rank": 14,
+          "score": 0.04933222696380592
+        }
+      ]
+    },
+    {
+      "split": "tuning",
+      "question": "Where are SKOS and OWL used in the business wallet terminology?",
+      "expected_locator": "vocab/README.md",
+      "rank": 1,
+      "retrieved_locators": [
+        "vocab/README.md",
+        "blueprint/05-data-and-semantics.md",
+        "docs/ebwv/terminology.ttl",
+        "docs/ebwv/terminology.jsonld",
+        "blueprint/appendix-ebw-definition.md",
+        "docs/ebwv/vocabulary.ttl",
+        "semantics/PROTEGE_GITHUB.md",
+        "docs/qes/SigningAndSealing.md",
+        "rulebooks/rb-e-receipt/README.md",
+        "blueprint/04-integration-model.md"
+      ],
+      "snapshot": "1717f78282ae94a18708b439",
+      "expected_vector_distance": 0.3778590334737866,
+      "semantic_weight": 2,
+      "top_signals": [
+        {
+          "locator": "vocab/README.md",
+          "semantic_rank": 1,
+          "lexical_rank": 5,
+          "score": 0.048171500630517027
+        },
+        {
+          "locator": "blueprint/05-data-and-semantics.md",
+          "semantic_rank": 2,
+          "lexical_rank": 4,
+          "score": 0.04788306451612903
+        },
+        {
+          "locator": "docs/ebwv/terminology.ttl",
+          "semantic_rank": 3,
+          "lexical_rank": 2,
+          "score": 0.04787506400409626
+        },
+        {
+          "locator": "docs/ebwv/terminology.jsonld",
+          "semantic_rank": 5,
+          "lexical_rank": 1,
+          "score": 0.047162673392181595
+        },
+        {
+          "locator": "blueprint/appendix-ebw-definition.md",
+          "semantic_rank": 4,
+          "lexical_rank": 10,
+          "score": 0.045535714285714284
+        },
+        {
+          "locator": "docs/ebwv/vocabulary.ttl",
+          "semantic_rank": 9,
+          "lexical_rank": 6,
+          "score": 0.04413702239789197
+        },
+        {
+          "locator": "semantics/PROTEGE_GITHUB.md",
+          "semantic_rank": 6,
+          "lexical_rank": 24,
+          "score": 0.04220779220779221
+        },
+        {
+          "locator": "docs/qes/SigningAndSealing.md",
+          "semantic_rank": 13,
+          "lexical_rank": 9,
+          "score": 0.04189001389716101
+        },
+        {
+          "locator": "rulebooks/rb-e-receipt/README.md",
+          "semantic_rank": 14,
+          "lexical_rank": 18,
+          "score": 0.039847539847539845
+        },
+        {
+          "locator": "blueprint/04-integration-model.md",
+          "semantic_rank": 7,
+          "lexical_rank": 84,
+          "score": 0.03679519071310116
+        }
+      ]
+    },
+    {
+      "split": "previous-held-out-now-regression",
+      "question": "Which semantic layers define the European business wallet vocabulary?",
+      "expected_locator": "vocab/README.md",
+      "rank": 1,
+      "retrieved_locators": [
+        "vocab/README.md",
+        "blueprint/appendix-ebw-definition.md",
+        "blueprint/05-data-and-semantics.md",
+        "rulebooks/rb-e-receipt/README.md",
+        "blueprint/appendix-glossary.md",
+        "docs/ebwv/vocabulary.ttl",
+        "adr/ebw-scope.md",
+        "docs/qes/SigningAndSealing.md",
+        "vocab/src/vocabulary.yml",
+        "EBWOID/European_Business_Wallet_owner_identification_data.md"
+      ],
+      "snapshot": "1717f78282ae94a18708b439",
+      "expected_vector_distance": 0.28014711855965013,
+      "semantic_weight": 2.7222222222222228,
+      "top_signals": [
+        {
+          "locator": "vocab/README.md",
+          "semantic_rank": 1,
+          "lexical_rank": 12,
+          "score": 0.05851548269581057
+        },
+        {
+          "locator": "blueprint/appendix-ebw-definition.md",
+          "semantic_rank": 5,
+          "lexical_rank": 1,
+          "score": 0.05827378450329271
+        },
+        {
+          "locator": "blueprint/05-data-and-semantics.md",
+          "semantic_rank": 3,
+          "lexical_rank": 10,
+          "score": 0.05749559082892417
+        },
+        {
+          "locator": "rulebooks/rb-e-receipt/README.md",
+          "semantic_rank": 10,
+          "lexical_rank": 3,
+          "score": 0.05476190476190477
+        },
+        {
+          "locator": "blueprint/appendix-glossary.md",
+          "semantic_rank": 6,
+          "lexical_rank": 24,
+          "score": 0.053150553150553156
+        },
+        {
+          "locator": "docs/ebwv/vocabulary.ttl",
+          "semantic_rank": 2,
+          "lexical_rank": 84,
+          "score": 0.05085125448028675
+        },
+        {
+          "locator": "adr/ebw-scope.md",
+          "semantic_rank": 4,
+          "lexical_rank": 86,
+          "score": 0.04938403729071538
+        },
+        {
+          "locator": "docs/qes/SigningAndSealing.md",
+          "semantic_rank": 7,
+          "lexical_rank": 58,
+          "score": 0.049104758692413646
+        },
+        {
+          "locator": "vocab/src/vocabulary.yml",
+          "semantic_rank": 8,
+          "lexical_rank": 60,
+          "score": 0.04836601307189543
+        },
+        {
+          "locator": "EBWOID/European_Business_Wallet_owner_identification_data.md",
+          "semantic_rank": 9,
+          "lexical_rank": 68,
+          "score": 0.04726499597423511
+        }
+      ]
+    },
+    {
+      "split": "tuning",
+      "question": "What is the role of architecture decisions and conformance specifications in governance?",
+      "expected_locator": "blueprint/07-governance-and-adr.md",
+      "rank": 4,
+      "retrieved_locators": [
+        "conformance-specs/cs-10-revocation-mechanism.md",
+        "blueprint/01-executive-summary.md",
+        "blueprint/appendix-ebw-definition.md",
+        "blueprint/07-governance-and-adr.md",
+        "rulebooks/rb-poa-pox/README.md",
+        "blueprint/README.md",
+        "README.md",
+        "rulebooks/rb-control/README.md",
+        "conformance-specs/cs-12-sca-payments.md",
+        "GITHUB_POLICIES_AND_GUIDELINES.md"
+      ],
+      "snapshot": "1717f78282ae94a18708b439",
+      "expected_vector_distance": 0.40206609374481694,
+      "semantic_weight": 2,
+      "top_signals": [
+        {
+          "locator": "conformance-specs/cs-10-revocation-mechanism.md",
+          "semantic_rank": 7,
+          "lexical_rank": 5,
+          "score": 0.045235361653272105
+        },
+        {
+          "locator": "blueprint/01-executive-summary.md",
+          "semantic_rank": 5,
+          "lexical_rank": 18,
+          "score": 0.04358974358974359
+        },
+        {
+          "locator": "blueprint/appendix-ebw-definition.md",
+          "semantic_rank": 9,
+          "lexical_rank": 12,
+          "score": 0.0428743961352657
+        },
+        {
+          "locator": "blueprint/07-governance-and-adr.md",
+          "semantic_rank": 1,
+          "lexical_rank": 42,
+          "score": 0.04259080681452909
+        },
+        {
+          "locator": "rulebooks/rb-poa-pox/README.md",
+          "semantic_rank": 18,
+          "lexical_rank": 1,
+          "score": 0.04203446826397646
+        },
+        {
+          "locator": "blueprint/README.md",
+          "semantic_rank": 4,
+          "lexical_rank": 44,
+          "score": 0.040865384615384616
+        },
+        {
+          "locator": "README.md",
+          "semantic_rank": 3,
+          "lexical_rank": 52,
+          "score": 0.04067460317460317
+        },
+        {
+          "locator": "rulebooks/rb-control/README.md",
+          "semantic_rank": 15,
+          "lexical_rank": 22,
+          "score": 0.03886178861788618
+        },
+        {
+          "locator": "conformance-specs/cs-12-sca-payments.md",
+          "semantic_rank": 28,
+          "lexical_rank": 3,
+          "score": 0.0386002886002886
+        },
+        {
+          "locator": "GITHUB_POLICIES_AND_GUIDELINES.md",
+          "semantic_rank": 24,
+          "lexical_rank": 9,
+          "score": 0.038302277432712216
+        }
+      ]
+    },
+    {
+      "split": "previous-held-out-now-regression",
+      "question": "How does WeBuild govern architecture and implementation conformance?",
+      "expected_locator": "blueprint/07-governance-and-adr.md",
+      "rank": 9,
+      "retrieved_locators": [
+        "GITHUB_POLICIES_AND_GUIDELINES.md",
+        "docs/01-github-policies-and-guidelines.md",
+        "blueprint/README.md",
+        "rulebooks/rb-poa-pox/README.md",
+        "README.md",
+        "semantics/model/modelling_considerations/WEBUILD_RPam_Mandate_Authorisation_SATISFIES_Findings.md",
+        "blueprint/01-executive-summary.md",
+        "semantics/code_lists/action_candidates.md",
+        "blueprint/07-governance-and-adr.md",
+        "conformance-specs/cs-15-ebw-qtsp-wmp.md"
+      ],
+      "snapshot": "1717f78282ae94a18708b439",
+      "expected_vector_distance": 0.5233626649759603,
+      "semantic_weight": 1,
+      "top_signals": [
+        {
+          "locator": "GITHUB_POLICIES_AND_GUIDELINES.md",
+          "semantic_rank": 4,
+          "lexical_rank": 15,
+          "score": 0.028958333333333336
+        },
+        {
+          "locator": "docs/01-github-policies-and-guidelines.md",
+          "semantic_rank": 8,
+          "lexical_rank": 22,
+          "score": 0.02690100430416069
+        },
+        {
+          "locator": "blueprint/README.md",
+          "semantic_rank": 19,
+          "lexical_rank": 16,
+          "score": 0.02581612258494337
+        },
+        {
+          "locator": "rulebooks/rb-poa-pox/README.md",
+          "semantic_rank": 49,
+          "lexical_rank": 2,
+          "score": 0.02530334418467002
+        },
+        {
+          "locator": "README.md",
+          "semantic_rank": 12,
+          "lexical_rank": 33,
+          "score": 0.0246415770609319
+        },
+        {
+          "locator": "semantics/model/modelling_considerations/WEBUILD_RPam_Mandate_Authorisation_SATISFIES_Findings.md",
+          "semantic_rank": 3,
+          "lexical_rank": 59,
+          "score": 0.024276377217553685
+        },
+        {
+          "locator": "blueprint/01-executive-summary.md",
+          "semantic_rank": 24,
+          "lexical_rank": 23,
+          "score": 0.023952954675846242
+        },
+        {
+          "locator": "semantics/code_lists/action_candidates.md",
+          "semantic_rank": 5,
+          "lexical_rank": 57,
+          "score": 0.023931623931623933
+        },
+        {
+          "locator": "blueprint/07-governance-and-adr.md",
+          "semantic_rank": 29,
+          "lexical_rank": 20,
+          "score": 0.023735955056179776
+        },
+        {
+          "locator": "conformance-specs/cs-15-ebw-qtsp-wmp.md",
+          "semantic_rank": 79,
+          "lexical_rank": 3,
+          "score": 0.02306726047733242
+        }
+      ]
+    },
+    {
+      "split": "held-out-v2",
+      "question": "What gives a conformance specification its implementation role compared with an architecture decision record?",
+      "expected_locator": "blueprint/07-governance-and-adr.md",
+      "rank": 8,
+      "retrieved_locators": [
+        "conformance-specs/_template.md",
+        "blueprint/README.md",
+        "blueprint/01-executive-summary.md",
+        "README.md",
+        "conformance-specs/cs-02-credential-presentation.md",
+        "conformance-specs/cs-10-revocation-mechanism.md",
+        "conformance-specs/README.md",
+        "blueprint/07-governance-and-adr.md",
+        "feedback/ebw-definition/council-general-approach-ebw-briefing.md",
+        "conformance-specs/cs-01-credential-issuance.md"
+      ],
+      "snapshot": "1717f78282ae94a18708b439",
+      "expected_vector_distance": 0.45637467763574757,
+      "semantic_weight": 5.555555555555556,
+      "top_signals": [
+        {
+          "locator": "conformance-specs/_template.md",
+          "semantic_rank": 1,
+          "lexical_rank": 97,
+          "score": 0.09744410799020803
+        },
+        {
+          "locator": "blueprint/README.md",
+          "semantic_rank": 2,
+          "lexical_rank": 68,
+          "score": 0.0974182347670251
+        },
+        {
+          "locator": "blueprint/01-executive-summary.md",
+          "semantic_rank": 5,
+          "lexical_rank": 34,
+          "score": 0.09610838334242591
+        },
+        {
+          "locator": "README.md",
+          "semantic_rank": 3,
+          "lexical_rank": 80,
+          "score": 0.095326278659612
+        },
+        {
+          "locator": "conformance-specs/cs-02-credential-presentation.md",
+          "semantic_rank": 8,
+          "lexical_rank": 20,
+          "score": 0.09419934640522877
+        },
+        {
+          "locator": "conformance-specs/cs-10-revocation-mechanism.md",
+          "semantic_rank": 10,
+          "lexical_rank": 9,
+          "score": 0.09385783298826778
+        },
+        {
+          "locator": "conformance-specs/README.md",
+          "semantic_rank": 4,
+          "lexical_rank": 103,
+          "score": 0.09294052488070895
+        },
+        {
+          "locator": "blueprint/07-governance-and-adr.md",
+          "semantic_rank": 6,
+          "lexical_rank": 56,
+          "score": 0.0927957738302566
+        },
+        {
+          "locator": "feedback/ebw-definition/council-general-approach-ebw-briefing.md",
+          "semantic_rank": 11,
+          "lexical_rank": 23,
+          "score": 0.09029545411693723
+        },
+        {
+          "locator": "conformance-specs/cs-01-credential-issuance.md",
+          "semantic_rank": 15,
+          "lexical_rank": 4,
+          "score": 0.08969907407407408
+        }
+      ]
+    },
+    {
+      "split": "held-out-v2",
+      "question": "Can the issuer key verification endpoint answer for a timestamp in the past already?",
+      "expected_locator": "adr/eaa-key-binding-authzen.md",
+      "rank": 1,
+      "retrieved_locators": [
+        "adr/eaa-key-binding-authzen.md",
+        "rulebooks/rb-e-receipt/README.md",
+        "references/etsi/ts_119612v020401p.md",
+        "rulebooks/rb-poa-pox/README.md",
+        "references/etsi/ts_119615v010301p.md",
+        "rulebooks/templates/webuild-rulebook-generic-template.md",
+        "references/etsi/ts_119602v010101p.md",
+        "rulebooks/rb-sca-card-dpc/README.md",
+        "rulebooks/rb-sca-iban/README.md",
+        "conformance-specs/cs-15-ebw-qtsp-wmp.md"
+      ],
+      "snapshot": "1717f78282ae94a18708b439",
+      "expected_vector_distance": 0.4579516699371732,
+      "semantic_weight": 3.5555555555555554,
+      "top_signals": [
+        {
+          "locator": "adr/eaa-key-binding-authzen.md",
+          "semantic_rank": 1,
+          "lexical_rank": 1,
+          "score": 0.07468123861566485
+        },
+        {
+          "locator": "rulebooks/rb-e-receipt/README.md",
+          "semantic_rank": 3,
+          "lexical_rank": 4,
+          "score": 0.0720623897707231
+        },
+        {
+          "locator": "references/etsi/ts_119612v020401p.md",
+          "semantic_rank": 5,
+          "lexical_rank": 14,
+          "score": 0.06821436821436822
+        },
+        {
+          "locator": "rulebooks/rb-poa-pox/README.md",
+          "semantic_rank": 7,
+          "lexical_rank": 9,
+          "score": 0.06756074698968922
+        },
+        {
+          "locator": "references/etsi/ts_119615v010301p.md",
+          "semantic_rank": 4,
+          "lexical_rank": 36,
+          "score": 0.06597222222222222
+        },
+        {
+          "locator": "rulebooks/templates/webuild-rulebook-generic-template.md",
+          "semantic_rank": 13,
+          "lexical_rank": 2,
+          "score": 0.06483527274512692
+        },
+        {
+          "locator": "references/etsi/ts_119602v010101p.md",
+          "semantic_rank": 2,
+          "lexical_rank": 74,
+          "score": 0.06481035681806023
+        },
+        {
+          "locator": "rulebooks/rb-sca-card-dpc/README.md",
+          "semantic_rank": 10,
+          "lexical_rank": 15,
+          "score": 0.06412698412698413
+        },
+        {
+          "locator": "rulebooks/rb-sca-iban/README.md",
+          "semantic_rank": 6,
+          "lexical_rank": 44,
+          "score": 0.06348743848743849
+        },
+        {
+          "locator": "conformance-specs/cs-15-ebw-qtsp-wmp.md",
+          "semantic_rank": 17,
+          "lexical_rank": 10,
+          "score": 0.06046176046176046
+        }
+      ]
+    },
+    {
+      "split": "held-out-v2",
+      "question": "Where are OWL modelling and SKOS terminology connected in the business wallet vocabulary?",
+      "expected_locator": "vocab/README.md",
+      "rank": 1,
+      "retrieved_locators": [
+        "vocab/README.md",
+        "blueprint/05-data-and-semantics.md",
+        "blueprint/appendix-ebw-definition.md",
+        "docs/ebwv/terminology.jsonld",
+        "docs/ebwv/terminology.ttl",
+        "semantics/PROTEGE_GITHUB.md",
+        "docs/ebwv/vocabulary.ttl",
+        "vocab/src/vocabulary.yml",
+        "blueprint/04-integration-model.md",
+        "semantics/model/webuild.ttl"
+      ],
+      "snapshot": "1717f78282ae94a18708b439",
+      "expected_vector_distance": 0.30037729141847413,
+      "semantic_weight": 3.5555555555555554,
+      "top_signals": [
+        {
+          "locator": "vocab/README.md",
+          "semantic_rank": 1,
+          "lexical_rank": 5,
+          "score": 0.07367241137732941
+        },
+        {
+          "locator": "blueprint/05-data-and-semantics.md",
+          "semantic_rank": 2,
+          "lexical_rank": 4,
+          "score": 0.07297267025089606
+        },
+        {
+          "locator": "blueprint/appendix-ebw-definition.md",
+          "semantic_rank": 6,
+          "lexical_rank": 7,
+          "score": 0.06879742700638222
+        },
+        {
+          "locator": "docs/ebwv/terminology.jsonld",
+          "semantic_rank": 10,
+          "lexical_rank": 1,
+          "score": 0.06718709341660162
+        },
+        {
+          "locator": "docs/ebwv/terminology.ttl",
+          "semantic_rank": 11,
+          "lexical_rank": 2,
+          "score": 0.06620727951941036
+        },
+        {
+          "locator": "semantics/PROTEGE_GITHUB.md",
+          "semantic_rank": 3,
+          "lexical_rank": 44,
+          "score": 0.06605277438610771
+        },
+        {
+          "locator": "docs/ebwv/vocabulary.ttl",
+          "semantic_rank": 4,
+          "lexical_rank": 40,
+          "score": 0.06555555555555555
+        },
+        {
+          "locator": "vocab/src/vocabulary.yml",
+          "semantic_rank": 5,
+          "lexical_rank": 87,
+          "score": 0.061503575789290076
+        },
+        {
+          "locator": "blueprint/04-integration-model.md",
+          "semantic_rank": 8,
+          "lexical_rank": 71,
+          "score": 0.05992116948560594
+        },
+        {
+          "locator": "semantics/model/webuild.ttl",
+          "semantic_rank": 7,
+          "lexical_rank": 93,
+          "score": 0.05960394107891912
+        }
+      ]
+    }
+  ],
+  "mcp": {
+    "initialized": true,
+    "transport": "Streamable HTTP over loopback TCP",
+    "tool_count": 6,
+    "rest_mcp_equal": true,
+    "all_tools_called": true,
+    "read_only_annotations": true
+  },
+  "splits": {
+    "held-out-v2": {
+      "questions": 3,
+      "retrieved_at_10": 3
+    },
+    "previous-held-out-now-regression": {
+      "questions": 3,
+      "retrieved_at_10": 3
+    },
+    "tuning": {
+      "questions": 3,
+      "retrieved_at_10": 3
+    }
+  },
+  "limitations": [
+    "Corpus pinned by the fresh coverage manifest; historical corpus was not recovered; not complete discussion coverage",
+    "No participant usefulness demonstrated",
+    "Not a production deployment"
+  ],
+  "counts": {
+    "records": 463,
+    "sections": 13265
+  }
+}

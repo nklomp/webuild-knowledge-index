@@ -22,14 +22,15 @@ and [validation report](docs/VALIDATION.md). Evidence is under `evidence/`.
    convenience initializer using `ADMIN_DATABASE_URL`, `READER_DATABASE_PASSWORD` and `INGEST_DATABASE_PASSWORD`.
    Reader and writer passwords must differ. Never give retrieval
    the administrator or ingestion URL.
-4. `python -m venv .venv`; install the project: `.venv/bin/pip install '.[test]'`.
+4. Use Python 3.12 and the committed lock: `uv sync --frozen --extra test`.
 5. With ingestion credentials and `PUBLIC_API_URL` set:
-   `python -m gateway.cli run --initial`. Full runs omit `--initial`.
-6. Start retrieval: `uvicorn gateway.api:factory --factory --host 0.0.0.0 --port 8000`.
+   `uv run --frozen python -m gateway.cli run --initial`. Full runs omit `--initial`.
+6. Start retrieval: `uv run --frozen uvicorn gateway.api:factory --factory --host 0.0.0.0 --port 8000`.
    Its environment contains only `RETRIEVAL_DATABASE_URL`, model revision, host,
    and approved origins. Put Caddy or another HTTPS proxy in front of it.
 7. Host `site/` on GitHub Pages; configure the new repository's Actions variables
-   and protected environment as described in the runbook.
+   and protected environment as described in the runbook. After successful Pages
+   publication, promote the prepared snapshot with `uv run --frozen python -m gateway.cli promote`.
 
 Anonymous GitHub reads work for small runs; the historical four-repository crawl
 needs a read-only token to avoid the 60-request anonymous API quota. Partial or
@@ -54,7 +55,7 @@ metadata never silently upgrades a cited baseline to the latest upstream version
 ## Tests
 
 Apply the schema to a disposable PostgreSQL/pgvector database, set the three DB
-URLs and pinned `EMBEDDING_REVISION`, then run `python -m pytest -q`.
+URLs and pinned `EMBEDDING_REVISION`, then run `uv run --frozen --extra test pytest -q`.
 Tests use real embeddings and database queries; HTTP transport tests use an actual
 listening service and official MCP client. Only pagination/error-path transport
 fixtures use controlled responses. `scripts/live_validation.py` separately indexes
@@ -63,8 +64,10 @@ checks HTTP REST/MCP parity, and optionally runs a Playwright browser check.
 
 ## Publication status
 
-This source is independently runnable. It has not been published to a GitHub owner
-or deployed to production. Historical capture completeness and production HTTPS,
+The standalone repository is `nklomp/webuild-knowledge-index`. Native Cloud
+continuation is reviewed in a draft PR; it is not deployed to production.
+The native model-download network gate remains open; see the current validation
+report for separate native and GitHub Actions evidence. Historical capture completeness and production HTTPS,
 Pages coordination, notification routing, backups and performance are distinct
 release checks; see the validation report. Private-source serving is intentionally
 blocked until authenticated access control across every export/cache is implemented.

@@ -2,8 +2,8 @@
 
 ## Boundaries and credentials
 
-Create a NEW repository named `webuild-knowledge-index` under an explicitly chosen
-owner. Never copy project files into consortium source repositories or VDX-infra.
+The standalone repository is `nklomp/webuild-knowledge-index`. Never copy project
+files into consortium source repositories or VDX-infra.
 The ingestion adapter uses only public repositories selected in `config/sources.json`.
 Organization discovery records new repositories but does not auto-admit them.
 Review configuration in this project to admit additions.
@@ -87,7 +87,7 @@ DB storage, and embedding compatibility. Publication >36 hours old is failure.
 
 ## Production checks still requiring infrastructure
 
-- Selected repository owner, hosting account, persistent DB and HTTPS domain.
+- Hosting account, persistent DB and HTTPS domain (repository owner is nklomp).
 - Distinct random reader/writer passwords, restricted network and DB TLS.
 - Source read-only token and complete historical capture evidence.
 - GitHub Pages publication and rollback exercised against the live backend.
@@ -121,7 +121,7 @@ cache configuration, not runtime emulation. Never install the old UID shim.
 The 15 October model retry downloaded metadata but failed for actual weights:
 `us.aws.cdn.hf.co` is missing from the published network allowlist. Add this host
 through environment configuration, and also `api.github.com` for REST/GraphQL.
-Both currently return proxy CONNECT 403 before authentication. Official-source
+Both currently return proxy CONNECT 403 before authentication. `openid.net` also returned CONNECT 403 for the configured fetch. Official-source
 hosts in `config/official-sources.json` also need approved read access before
 claiming their live fetch coverage. Do not bypass the proxy policy.
 
@@ -147,7 +147,7 @@ weights are available, then run browser validation with Playwright/Chromium and
 The evaluation runner reads frozen original questions from
 `config/evaluation-original.json` and unchanged additional formulations from
 `config/evaluation-holdout.json`. It must retain missing expected-source results;
-do not alter expected locators to improve scores. Calibration uses tuning only.
+do not alter expected locators to improve scores. Fusion selection uses original tuning questions constrained by the three known original regression cases; the semantic cutoff uses tuning distances only. Additional questions are loaded after selection.
 The newly added cache-context regression requires the real encoder.
 
 A dedicated read-only source token remains absent. Keep that identity separate

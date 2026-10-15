@@ -2,7 +2,7 @@
 
 Date: 7 October 2026
 
-Status (15 October 2026): Recovered implementation under native Cloud validation. Real model download remains blocked; no production deployment is authorized or claimed. See VALIDATION.md. The checklists below remain acceptance gates.
+Status (15 October 2026): Native recovery audited; fresh CI real-service suite, full pinned-file retrieval and generated-wiki browser checks pass. Native model/API access and complete live historical coverage remain blocked; no production deployment is authorized or claimed. See VALIDATION.md and REQUIREMENTS.md. Unchecked items remain acceptance gates.
 
 ## Goal and agreed scope
 
@@ -138,16 +138,16 @@ Treat public source text and LLM annotations as untrusted data: never execute in
 
 ### Stage 1: Read-only wiki, live hybrid search, and MCP
 
-- [ ] Define source configuration, identities, revisions, permissions, and classification schema.
+- [x] Define source configuration, identities, revisions, permissions, and classification schema.
 - [ ] Establish the new index repository and external storage as the only write destinations. Verify ingestion uses public reads or read-only source credentials, and that neither ingestion nor publication requires adding any files or workflows to existing repositories.
 - [ ] Extract the four initial repositories, including historical issues, PRs, comments, and reviews.
 - [ ] Align core topic aliases with EBWV and capture the external-specification identities, versions, and references explicitly present in the initial corpus.
 - [ ] Generate working-group/topic/source pages, Markdown/JSON exports, and `llms.txt`, and publish the frontend on GitHub Pages.
 - [ ] Deploy PostgreSQL full-text search and pgvector with separate ingestion and read-only retrieval roles.
-- [ ] Implement live hybrid search, relationship/source retrieval, the REST API, and the remote read-only MCP server against the same published index.
+- [x] Implement live hybrid search, relationship/source retrieval, the REST API, and the remote read-only MCP server against the same published index.
 - [ ] Connect the wiki search interface to the API and validate cross-origin access, source locators, status filters, model-compatible embeddings, snapshot IDs, timeouts, and service-failure presentation.
 - [ ] Add daily publication, source freshness, deletion handling, citation checks, and recovery.
-- [ ] Verify that visitors and retrieval interfaces cannot create or modify gateway or source content.
+- [x] Verify that visitors and retrieval interfaces cannot create or modify gateway or source content.
 - [ ] Build a provisional evaluation set from indexed ADRs, specifications, rulebooks, and existing issue/PR discussions, with expected source locators, status, versions, limitations, and unanswerable cases verified against the evidence. Include natural-language paraphrases and controlled deletion/status/version regression fixtures.
 
 Acceptance: all configured sources and pagination are accounted for; generated substantive claims have resolvable citations; status distinctions are visible; repeat ingestion is idempotent; published snapshots remain internally consistent; simulated ingestion failures expose stale-source status; the gateway supports browsing/search without interaction features. Exact identifiers and natural-language questions retrieve relevant sources through the website and an actual MCP client. REST and MCP preserve identical source/status/version semantics and expose retrieval operations only. Verify retrieval credentials cannot write to the index or source repositories. Live vector search and MCP must pass this gate before the first public release; a static-only site is not completion of Stage 1.

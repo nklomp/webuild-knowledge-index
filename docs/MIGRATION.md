@@ -48,7 +48,10 @@ literal AST data extraction from block 34, without executing the recorded progra
 questions remain unchanged. Historical file pins beyond the recorded architecture
 revision were unavailable, so fresh 12-repository pins are explicitly separate.
 
-The audit found REST/MCP history/filter parity, old SDK test field names and
-context-insensitive section-vector cache reuse defects. Fixes and integration
-regressions are included, but model-dependent verification remains blocked. See
-VALIDATION.md for actual commands, counts and remaining network gates.
+The audit found REST/MCP history/filter parity, typed structured-output, section
+cache-context, shared-reference withdrawal provenance, authority filtering and
+repository/edition identity defects. Fixes and integration regressions are included.
+Fresh CI passed 96 tests plus full-corpus retrieval (original 6/6, additional 3/3),
+live HTTP MCP/REST parity and real Chrome wiki search. Final authority and identity
+regressions pass; provenance is tracked in VALIDATION.md. Native model/API network access remains blocked. This
+is separate from the historical 84-test report and is not a readiness claim.

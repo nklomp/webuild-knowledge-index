@@ -164,7 +164,7 @@
     "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
     "dimension": 384
   },
-  "snapshot": "bf3c9a167e6af588b7a87ff8",
+  "snapshot": "1717f78282ae94a18708b439",
   "index_recipe": "section-context-v3",
   "semantic_distance_limit": 0.4548453688621521,
   "method": "largest expected-source cosine distance among original source-derived tuning questions",

@@ -1,0 +1,447 @@
+{
+  "scope": "Real PostgreSQL full-text branch only; no embeddings or hybrid score claimed",
+  "records": 463,
+  "questions": [
+    {
+      "split": "tuning",
+      "question": "How can a validator confirm the issuer signing key is bound to a legal person?",
+      "expected_locator": "adr/eaa-key-binding-authzen.md",
+      "expected_lexical_rank": 21,
+      "expected_term_coverage": 8,
+      "top10": [
+        {
+          "locator": "docs/qes/SigningAndSealing.md",
+          "coverage": 8
+        },
+        {
+          "locator": "rulebooks/rb-poa-pox/README.md",
+          "coverage": 8
+        },
+        {
+          "locator": "conformance-specs/cs-05-bwua-lifecycle.md",
+          "coverage": 8
+        },
+        {
+          "locator": "rulebooks/rb-e-receipt/README.md",
+          "coverage": 8
+        },
+        {
+          "locator": "rulebooks/rb-ubo/README.md",
+          "coverage": 8
+        },
+        {
+          "locator": "docs/ebwv/terminology.ttl",
+          "coverage": 8
+        },
+        {
+          "locator": "rulebooks/rb-authorised-signatories/README.md",
+          "coverage": 8
+        },
+        {
+          "locator": "PoA-PoX/Semantic_Intake_POA_POX.md",
+          "coverage": 8
+        },
+        {
+          "locator": "rulebooks/rb-gln/README.md",
+          "coverage": 8
+        },
+        {
+          "locator": "vocab/src/vocabulary.yml",
+          "coverage": 8
+        }
+      ]
+    },
+    {
+      "split": "previous-held-out-now-regression",
+      "question": "How does the authorization endpoint establish an EAA issuer key binding?",
+      "expected_locator": "adr/eaa-key-binding-authzen.md",
+      "expected_lexical_rank": 43,
+      "expected_term_coverage": 6,
+      "top10": [
+        {
+          "locator": "conformance-specs/cs-05-bwua-lifecycle.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-poa-pox/README.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-e-receipt/README.md",
+          "coverage": 7
+        },
+        {
+          "locator": "PoA-PoX/Semantic_Intake_POA_POX.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/templates/webuild-rulebook-generic-template.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-gln/README.md",
+          "coverage": 7
+        },
+        {
+          "locator": "task2-trust-framework/trust-infrastructure-schema.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-microcredential/README.md",
+          "coverage": 7
+        },
+        {
+          "locator": "references/etsi/ETSI_TS_119_475.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-eInvoice/readme.md",
+          "coverage": 7
+        }
+      ]
+    },
+    {
+      "split": "tuning",
+      "question": "Where are SKOS and OWL used in the business wallet terminology?",
+      "expected_locator": "vocab/README.md",
+      "expected_lexical_rank": 5,
+      "expected_term_coverage": 6,
+      "top10": [
+        {
+          "locator": "docs/ebwv/terminology.jsonld",
+          "coverage": 6
+        },
+        {
+          "locator": "docs/ebwv/terminology.ttl",
+          "coverage": 6
+        },
+        {
+          "locator": "semantics/code_lists/action_candidates.md",
+          "coverage": 6
+        },
+        {
+          "locator": "blueprint/05-data-and-semantics.md",
+          "coverage": 6
+        },
+        {
+          "locator": "vocab/README.md",
+          "coverage": 6
+        },
+        {
+          "locator": "docs/ebwv/vocabulary.ttl",
+          "coverage": 5
+        },
+        {
+          "locator": "docs/ebwv/vocabulary.jsonld",
+          "coverage": 5
+        },
+        {
+          "locator": "rulebooks/rb-a1/README.md",
+          "coverage": 5
+        },
+        {
+          "locator": "docs/qes/SigningAndSealing.md",
+          "coverage": 4
+        },
+        {
+          "locator": "blueprint/appendix-ebw-definition.md",
+          "coverage": 4
+        }
+      ]
+    },
+    {
+      "split": "previous-held-out-now-regression",
+      "question": "Which semantic layers define the European business wallet vocabulary?",
+      "expected_locator": "vocab/README.md",
+      "expected_lexical_rank": 12,
+      "expected_term_coverage": 7,
+      "top10": [
+        {
+          "locator": "blueprint/appendix-ebw-definition.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-poa-pox/README.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-e-receipt/README.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-contact-person/README.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-a1/README.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-ownership/README.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-payment-terms/README.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-authorised-signatories/README.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-company-info/README.md",
+          "coverage": 7
+        },
+        {
+          "locator": "blueprint/05-data-and-semantics.md",
+          "coverage": 7
+        }
+      ]
+    },
+    {
+      "split": "tuning",
+      "question": "What is the role of architecture decisions and conformance specifications in governance?",
+      "expected_locator": "blueprint/07-governance-and-adr.md",
+      "expected_lexical_rank": 42,
+      "expected_term_coverage": 5,
+      "top10": [
+        {
+          "locator": "rulebooks/rb-poa-pox/README.md",
+          "coverage": 6
+        },
+        {
+          "locator": "conformance-specs/cs-15-ebw-qtsp-wmp.md",
+          "coverage": 6
+        },
+        {
+          "locator": "conformance-specs/cs-12-sca-payments.md",
+          "coverage": 6
+        },
+        {
+          "locator": "conformance-specs/cs-05-bwua-lifecycle.md",
+          "coverage": 6
+        },
+        {
+          "locator": "conformance-specs/cs-10-revocation-mechanism.md",
+          "coverage": 6
+        },
+        {
+          "locator": "docs/qes/SigningAndSealing.md",
+          "coverage": 6
+        },
+        {
+          "locator": "references/etsi/ETSI_TS_119_475.md",
+          "coverage": 6
+        },
+        {
+          "locator": "rulebooks/rb-taxid/README.md",
+          "coverage": 6
+        },
+        {
+          "locator": "GITHUB_POLICIES_AND_GUIDELINES.md",
+          "coverage": 6
+        },
+        {
+          "locator": "Scenario/Description.md",
+          "coverage": 6
+        }
+      ]
+    },
+    {
+      "split": "previous-held-out-now-regression",
+      "question": "How does WeBuild govern architecture and implementation conformance?",
+      "expected_locator": "blueprint/07-governance-and-adr.md",
+      "expected_lexical_rank": 20,
+      "expected_term_coverage": 4,
+      "top10": [
+        {
+          "locator": "docs/qes/SigningAndSealing.md",
+          "coverage": 4
+        },
+        {
+          "locator": "rulebooks/rb-poa-pox/README.md",
+          "coverage": 4
+        },
+        {
+          "locator": "conformance-specs/cs-15-ebw-qtsp-wmp.md",
+          "coverage": 4
+        },
+        {
+          "locator": "conformance-specs/cs-12-sca-payments.md",
+          "coverage": 4
+        },
+        {
+          "locator": "conformance-specs/cs-03-remote-signing-with-wallet-units.md",
+          "coverage": 4
+        },
+        {
+          "locator": "conformance-specs/cs-05-bwua-lifecycle.md",
+          "coverage": 4
+        },
+        {
+          "locator": "docs/reference-implementation-interoperability-test-bed.md",
+          "coverage": 4
+        },
+        {
+          "locator": "conformance-specs/cs-07-credential-presentation-dc-api.md",
+          "coverage": 4
+        },
+        {
+          "locator": "conformance-specs/cs-10-revocation-mechanism.md",
+          "coverage": 4
+        },
+        {
+          "locator": "task5-participants-policies/etsi-policy-enumeration.md",
+          "coverage": 4
+        }
+      ]
+    },
+    {
+      "split": "held-out-v2",
+      "question": "What gives a conformance specification its implementation role compared with an architecture decision record?",
+      "expected_locator": "blueprint/07-governance-and-adr.md",
+      "expected_lexical_rank": 56,
+      "expected_term_coverage": 6,
+      "top10": [
+        {
+          "locator": "conformance-specs/cs-05-bwua-lifecycle.md",
+          "coverage": 9
+        },
+        {
+          "locator": "docs/qes/SigningAndSealing.md",
+          "coverage": 9
+        },
+        {
+          "locator": "conformance-specs/cs-04-wua-lifecycle.md",
+          "coverage": 9
+        },
+        {
+          "locator": "conformance-specs/cs-01-credential-issuance.md",
+          "coverage": 9
+        },
+        {
+          "locator": "task7-testing-validation/README.md",
+          "coverage": 9
+        },
+        {
+          "locator": "conformance-specs/cs-15-ebw-qtsp-wmp.md",
+          "coverage": 8
+        },
+        {
+          "locator": "conformance-specs/cs-12-sca-payments.md",
+          "coverage": 8
+        },
+        {
+          "locator": "references/etsi/ts_119612v020401p.md",
+          "coverage": 8
+        },
+        {
+          "locator": "conformance-specs/cs-10-revocation-mechanism.md",
+          "coverage": 8
+        },
+        {
+          "locator": "blueprint/appendix-ebw-definition.md",
+          "coverage": 8
+        }
+      ]
+    },
+    {
+      "split": "held-out-v2",
+      "question": "Can the issuer key verification endpoint answer for a timestamp in the past already?",
+      "expected_locator": "adr/eaa-key-binding-authzen.md",
+      "expected_lexical_rank": 1,
+      "expected_term_coverage": 8,
+      "top10": [
+        {
+          "locator": "adr/eaa-key-binding-authzen.md",
+          "coverage": 8
+        },
+        {
+          "locator": "rulebooks/templates/webuild-rulebook-generic-template.md",
+          "coverage": 8
+        },
+        {
+          "locator": "conformance-specs/cs-05-bwua-lifecycle.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-e-receipt/README.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-base/verifier-base-verification.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-ubo/README.md",
+          "coverage": 7
+        },
+        {
+          "locator": "Scenario/Scenario4.md",
+          "coverage": 7
+        },
+        {
+          "locator": "feedback/ebw-definition/council-general-approach-ebw-briefing.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-poa-pox/README.md",
+          "coverage": 6
+        },
+        {
+          "locator": "conformance-specs/cs-15-ebw-qtsp-wmp.md",
+          "coverage": 6
+        }
+      ]
+    },
+    {
+      "split": "held-out-v2",
+      "question": "Where are OWL modelling and SKOS terminology connected in the business wallet vocabulary?",
+      "expected_locator": "vocab/README.md",
+      "expected_lexical_rank": 5,
+      "expected_term_coverage": 7,
+      "top10": [
+        {
+          "locator": "docs/ebwv/terminology.jsonld",
+          "coverage": 8
+        },
+        {
+          "locator": "docs/ebwv/terminology.ttl",
+          "coverage": 8
+        },
+        {
+          "locator": "semantics/code_lists/action_candidates.md",
+          "coverage": 8
+        },
+        {
+          "locator": "blueprint/05-data-and-semantics.md",
+          "coverage": 7
+        },
+        {
+          "locator": "vocab/README.md",
+          "coverage": 7
+        },
+        {
+          "locator": "rulebooks/rb-a1/README.md",
+          "coverage": 7
+        },
+        {
+          "locator": "blueprint/appendix-ebw-definition.md",
+          "coverage": 6
+        },
+        {
+          "locator": "rulebooks/rb-poa-pox/README.md",
+          "coverage": 6
+        },
+        {
+          "locator": "rulebooks/rb-e-receipt/README.md",
+          "coverage": 6
+        },
+        {
+          "locator": "rulebooks/rb-ds-membership/README.md",
+          "coverage": 6
+        }
+      ]
+    }
+  ]
+}

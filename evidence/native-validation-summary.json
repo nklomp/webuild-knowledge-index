@@ -1,5 +1,5 @@
 {
-  "validated_at": "2026-10-15T03:55:02.464493+00:00",
+  "validated_at": "2026-10-15T05:33:29.983912+00:00",
   "base_commit": "97898bb2a9f9bd3b7c22f972b9c5f483f220a5a6",
   "python": "3.12.14",
   "postgres": "16.15",
@@ -7,12 +7,12 @@
   "model_generation": "BLOCKED: proxy CONNECT 403 to us.aws.cdn.hf.co",
   "live_github_api": "BLOCKED: proxy CONNECT 403 to api.github.com",
   "full_suite": {
-    "tests": 89,
-    "errors": 43,
+    "tests": 96,
+    "errors": 47,
     "failures": 0,
     "skipped": 0
   },
-  "passed": 46,
+  "passed": 49,
   "error_cases": [
     "tests.test_evidence_recovery::test_changed_context_reencodes_unchanged_section",
     "tests.test_extended::test_invalid_relation_pagination",
@@ -54,6 +54,10 @@
     "tests.test_publication::test_empty_page_retains_total",
     "tests.test_publication::test_identical_source_with_only_extraction_time_change_is_not_content_change",
     "tests.test_publication::test_history_pins_to_snapshot",
+    "tests.test_publication::test_withdrawal_sanitizes_shared_reference_provenance_in_old_snapshots",
+    "tests.test_publication::test_related_specs_include_declared_eudi_and_ietf_authorities",
+    "tests.test_publication::test_identity_does_not_merge_repositories_or_editions[repository-replacement]",
+    "tests.test_publication::test_identity_does_not_merge_repositories_or_editions[new-tagged-edition]",
     "tests.test_retrieval_regression::test_governance_original_expected_source_regression",
     "tests.test_retrieval_regression::test_authzen_archival_limitation_stays_attached",
     "tests.test_retrieval_regression::test_etsi_report_is_not_an_official_correction"
@@ -66,7 +70,7 @@
     {
       "command": "uv run --frozen --extra test pytest -q --junitxml=work/native-tests.xml",
       "environment": "workspace caches; separate local DB URLs; pinned model revision; HF_HUB_OFFLINE=1 after actual download failure",
-      "result": "46 passed, 43 setup errors"
+      "result": "49 passed, 47 setup errors"
     },
     {
       "command": "UV_CACHE_DIR=/workspace/.cache/uv uv lock --check",
@@ -101,5 +105,35 @@
       "failed": 18
     },
     "limitations": "Only three configured link-only metadata records succeeded; no authoritative bodies fetched or historical repository crawl completed."
+  },
+  "independent_ci": {
+    "code_commit": "c8f0b253f619a98fb5333e90022dd8186b684d1a",
+    "run_url": "https://github.com/nklomp/webuild-knowledge-index/actions/runs/38687385513",
+    "tests_passed": 96,
+    "model": "real pinned MiniLM",
+    "database": "real PostgreSQL 16.15/pgvector 0.8.7",
+    "http_https_mcp_all_tools_rest_parity": "passed",
+    "full_corpus": "463 records / 13265 sections / all 12 pinned repositories",
+    "original_retrieval": "6/6",
+    "additional_retrieval": "3/3",
+    "browser": "passed: navigation, live search, snapshot pin, backend failure display",
+    "native_environment_success": false
+  },
+  "working_code_commit": "c8f0b253f619a98fb5333e90022dd8186b684d1a",
+  "native_network": {
+    "policy": "enforced",
+    "custom_hosts": [
+      "cas-bridge.xethub.hf.co",
+      "cas-server.xethub.hf.co",
+      "huggingface.co",
+      "transfer.xethub.hf.co"
+    ],
+    "blocked_proven_hosts": [
+      "us.aws.cdn.hf.co",
+      "api.github.com",
+      "openid.net"
+    ],
+    "source_secrets_configured": false,
+    "outbound_identities_configured": false
   }
 }

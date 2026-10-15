@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-15",
+  "environment": "native Codex Cloud",
+  "base_commit": "d7da87f640cf079817140ebb571a1f8f2c4fec64",
+  "scope": "Standalone nklomp/webuild-knowledge-index only; public upstream reads; no production deployment or paid resources",
+  "network": {
+    "policy_snapshot": "unrestricted",
+    "observed_https_status": {
+      "us.aws.cdn.hf.co": 200,
+      "api.github.com": 200,
+      "openid.net": 200
+    },
+    "source_read_identity_configured": false
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "postgresql": "16.15",
+    "pgvector": "0.8.7",
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "dimension": 384,
+    "weights_downloaded_and_encoded": true,
+    "lock_check": "82 packages; passed"
+  },
+  "tests": {
+    "tests": 107,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 24.365,
+    "evidence": "native-continuation-tests.xml",
+    "services": "Real PostgreSQL/pgvector and embeddings; live HTTP/HTTPS MCP init/discovery/all six tools with REST parity; controlled ingestion transports separately labeled"
+  },
+  "commands": [
+    "uv run --frozen python scripts/bootstrap.py",
+    "uv run --frozen --extra test pytest -q --junitxml=evidence/native-continuation-tests.xml",
+    "uv run --frozen python -m scripts.regenerate_source_evidence",
+    "uv lock --check",
+    "uv run --frozen python -m scripts.public_file_evidence --broader --pinned-manifest evidence/fresh-file-pins.json",
+    "uv run --frozen python -m scripts.live_validation (BROWSER_CHECK=1, system Chromium, scratch Playwright 1.58.1)",
+    "uv run --frozen python -m gateway.cli capture --config work/sources-before-polling.json --artifacts work/native-live-capture"
+  ],
+  "polling_smoke": {
+    "evidence": "native-live-polling.json",
+    "source": "webuild-consortium/.github",
+    "initial_and_overlap_runs": "complete",
+    "limitations": "This small live source has no issues or PRs; update, deletion, pagination and failure-resume behavior exercised by controlled regressions"
+  },
+  "official_capture": {
+    "evidence": "native-official-coverage.json",
+    "body_fetches": 1,
+    "link_only_records": 3,
+    "public_body_reuse": "metadata-only"
+  },
+  "release_ready": false
+}

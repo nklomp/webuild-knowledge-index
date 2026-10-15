@@ -47,6 +47,7 @@ class ReadClient:
         self.hosts={'api.github.com','codeload.github.com','raw.githubusercontent.com',*allowed_hosts}
         self.retries=retries;self.max_wait=max_wait;self.sleep=sleeper;self.clock=clock
         self.item_times={}
+        self.repository_ids={}
         self.stats={'network_reads':0,'resumed_reads':0,'retries':0}
     def validate_url(self,url):
         u=urlparse(url)
@@ -86,11 +87,23 @@ class ReadClient:
         raise AssertionError('unreachable')
     def get(self,url,fresh=False):return self.request(url,fresh=fresh)
     def graphql(self,query,variables):return self.request('https://api.github.com/graphql',query,variables).json()['data']
+    def bind_repository(self,name,identity):
+        if not re.fullmatch(r'[^/]+/[^/]+',name) or not isinstance(identity,int) or identity<=0:raise ValueError('Invalid repository identity')
+        self.repository_ids[name]=identity
+    def connection_path(self,url):
+        # GitHub emits numeric repository URLs in Link headers even when the
+        # initial request uses owner/name. Only aliases established by a fresh
+        # public metadata read may resolve to the same connection.
+        if url.hostname=='api.github.com':
+            for name,identity in self.repository_ids.items():
+                prefix='/repos/'+name+'/'
+                if url.path.startswith(prefix):return '/repositories/'+str(identity)+'/'+url.path[len(prefix):]
+        return url.path
     def pages(self,url):
         seen=set();initial=urlparse(url)
         while url:
             current=self.validate_url(url)
-            if current.netloc!=initial.netloc or current.path!=initial.path:raise ValueError('Pagination escaped source connection')
+            if current.netloc!=initial.netloc or self.connection_path(current)!=self.connection_path(initial):raise ValueError('Pagination escaped source connection')
             if url in seen:raise ValueError('Repeated pagination cursor')
             seen.add(url);response=self.get(url);body=response.json()
             if not isinstance(body,list):raise ValueError('Expected a paginated list')

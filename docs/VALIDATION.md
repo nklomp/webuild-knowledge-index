@@ -5,6 +5,49 @@ No Work conversation was resumed. All upstream reads were anonymous; only the
 standalone `nklomp/webuild-knowledge-index` repository was written. No deployment
 or paid resources were provisioned.
 
+## Native continuation in the unrestricted environment
+
+The network block is resolved in this new native session. Real HTTPS probes to
+`us.aws.cdn.hf.co`, `api.github.com` and `openid.net` returned 200. The actual pinned
+MiniLM weights downloaded and generated a 384-dimensional vector. Python 3.12.14,
+PostgreSQL 16.15, pgvector 0.8.7 and the frozen 82-package lock were verified.
+
+**107 tests passed, zero failures/errors/skips** in 24.37 seconds. These include
+real embeddings and database operations, HTTP/HTTPS MCP client initialization,
+discovery and all six tools with REST parity. Controlled transport fixtures cover
+ingestion failure paths independently. See `evidence/native-continuation-tests.xml`
+and `evidence/native-continuation-summary.json`. The original 96-test native
+baseline also passed before the new ingestion regressions were added.
+
+Daily issue polling now uses an update cursor with a one-hour overlap. Changed
+issue subtrees replace prior contributions; retained PR contributions are refreshed
+daily to catch resolution changes independently of parent timestamps. Full issue
+reconciliation runs at least weekly and can be forced with `--full-reconciliation`.
+Baselines bind to configuration, repository identity and reuse policy; interrupted
+captures pin the same baseline and failed repository captures never advance it.
+Deleted issues or changes without a parent timestamp update may remain until the
+next full reconciliation. Known removals require the immediate withdrawal path.
+
+Live capture exposed GitHub Link headers that switch from owner/name paths to
+numeric repository IDs. The reader now accepts only the numeric alias established
+by that repository's fresh public metadata, preserving the connection boundary.
+Regression tests reject another repository's numeric ID. Review-thread records
+now retain their parent ID so changed PR subtrees remove obsolete threads.
+
+Two real captures of `webuild-consortium/.github` completed, first full and then
+with an overlap cursor (`evidence/native-live-polling.json`). This tiny source has
+no issues/PRs; changed/deleted/paginated contribution behavior is established by
+controlled regressions, not that smoke check. Fresh official capture fetched the
+configured OpenID body; three IETF/ETSI/EC entries remain intentionally link-only
+and all four remain metadata-only for public reuse
+(`evidence/native-official-coverage.json`). Source-evidence fixture regeneration
+also passed against the unchanged pinned upstream content.
+
+No dedicated source-read GraphQL identity is configured. Missing discussion and
+review-resolution coverage still prevents publication; successful anonymous REST
+reads do not resolve that boundary. Hosting, Pages, monitoring and hosted recovery
+remain unconfigured; no production deployment or paid resources were used.
+
 ## Fresh real-service evidence
 
 Successful CI run: https://github.com/nklomp/webuild-knowledge-index/actions/runs/38687385513
@@ -48,7 +91,7 @@ step (38685653528); final ranks and calibration parameters are unchanged. Only
 the fresh snapshot identifier differs. Six test warnings concern httpx certificate
 argument deprecation; no tests failed or skipped.
 
-## Native environment results and blockers
+## Previous native environment results and blockers (superseded by continuation)
 
 Python **3.12.14**, `uv lock --check` (82 packages), real local PostgreSQL
 **16.15** and pgvector **0.8.7** were verified. Existing development DB container
@@ -148,12 +191,10 @@ exact environment. Native fixture regeneration used
 commands are in its evidence manifest. Native model retry and capture commands
 are in the native summary; neither succeeded in full.
 
-Restore approved network access and dedicated source-read credentials, then rerun
-native real encoding, the entire suite, capture and browser benchmark. Inspect every
-source-type coverage entry. Current daily ingestion performs complete network
-reconciliation with durable within-capture resume and incremental embedding reuse;
-update-cursor/overlap network polling is **not implemented**. No complete live
-historical or authoritative-specification coverage claim is made.
+The continuation below supersedes the earlier network and polling boundaries. A
+dedicated read-only GraphQL credential remains necessary for discussions and review
+thread resolution. No complete live historical or authoritative-specification
+coverage claim is made.
 
 Hosting/persistent DB/TLS, Pages environment/URL, independent monitor and recipient,
 backup/restore, hosted withdrawal/rollback and measured load remain unconfigured.

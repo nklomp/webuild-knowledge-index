@@ -37,11 +37,32 @@ attachments are link/metadata records, with binary extraction explicitly exclude
 `capture` writes project-owned per-repository checkpoints and a coverage manifest.
 `publish` refuses failed/partial captures and writes records, sections, relationships
 and publication pointer in one DB transaction. `generate` emits pages and exports
-for the exact resulting snapshot. Daily `run` combines these steps. Full crawling
-on EVERY run reconciles removed records and all contribution updates; it is more
-expensive than incremental overlap polling but avoids cursor gaps. Weekly runs
-therefore already perform full reconciliation. Embedding reuse is keyed by content and model revision; incremental network cache
-optimization is a later performance improvement, not a completeness shortcut.
+for the exact resulting snapshot. Daily `run` combines these steps.
+
+Daily polling uses the last successful repository capture's start time minus a
+one-hour overlap for all-state issue updates. Changed issue subtrees replace prior
+comments; all retained PRs and their comments/reviews/threads are rechecked daily
+because review resolution need not update a parent timestamp. Repository metadata,
+file trees, releases, discussions, wikis, tagged editions and official sources are
+reconciled on each capture. Unchanged issues retain their original retrieval times.
+Coverage freshness uses the latest successful polling start;
+`oldest_record_retrieved_at` and `last_full_reconciliation` expose the older evidence
+and deletion-reconciliation boundaries.
+Every seven days a complete issue crawl also reconciles removed issues and changes
+that did not update a parent timestamp. Force it sooner with
+`python -m gateway.cli capture --full-reconciliation` (also accepted by `run`).
+Publication may retain removed issue evidence until that full reconciliation;
+use the emergency withdrawal procedure for a known removal immediately.
+
+`config/sources.json` controls `incremental_polling.enabled`, `overlap_seconds`
+(60–86400) and `reconcile_days` (1–7). Baselines are bound to configuration,
+repository ID and reuse permissions. Interrupted captures pin their baseline in
+the checkpoint journal (seal it before storing it outside the worker). Only a
+successful repository capture advances the cursor. An older configuration or missing baseline triggers a full
+crawl. Preserve the complete sealed artifacts directory between scheduled runs;
+starting in an empty directory intentionally performs a full crawl. Partial
+GraphQL/wiki coverage still blocks publication. Embedding reuse remains keyed
+by content, section context and model revision.
 
 Inspect whether GitHub Discussions are enabled but lack credentials; those gaps
 must be resolved before claiming coverage. `not-present-or-unavailable` wiki results
@@ -138,11 +159,12 @@ uv run --frozen python -m scripts.live_validation
 ```
 
 Set `EMBEDDING_REVISION` from `.env.example`. Do not set offline mode for the model
-retry; it must genuinely generate a 384-dimensional vector. The blocked-suite
-attempt used HF_HUB_OFFLINE=1 only after a recorded live download failure; this
-produced errors, not successful model evidence. Run the full suite again once
-weights are available, then run browser validation with Playwright/Chromium and
-`BROWSER_CHECK=1`. This is local TCP validation, not hosted deployment evidence.
+retry; it must genuinely generate a 384-dimensional vector. The previous blocked
+suite
+attempt used HF_HUB_OFFLINE=1 only after a recorded live download failure; it
+produced errors. The continuation now downloads weights and passes the native
+suite. Run browser validation with Playwright/Chromium and `BROWSER_CHECK=1`.
+This is local TCP validation, not hosted deployment evidence.
 
 The evaluation runner reads frozen original questions from
 `config/evaluation-original.json` and unchanged additional formulations from

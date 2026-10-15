@@ -1,0 +1,167 @@
+{
+  "mode": "anonymous live public reads",
+  "runs": [
+    {
+      "coverage": [
+        {
+          "repository": "webuild-consortium/.github",
+          "repository_id": 1046342156,
+          "state": "complete-for-supported-types",
+          "captured_at": "2026-10-15T12:32:16.959264+00:00",
+          "completed_at": "2026-10-15T12:32:17.774775+00:00",
+          "started_at": "2026-10-15T12:32:16.063429+00:00",
+          "commit": "ad241655aca61cf1a7339139aaf9264fb9802b28",
+          "counts": {
+            "tree_entries": 3,
+            "binary_or_unsupported": 1,
+            "files": 1,
+            "issues": 0,
+            "pulls": 0,
+            "comments": 0,
+            "reviews": 0,
+            "review_comments": 0,
+            "releases": 0,
+            "attachments": 0,
+            "pdf": 0,
+            "review_threads": 0
+          },
+          "limitations": [],
+          "poll_mode": "full-reconciliation",
+          "poll_since": null,
+          "poll_cursor": "2026-10-15T12:32:16.063429+00:00",
+          "updated_issues_fetched": 0,
+          "last_full_reconciliation": "2026-10-15T12:32:16.063429+00:00",
+          "removal_reconciliation": "Changed issue subtrees daily; removed issues at full reconciliation (at most 7 days)",
+          "types": {
+            "files": "all tree entries: text/PDF extraction or explicit link-only metadata",
+            "issues": "all states, paginated",
+            "pulls": "all states and merge lifecycle",
+            "comments": "paginated",
+            "reviews": "paginated",
+            "review_comments": "paginated including replies",
+            "review_threads": "resolution unavailable",
+            "releases": "paginated",
+            "discussions": "disabled at source",
+            "wiki": "disabled at source",
+            "attachments": "paginated metadata; attachment bodies not fetched"
+          },
+          "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
+          "reuse_permissions": "full-text",
+          "transport": {
+            "network_reads": 6,
+            "resumed_reads": 0,
+            "retries": 0
+          },
+          "checkpoint": {
+            "requests_completed": 6,
+            "records_checkpointed": 2,
+            "resume_database": "webuild-consortium__.github.sqlite"
+          }
+        }
+      ],
+      "capture_id": "11bb2ce4e94b498fb69edf3cb28478c4",
+      "started_at": "2026-10-15T12:32:15.133832+00:00",
+      "capture_time": "2026-10-15T12:32:17.778779+00:00",
+      "status": "complete",
+      "resumed": false,
+      "reconciled_repositories": [
+        "webuild-consortium/.github"
+      ],
+      "discovered_not_admitted": [
+        "webuild-consortium/BU3",
+        "webuild-consortium/SC5",
+        "webuild-consortium/webuild-attestation-rulebooks-catalog",
+        "webuild-consortium/webuild-github-policies",
+        "webuild-consortium/wp4-architecture",
+        "webuild-consortium/wp4-interop-test-bed",
+        "webuild-consortium/wp4-pid-ebwoid-group",
+        "webuild-consortium/wp4-qtsp-group",
+        "webuild-consortium/wp4-semantics-group",
+        "webuild-consortium/wp4-trust-group",
+        "webuild-consortium/wp4-wallets-group"
+      ],
+      "records": 2
+    },
+    {
+      "coverage": [
+        {
+          "repository": "webuild-consortium/.github",
+          "repository_id": 1046342156,
+          "state": "complete-for-supported-types",
+          "captured_at": "2026-10-15T12:32:20.486574+00:00",
+          "completed_at": "2026-10-15T12:32:21.004641+00:00",
+          "started_at": "2026-10-15T12:32:19.722726+00:00",
+          "commit": "ad241655aca61cf1a7339139aaf9264fb9802b28",
+          "counts": {
+            "tree_entries": 3,
+            "binary_or_unsupported": 1,
+            "files": 1,
+            "issues": 0,
+            "pulls": 0,
+            "comments": 0,
+            "reviews": 0,
+            "review_comments": 0,
+            "releases": 0,
+            "attachments": 0,
+            "pdf": 0,
+            "review_threads": 0
+          },
+          "limitations": [],
+          "poll_mode": "overlap",
+          "poll_since": "2026-10-15T11:32:16.063429+00:00",
+          "poll_cursor": "2026-10-15T12:32:19.722726+00:00",
+          "updated_issues_fetched": 0,
+          "last_full_reconciliation": "2026-10-15T12:32:16.063429+00:00",
+          "removal_reconciliation": "Changed issue subtrees daily; removed issues at full reconciliation (at most 7 days)",
+          "types": {
+            "files": "all tree entries: text/PDF extraction or explicit link-only metadata",
+            "issues": "all states, paginated",
+            "pulls": "all states and merge lifecycle",
+            "comments": "paginated",
+            "reviews": "paginated",
+            "review_comments": "paginated including replies",
+            "review_threads": "resolution unavailable",
+            "releases": "paginated",
+            "discussions": "disabled at source",
+            "wiki": "disabled at source",
+            "attachments": "paginated metadata; attachment bodies not fetched"
+          },
+          "historical_file_revisions": "captured daily revisions; initial default-branch tip, not every historical commit",
+          "reuse_permissions": "full-text",
+          "transport": {
+            "network_reads": 6,
+            "resumed_reads": 0,
+            "retries": 0
+          },
+          "checkpoint": {
+            "requests_completed": 6,
+            "records_checkpointed": 2,
+            "resume_database": "webuild-consortium__.github.sqlite"
+          }
+        }
+      ],
+      "capture_id": "6bf0d4f89025483081bfce52020c9a6f",
+      "started_at": "2026-10-15T12:32:17.786403+00:00",
+      "capture_time": "2026-10-15T12:32:21.008493+00:00",
+      "status": "complete",
+      "resumed": false,
+      "reconciled_repositories": [
+        "webuild-consortium/.github"
+      ],
+      "discovered_not_admitted": [
+        "webuild-consortium/BU3",
+        "webuild-consortium/SC5",
+        "webuild-consortium/webuild-attestation-rulebooks-catalog",
+        "webuild-consortium/webuild-github-policies",
+        "webuild-consortium/wp4-architecture",
+        "webuild-consortium/wp4-interop-test-bed",
+        "webuild-consortium/wp4-pid-ebwoid-group",
+        "webuild-consortium/wp4-qtsp-group",
+        "webuild-consortium/wp4-semantics-group",
+        "webuild-consortium/wp4-trust-group",
+        "webuild-consortium/wp4-wallets-group"
+      ],
+      "records": 2
+    }
+  ]
+}

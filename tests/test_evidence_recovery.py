@@ -60,6 +60,24 @@ def test_weight_selection_never_queries_held_out_labels():
     assert result['tuning_questions']==['original tuning question']
 
 
+def test_weight_selection_preserves_known_original_regressions():
+    from gateway.retrieval import calibrate_weight
+    class ControlledSignals:
+        semantic_weight=1.0
+        def search(self,q,**kwargs):
+            if q=='known original regression':locators=['expected.md'] if self.semantic_weight<=2 else ['other.md']
+            elif q=='original tuning':locators=['other.md','expected.md'] if self.semantic_weight<2 else ['expected.md']
+            else:raise AssertionError('Additional questions must remain outside selection')
+            return {'results':[{'source':{'locator':p}} for p in locators]}
+    result=calibrate_weight(ControlledSignals(),[
+        {'split':'tuning','question':'original tuning','expected_locator':'expected.md'},
+        {'split':'previous-held-out-now-regression','question':'known original regression','expected_locator':'expected.md'},
+        {'split':'held-out-v2','question':'additional question','expected_locator':'expected.md'},
+    ],'controlled-snapshot')
+    assert result['semantic_weight']==2
+    assert result['regression_questions']==['known original regression']
+
+
 def test_changed_context_reencodes_unchanged_section(stores,corpus):
     from gateway.model import digest,sections,record
     writer,reader,old=stores

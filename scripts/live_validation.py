@@ -63,7 +63,7 @@ try:
     output={'validated_at':__import__('gateway.model',fromlist=['now']).now(),'snapshot':sid,'model':embed.metadata,'index_recipe':'section-context-v3','ranking':RANKING_VERSION,'semantic_weight':reader.semantic_weight,'questions':results,'mcp':mcp,'splits':{s:{'questions':sum(r['split']==s for r in results),'retrieved_at_10':sum(r['split']==s and r['rank'] is not None for r in results)} for s in sorted({r['split'] for r in results})},'limitations':['Corpus pinned by the fresh coverage manifest; historical corpus was not recovered; not complete discussion coverage','No participant usefulness demonstrated','Not a production deployment'],'counts':{'records':len(rows),'sections':sum(1 for r in rows for _ in sections(r))}}
     Path('evidence/live-evaluation.json').write_text(json.dumps(output,indent=2));print(json.dumps(output,indent=2))
     original_failed=next(r for r in results if r['question']=='How does WeBuild govern architecture and implementation conformance?')
-    assert original_failed['expected_locator']=='blueprint/07-governance-and-adr.md' and original_failed['rank'] is not None,'Original governance regression still fails'
     if os.getenv('BROWSER_CHECK'):subprocess.run(['node','scripts/browser-check.cjs'],check=True,timeout=120)
+    assert original_failed['expected_locator']=='blueprint/07-governance-and-adr.md' and original_failed['rank'] is not None,'Original governance regression still fails'
     assert all(r['rank'] is not None for r in results),'Expected-source retrieval regression(s): '+', '.join(r['expected_locator'] for r in results if r['rank'] is None)
 finally:server.should_exit=True;thread.join(10)

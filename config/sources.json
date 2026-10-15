@@ -58,6 +58,14 @@
   "incremental_polling": {
     "enabled": true,
     "overlap_seconds": 3600,
-    "reconcile_days": 7
+    "reconcile_days": 7,
+    "recheck_closed_days": 30
+  },
+  "capture_concurrency": 3,
+  "rate_limit_max_wait_seconds": 900,
+  "reuse_permissions": {
+    "default": "full-text",
+    "approval": "Operator approval, 15 October 2026: the configured repositories are public open-source and open-specification work; their full text may be republished in the wiki and retrieval API.",
+    "overrides": {}
   }
 }

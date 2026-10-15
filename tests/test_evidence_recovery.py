@@ -45,11 +45,12 @@ def test_recovered_discussion_token_lookup(monkeypatch):
 
 
 def test_changed_context_reencodes_unchanged_section(stores,corpus):
-    from gateway.model import digest,sections
+    from gateway.model import digest,sections,record
     writer,reader,old=stores
     initial=copy.deepcopy(corpus)
-    initial[0]['text']='# Original title\nStatus: accepted\n\n## Details\nUnchanged section content.'
-    initial[0]['content_hash']=digest(initial[0]['text'])
+    initial[0]=record('authzen','context-original',corpus[0]['url'],
+        '# Original title\nStatus: accepted\n\n## Details\nUnchanged section content.',
+        'architecture',path='adr/authzen.md',permissions='full-text')
     writer.publish(initial,{'coverage':[]})
     updated=copy.deepcopy(initial)
     updated[0]['text']=updated[0]['text'].replace('Original title','Revised contextual title')

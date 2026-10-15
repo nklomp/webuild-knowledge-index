@@ -130,3 +130,28 @@ def test_unchanged_pr_rechecks_reviews_and_drops_deleted_thread():
     assert not any(r['id']==thread['id'] for r in rows)
     assert next(r for r in rows if r['id']==pull['id'])['lifecycle']=='merged'
     assert coverage['state']=='partial'  # GraphQL credential boundary remains explicit.
+
+
+def test_old_closed_pr_waits_for_weekly_reconciliation():
+    previous=baseline()
+    pull=record('github:P3','old','https://github.com/o/r/pull/3','Old PR','o/r','pull',lifecycle='merged',updated='2025-01-01T00:00:00Z',permissions='full-text')
+    previous['records'].append(pull)
+    client,requests=changed_client(issue_rows=[])
+    rows,coverage=GitHub(client).repo('o/r',previous)
+    assert coverage['poll_mode']=='overlap'
+    assert not any(r.url.path.endswith('/issues/3') for r in requests)
+    assert next(r for r in rows if r['id']==pull['id'])==pull
+
+
+def test_operator_reuse_approval_overrides_licence(tmp_path):
+    from gateway.ingest import reuse_policy
+    cfg=tmp_path/'sources.json'
+    cfg.write_text(json.dumps({'organization':'o','repositories':['r'],'initial':['r'],'allowed_reference_hosts':[],
+                              'reuse_permissions':{'default':'metadata-only','overrides':{'o/r':'full-text'}}}))
+    assert reuse_policy({},'o/r') is None
+    with pytest.raises(ValueError):reuse_policy({'reuse_permissions':{'default':'everything'}},'o/r')
+    client,_=fixture_api()
+    rows,manifest=capture(cfg,tmp_path/'owned',client=client)
+    entry=manifest['coverage'][0]
+    assert entry['reuse_basis']=='operator-approval' and entry['reuse_permissions']=='full-text'
+    assert all(r['reuse_permissions']=='full-text' for r in rows if r['kind'] in ('issue','comment','file'))

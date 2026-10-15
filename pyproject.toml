@@ -13,6 +13,8 @@ url = "https://download.pytorch.org/whl/cpu"
 explicit = true
 [tool.setuptools.packages.find]
 include = ["gateway*"]
+[tool.setuptools.package-data]
+gateway = ["site_assets/*"]
 [build-system]
 requires = ["setuptools==84.0.0"]
 build-backend = "setuptools.build_meta"

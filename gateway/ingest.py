@@ -1,6 +1,7 @@
 """Public-source ingestion. Durable page checkpoints are scoped to one capture generation."""
 from __future__ import annotations
-import io,json,os,tarfile,uuid,hashlib
+import io,json,os,tarfile,threading,uuid,hashlib
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from urllib.parse import quote
 import httpx
@@ -10,6 +11,15 @@ from .model import record,digest,now
 from .extraction import parse_file
 
 class RepositoryUnavailable(RuntimeError): pass
+
+LICENSED_REUSE=['MIT','Apache-2.0','CC-BY-4.0','CC0-1.0','BSD-3-Clause']
+
+def reuse_policy(cfg,name):
+    """Explicit operator approval in the source configuration wins; otherwise an allow-listed licence grants full text."""
+    policy=cfg.get('reuse_permissions') or {}
+    explicit=(policy.get('overrides') or {}).get(name,policy.get('default'))
+    if explicit not in [None,'full-text','metadata-only']:raise ValueError('Invalid reuse permission for '+name)
+    return explicit
 
 def atomic_json(path,data):
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
@@ -27,7 +37,7 @@ class GitHub:
         item['provenance'].setdefault('extracted_at',now())
         rows[item['id']]=item
         if self.journal:self.journal.put(item)
-    def repo(self,name,previous=None,*,overlap_seconds=3600,reconcile_days=7,force_full=False):
+    def repo(self,name,previous=None,*,overlap_seconds=3600,reconcile_days=7,force_full=False,permission=None,recheck_closed_days=30):
         if not 60<=overlap_seconds<=86400 or not 1<=reconcile_days<=7:raise ValueError('Invalid polling/reconciliation interval')
         if len(name.split('/'))!=2 or any(x in name for x in ['..','?','#','\\']):raise ValueError('Invalid repository')
         base='https://api.github.com/repos/'+name
@@ -54,7 +64,9 @@ class GitHub:
                     if entry['type']=='tree':yield from walk(entry['sha'],path+'/',ancestors+(sha,))
                     else:yield dict(entry,path=path)
             tree={'tree':list(walk(commit)),'truncated':False,'recovered_by_subtrees':True}
-        permission='full-text' if (meta.get('license') or {}).get('spdx_id') in ['MIT','Apache-2.0','CC-BY-4.0','CC0-1.0','BSD-3-Clause'] else 'metadata-only'
+        licence=(meta.get('license') or {}).get('spdx_id')
+        reuse_basis='operator-approval' if permission else 'licence:'+str(licence)
+        permission=permission or ('full-text' if licence in LICENSED_REUSE else 'metadata-only')
         # Only reuse a successful capture of this exact repository and reuse policy.
         # Weekly full scans reconcile deleted issues; changed issue subtrees are
         # replaced daily, including removed comments/reviews. Cursor advancement
@@ -114,10 +126,16 @@ class GitHub:
             seen=set()
             for issue in self.pages(issue_url):
                 seen.add('github:'+issue['node_id']);yield issue
-            # Review resolution need not update the parent issue timestamp.
-            # Recheck all retained PR contributions rather than assume it does.
+            # Review resolution need not update the parent issue timestamp, so
+            # retained PRs are rechecked daily while open or recently active.
+            # Older closed PRs are covered by the weekly full reconciliation.
+            recent=datetime.fromisoformat(started_at)-timedelta(days=recheck_closed_days)
+            def active(row):
+                if row.get('lifecycle')=='open':return True
+                try:return datetime.fromisoformat(row['updated_at'].replace('Z','+00:00'))>=recent
+                except (KeyError,AttributeError,TypeError,ValueError):return True  # Unknown age: recheck.
             for row in list(rows.values()):
-                if row['kind']=='pull' and row['id'] not in seen:
+                if row['kind']=='pull' and row['id'] not in seen and active(row):
                     number=int(row['url'].rstrip('/').rsplit('/',1)[-1])
                     try:yield self.get(base+'/issues/'+str(number)).json()
                     except httpx.HTTPStatusError as exc:
@@ -188,7 +206,7 @@ class GitHub:
             counts[count_key]=sum(r['kind']==kind for r in rows.values())
         coverage={'repository':name,'repository_id':meta['id'],'state':'partial' if limitations else 'complete-for-supported-types','captured_at':started_at,'oldest_record_retrieved_at':source_captured_at,'completed_at':now(),'started_at':started_at,'commit':commit,'counts':counts,'limitations':sorted(set(limitations)),
           'wiki_availability':self.journal.get('wiki_availability') if self.journal else None,
-          'poll_mode':'overlap' if incremental else 'full-reconciliation','poll_since':since,'poll_cursor':started_at,'updated_issues_fetched':updated_issues,'last_full_reconciliation':prior['last_full_reconciliation'] if incremental else started_at,'removal_reconciliation':'Changed issue subtrees daily; removed issues at full reconciliation (at most '+str(reconcile_days)+' days)',
+          'reuse_basis':reuse_basis,'poll_mode':'overlap' if incremental else 'full-reconciliation','poll_since':since,'poll_cursor':started_at,'updated_issues_fetched':updated_issues,'last_full_reconciliation':prior['last_full_reconciliation'] if incremental else started_at,'removal_reconciliation':'Changed issue subtrees daily; removed issues at full reconciliation (at most '+str(reconcile_days)+' days)',
           'types':{'files':'all tree entries: text/PDF extraction or explicit link-only metadata','issues':'all states, paginated','pulls':'all states and merge lifecycle','comments':'paginated','reviews':'paginated','review_comments':'paginated including replies','review_threads':'GraphQL nested pagination' if self.reader.token else 'resolution unavailable','releases':'paginated','discussions':discussion_state,'wiki':wiki_state,'attachments':'paginated metadata; attachment bodies not fetched'},'historical_file_revisions':'captured daily revisions; initial default-branch tip, not every historical commit','reuse_permissions':permission,'transport':dict(self.reader.stats)}
         return list(rows.values()),coverage
 
@@ -207,11 +225,14 @@ def capture(config,out,initial=False,client=None,force_full=False):
     discovery_reader=ReadClient(client,CaptureJournal(out/'captures'/state['id']/'discovery.sqlite'))
     try:discovery=[r['full_name'] for r in discovery_reader.pages('https://api.github.com/orgs/'+cfg['organization']+'/repos?per_page=100&type=public')]
     except Exception as exc:coverage.append({'source':'discovery','state':'failed','error':type(exc).__name__,'retry_at':getattr(exc,'retry_at',None)})
-    for name in names:
+    polling=cfg.get('incremental_polling',{})
+    # Waiting for a rate-limit reset is cheaper than failing a repository and
+    # blocking publication; a longer wait still defers to the next run.
+    max_wait=cfg.get('rate_limit_max_wait_seconds',900)
+    def capture_repository(name):
         journal=CaptureJournal(out/'captures'/state['id']/(name.replace('/','__')+'.sqlite'))
-        gh=GitHub(client,journal)
+        gh=GitHub(client,journal,max_wait=max_wait)
         try:
-            polling=cfg.get('incremental_polling',{})
             baseline_path=out/(name.replace('/','__')+'.json')
             # Pin the baseline to this capture generation so interrupted runs use
             # exactly the same cursor and inherited rows after restart.
@@ -220,26 +241,39 @@ def capture(config,out,initial=False,client=None,force_full=False):
                 baseline=json.loads(baseline_path.read_text()) if baseline_path.exists() else {}
                 if baseline.get('configuration')!=fingerprint:baseline={}
                 journal.set('poll_baseline',baseline)
-            rows,entry=gh.repo(name,baseline if polling.get('enabled') else None,overlap_seconds=polling.get('overlap_seconds',3600),reconcile_days=polling.get('reconcile_days',7),force_full=state['force_full'])
-            records.extend(rows);entry['checkpoint']=journal.summary();coverage.append(entry)
+            rows,entry=gh.repo(name,baseline if polling.get('enabled') else None,overlap_seconds=polling.get('overlap_seconds',3600),reconcile_days=polling.get('reconcile_days',7),
+                               recheck_closed_days=polling.get('recheck_closed_days',30),force_full=state['force_full'],permission=reuse_policy(cfg,name))
+            entry['checkpoint']=journal.summary()
             journal.set('complete',True);journal.set('coverage',entry)
             atomic_json(out/(name.replace('/','__')+'.json'),{'records':rows,'coverage':entry,'configuration':fingerprint})
+            return rows,entry
         except Exception as exc:
             quarantined=isinstance(exc,RepositoryUnavailable)
             entry={'repository':name,'state':'failed','error':type(exc).__name__+': '+str(exc)[:220], 'captured_at':None,'retained_data':False,'quarantine':quarantined,'retry_at':getattr(exc,'retry_at',None),'checkpoint':journal.summary(),'phase':journal.get('phase','metadata')}
-            coverage.append(entry)
             # Partial rows are checkpointed, but never mixed into a publishable corpus.
             if quarantined:
                 with journal.connect() as c:c.execute('DELETE FROM items');c.execute('DELETE FROM responses')
-        atomic_json(out/'coverage.json',{'coverage':coverage,'capture_id':state['id'],'status':'incomplete','capture_time':now()})
+            return [],entry
+    # Repositories are independent (own journal, baseline and client), so they are
+    # captured concurrently. Results are recorded in configuration order.
+    finished={};progress=threading.Lock()
+    def run(name):
+        result=capture_repository(name)
+        with progress:
+            finished[name]=result
+            atomic_json(out/'coverage.json',{'coverage':[finished[n][1] for n in names if n in finished],'capture_id':state['id'],'status':'incomplete','capture_time':now()})
+    with ThreadPoolExecutor(max_workers=max(1,int(cfg.get('capture_concurrency',3)))) as pool:
+        for future in [pool.submit(run,name) for name in names]:future.result()
+    for name in names:
+        rows,entry=finished[name];records.extend(rows);coverage.append(entry)
     for repository in ([] if initial else cfg.get('tagged_repositories',[])):
-        journal=CaptureJournal(out/'captures'/state['id']/(repository.replace('/','__')+'__tags.sqlite'));reader=ReadClient(client,journal)
+        journal=CaptureJournal(out/'captures'/state['id']/(repository.replace('/','__')+'__tags.sqlite'));reader=ReadClient(client,journal,max_wait=max_wait)
         try:
             metadata=reader.get('https://api.github.com/repos/'+repository,fresh=True).json()
             if metadata.get('private'):raise RepositoryUnavailable('Tagged repository is private')
             reader.bind_repository(repository,metadata['id'])
             from .tags import capture_tags
-            tagged,editions=capture_tags(reader,repository,metadata['id'],'metadata-only',cfg.get('tag_paths',['README.md','docs/']))
+            tagged,editions=capture_tags(reader,repository,metadata['id'],reuse_policy(cfg,repository) or 'metadata-only',cfg.get('tag_paths',['README.md','docs/']))
             records.extend(tagged);coverage.append({'source':'tagged-editions:'+repository,'state':'complete-for-supported-types','captured_at':now(),'editions':editions,'checkpoint':journal.summary()})
         except Exception as exc:coverage.append({'source':'tagged-editions:'+repository,'state':'failed','captured_at':None,'error':type(exc).__name__,'checkpoint':journal.summary()})
     if cfg.get('official_sources_config'):
